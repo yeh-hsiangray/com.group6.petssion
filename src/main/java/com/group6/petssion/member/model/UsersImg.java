@@ -1,4 +1,4 @@
-package com.group6.petssion.petprofile.model;
+package com.group6.petssion.member.model;
 
 import java.sql.Blob;
 import java.sql.Timestamp;
@@ -22,8 +22,6 @@ public class UsersImg {
 	private Integer id;
 	private String fileName;
 	private Blob usersImage;
-	
-	//對應Users類
 	@Column(name = "fk_Users_id")
 	@Transient
 	private Integer usersId;

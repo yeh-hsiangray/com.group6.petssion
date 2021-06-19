@@ -1,4 +1,4 @@
-package com.infotran.springboot.bean;
+package com.group6.petssion.member.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,17 +6,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Food")
-public class Food {
+@Table(name = "Job")
+public class Job {
+	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-
-	public Food() {
+	
+	public Job() {
+		
 	}
 
-	public Food(Integer id, String name) {
+	public Job(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -37,5 +39,6 @@ public class Food {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	
 }
