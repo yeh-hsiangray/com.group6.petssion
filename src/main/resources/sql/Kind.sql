@@ -1,6 +1,7 @@
 USE [Topic]
 
 /****** Object:  Table [dbo].[Personality]    Script Date: 2021/6/12 下午 05:24:00 ******/
+
 SET ANSI_NULLS ON
 
 SET QUOTED_IDENTIFIER ON
