@@ -1,4 +1,4 @@
-package com.infotran.springboot.bean;
+package com.group6.petssion.member.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

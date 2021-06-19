@@ -1,4 +1,4 @@
-package com.infotran.springboot.bean;
+package com.group6.petssion.member.model;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.group6.petssion.petprofile.model.Pet;
 
 @Entity
 @Table(name = "Users")
@@ -73,7 +75,7 @@ public class Users implements Serializable {
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, Integer manager,
 			Date regdate, Job job, Integer blockade, List<Hobby> hobby,
-			com.infotran.springboot.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg) {
+			com.group6.petssion.member.model.account_password account_password, List<Pet> pet, List<UsersImg> usersImg) {
 		super();
 		this.id = id;
 		this.name = name;

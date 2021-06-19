@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.group6.petssion.member.model.Users;
+
 @Entity
 @Table(name = "Pet")
 public class Pet implements Serializable {
