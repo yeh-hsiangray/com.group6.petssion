@@ -1,7 +1,4 @@
-package com.group6.petssion.member.model;
-
-import java.sql.Blob;
-import java.sql.Timestamp;
+package com.group6.petssion.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,38 +6,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "UsersImg")
-public class UsersImg {
+@Table(name = "account_password")
+public class account_password {
+	
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String fileName;
-	private Blob usersImage;
-	@Column(name = "fk_Users_id")
+	private String account;
+	private String password;
+	
+	@Column(name = "fk_users_id")
 	@Transient
 	private Integer usersId;
-	@ManyToOne
-	@JoinColumn(name = "fk_Users_id")
+	@OneToOne
+	@JoinColumn(name="fk_users_id")
 	private Users users;
-
-	public UsersImg() {
+	
+	
+	public account_password () {
+		
 	}
 
-	public UsersImg(Integer id, Timestamp admissionTime, String fileName, Blob usersImage, Integer usersId,
-			Users users) {
+	
+
+	public account_password(Integer id, String account, String password, Integer usersId, Users users) {
 		super();
 		this.id = id;
-		this.fileName = fileName;
-		this.usersImage = usersImage;
+		this.account = account;
+		this.password = password;
 		this.usersId = usersId;
 		this.users = users;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -50,20 +54,20 @@ public class UsersImg {
 		this.id = id;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
-	public Blob getUsersImage() {
-		return usersImage;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUsersImage(Blob usersImage) {
-		this.usersImage = usersImage;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Integer getUsersId() {
@@ -81,6 +85,6 @@ public class UsersImg {
 	public void setUsers(Users users) {
 		this.users = users;
 	}
-
+	
 	
 }
