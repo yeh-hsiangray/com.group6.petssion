@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.group6.petssion.member.model.Users;
+import com.group6.petssion.bean.Users;
 
 @Entity
 @Table(name = "Pet")
