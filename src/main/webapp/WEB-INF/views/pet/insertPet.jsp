@@ -92,13 +92,13 @@ body {
 	font-weight: 400;
 }
 
-.card .input-container input:focus ~ label {
+.card .input-container input:focus ~ label{
 	color: #9d9d9d;
 	transform: translate(-12%, -50%) scale(0.9);
 }
 
 .card .input-container input:focus ~ .bar:before, .card .input-container input:focus 
-	 ~ .bar:after {
+	 ~ .bar:after{
 	width: 50%;
 }
 
@@ -107,7 +107,7 @@ body {
 	transform: translate(-12%, -50%) scale(0.75);
 }
 
-.card .input-container label {
+.card .input-container label{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -119,7 +119,7 @@ body {
 }
 
 .card .ra1 label {
-	/* position: absolute; */
+/*  	position: absolute; */
 	top: 0;
 	left: 0;
 	color: #757575;
@@ -137,7 +137,7 @@ body {
 	height: 1px;
 }
 
-.card .input-container .bar:before, .card .input-container .bar:after {
+.card .input-container .bar:before, .card .input-container .bar:after{
 	content: "";
 	position: absolute;
 	background: #ed5e25;
@@ -146,11 +146,11 @@ body {
 	transition: 0.2s ease;
 }
 
-.card .input-container .bar:before {
+.card .input-container .bar:before{
 	left: 50%;
 }
 
-.card .input-container .bar:after {
+.card .input-container .bar:after{
 	right: 50%;
 }
 
@@ -245,10 +245,9 @@ body {
 				</div>
 			
                 <div class="input-container">
-					<form:input path="age" type="#{type}" id="#{label}" 
-					autocomplete="off"/>
-					<label for="#{label}">年齡</label>
+					<form:input path='age' type="#{type}" id="#{label}" autocomplete="off" required="required"/>
 					<form:errors path='age' cssClass="error" />
+					<label for="#{label}">年齡</label>
 					<div class="bar"></div>
 				</div>
 
