@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.group6.petssion.petprofile.model.Food;
-import com.group6.petssion.petprofile.model.Kind;
-import com.group6.petssion.petprofile.model.Personality;
-import com.group6.petssion.petprofile.model.Pet;
-import com.group6.petssion.petprofile.model.Type;
+import com.group6.petssion.bean.Food;
+import com.group6.petssion.bean.Kind;
+import com.group6.petssion.bean.Personality;
+import com.group6.petssion.bean.Pet;
+import com.group6.petssion.bean.Type;
 import com.group6.petssion.petprofile.service.FoodService;
 import com.group6.petssion.petprofile.service.KindService;
 import com.group6.petssion.petprofile.service.PersonalityService;

@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group6.petssion.petprofile.dao.KindRepository;
-import com.group6.petssion.petprofile.model.Kind;
+import com.group6.petssion.bean.Kind;
 import com.group6.petssion.petprofile.service.KindService;
+import com.group6.petssion.repository.KindRepository;
 
 @Service
 @Transactional

@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group6.petssion.petprofile.dao.PersonalityRepository;
-import com.group6.petssion.petprofile.model.Personality;
+import com.group6.petssion.bean.Personality;
 import com.group6.petssion.petprofile.service.PersonalityService;
+import com.group6.petssion.repository.PersonalityRepository;
 @Service
 @Transactional
 public class PersonalityServiceImpl implements PersonalityService{

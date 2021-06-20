@@ -1,4 +1,4 @@
-package com.group6.petssion.petprofile.model;
+package com.group6.petssion.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

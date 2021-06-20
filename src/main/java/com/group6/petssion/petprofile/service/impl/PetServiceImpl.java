@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group6.petssion.petprofile.dao.PetRepository;
+import com.group6.petssion.bean.Pet;
 import com.group6.petssion.petprofile.dao.impl.PetDaoImpl;
-import com.group6.petssion.petprofile.model.Pet;
 import com.group6.petssion.petprofile.service.PetService;
+import com.group6.petssion.repository.PetRepository;
 
 @Service
 @Transactional

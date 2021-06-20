@@ -1,4 +1,4 @@
-package com.group6.petssion.petprofile.model;
+package com.group6.petssion.bean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,8 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.group6.petssion.bean.Users;
 
 @Entity
 @Table(name = "Pet")

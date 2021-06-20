@@ -19,8 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.group6.petssion.petprofile.model.Pet;
-
 @Entity
 @Table(name = "Users")
 public class Users implements Serializable {
