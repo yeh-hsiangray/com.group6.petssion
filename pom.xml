@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.infotran</groupId>
-	<artifactId>springappproj</artifactId>
+	<artifactId>petssion</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springappproj</name>
+	<name>petssion</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -22,14 +22,32 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+    
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+<<<<<<< HEAD
+=======
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+>>>>>>> c57818034dc874629a42563af45b0367ed252c15
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+<<<<<<< HEAD
+=======
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-thymeleaf</artifactId> -->
+<!-- 		</dependency> -->
+		
+>>>>>>> c57818034dc874629a42563af45b0367ed252c15
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -55,6 +73,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.5.1</version>
 		</dependency>
 	</dependencies>
 
