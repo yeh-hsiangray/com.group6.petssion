@@ -4,7 +4,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.group6.petssion.petprofile.model.Pet;
+import com.group6.petssion.bean.Pet;
 
 public class PetValidator implements Validator {
 

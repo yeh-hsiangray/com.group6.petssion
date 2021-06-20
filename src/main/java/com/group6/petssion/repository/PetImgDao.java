@@ -1,10 +1,10 @@
-package com.group6.petssion.petprofile.dao;
+package com.group6.petssion.repository;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.group6.petssion.petprofile.model.PetImg;
+import com.group6.petssion.bean.PetImg;
 
 @Repository
 public interface PetImgDao {

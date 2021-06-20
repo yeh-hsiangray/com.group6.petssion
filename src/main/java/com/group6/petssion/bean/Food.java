@@ -1,4 +1,4 @@
-package com.group6.petssion.petprofile.model;
+package com.group6.petssion.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,20 +6,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Type")
-public class Type {
+@Table(name = "Food")
+public class Food {
 	@Id
-	@Column(name="id",unique = true,nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-	
-	public Type() {
+
+	public Food() {
 	}
-	
-	public Type(Integer id, String name) {
+
+	public Food(Integer id, String name) {
+		super();
 		this.id = id;
 		this.name = name;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -27,7 +29,7 @@ public class Type {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -35,5 +37,5 @@ public class Type {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

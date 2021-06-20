@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group6.petssion.petprofile.dao.FoodRepository;
-import com.group6.petssion.petprofile.model.Food;
+import com.group6.petssion.bean.Food;
 import com.group6.petssion.petprofile.service.FoodService;
+import com.group6.petssion.repository.FoodRepository;
 
 @Service
 @Transactional

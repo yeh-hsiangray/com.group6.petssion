@@ -1,4 +1,4 @@
-package com.group6.petssion.petprofile.model;
+package com.group6.petssion.bean;
 
 import java.sql.Blob;
 import java.sql.Timestamp;

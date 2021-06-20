@@ -2,8 +2,8 @@ package com.group6.petssion.petprofile.dao.impl;
 
 import java.util.List;
 
-import com.group6.petssion.petprofile.dao.PetImgDao;
-import com.group6.petssion.petprofile.model.PetImg;
+import com.group6.petssion.bean.PetImg;
+import com.group6.petssion.repository.PetImgDao;
 
 public class PetImgDaoImpl implements PetImgDao{
 

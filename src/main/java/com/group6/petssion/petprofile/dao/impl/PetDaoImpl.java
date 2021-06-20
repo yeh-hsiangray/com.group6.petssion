@@ -6,7 +6,7 @@ import javax.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.group6.petssion.petprofile.model.Pet;
+import com.group6.petssion.bean.Pet;
 @Repository 
 public class PetDaoImpl{
 

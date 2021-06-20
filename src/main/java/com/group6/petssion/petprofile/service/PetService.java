@@ -2,7 +2,7 @@ package com.group6.petssion.petprofile.service;
 
 import java.util.List;
 
-import com.group6.petssion.petprofile.model.Pet;
+import com.group6.petssion.bean.Pet;
 
 public interface PetService {
 //	Pet findById(int id);

@@ -2,7 +2,7 @@ package com.group6.petssion.petprofile.service;
 
 import java.util.List;
 
-import com.group6.petssion.petprofile.model.Type;
+import com.group6.petssion.bean.Type;
 
 public interface TypeService {
 	public List<Type> getAllType();

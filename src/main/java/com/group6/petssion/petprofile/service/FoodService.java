@@ -2,7 +2,7 @@ package com.group6.petssion.petprofile.service;
 
 import java.util.List;
 
-import com.group6.petssion.petprofile.model.Food;
+import com.group6.petssion.bean.Food;
 
 public interface FoodService {
 	public List<Food> getAllFood();
