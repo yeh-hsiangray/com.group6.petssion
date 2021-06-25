@@ -1,0 +1,38 @@
+@charset "BIG5";
+
+body {
+	margin: 0;
+	background-color: rgb(243, 224, 115);
+}
+
+.banner {
+	background-color: gold;
+	box-shadow: 0px 3px 12px gold;
+	height: 100px
+}
+
+.mylogo {
+	width: 200px;
+	margin-top: 12px;
+}
+
+.framefriendly {
+	display: flex;
+	justify-content: center;
+	background-color: rgb(243, 224, 115) !important;
+	width: 100vw !important;
+	color: black !important;
+}
+
+.black {
+	font-size: 18px;
+	
+}
+.title1 h1{
+	text-align: center !important;
+	
+}
+.title1 {
+	display: flex !important;
+	justify-content: center !important;	
+}
