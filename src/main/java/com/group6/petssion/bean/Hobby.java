@@ -1,8 +1,8 @@
 package com.group6.petssion.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,9 +16,14 @@ public class Hobby {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 	private String name;
-	
-	@ManyToMany(mappedBy="hobby" )
-	 private List<Users> users =new ArrayList<>();
+
+	/*
+	 * @JoinTable(name = "users_hobby", joinColumns= {@JoinColumn(name="users_id",
+	 * referencedColumnName="id")}, inverseJoinColumns=
+	 * {@JoinColumn(name="hobby_id", referencedColumnName="id")})
+	 */
+	@ManyToMany(targetEntity = Users.class, mappedBy = "hobby", cascade = CascadeType.ALL)
+	private List<Users> users;
 
 	public Hobby() {
 	}
@@ -27,6 +32,14 @@ public class Hobby {
 		super();
 		this.id = id;
 		this.name = name;
+	}
+
+	public List<Users> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<Users> users) {
+		this.users = users;
 	}
 
 	public Integer getId() {
