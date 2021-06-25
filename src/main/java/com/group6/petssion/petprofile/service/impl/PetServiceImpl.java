@@ -60,4 +60,16 @@ public class PetServiceImpl implements PetService {
 		return petDao2.isUsersExist(pet);
 	}
 
+	@Override
+	public List<Pet> findAllPetByUserId(int userId) {
+		return petDao2.findAllPetByUserId(userId);
+	}
+
+	@Override
+	public List<Pet> getAllPetNameByUserId(int userId) {
+		return petDao2.getAllPetNameByUserId(userId);
+	}
+
+
+
 }

@@ -7,7 +7,7 @@ import com.group6.petssion.bean.Pet;
 public interface PetService {
 //	Pet findById(int id);
 	
-//	List<Pet> findAllPetByUserId(int userId);
+	List<Pet> findAllPetByUserId(int userId);
 
 	Pet savePet(Pet pet);
 
@@ -22,4 +22,6 @@ public interface PetService {
 //	public boolean isPetExist(Pet pet);
 //	
 	public boolean isUsersExist(Pet pet);
+	
+	public List<Pet> getAllPetNameByUserId(int userId);
 }
