@@ -10,4 +10,11 @@ public class BaseController {
 	public String index() {
 		return "index";
 	}
+
+
+	@GetMapping("/members")
+	public String Users() {
+		return "members";
+	}
+
 }

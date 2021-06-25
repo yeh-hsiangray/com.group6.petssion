@@ -2,7 +2,6 @@ package com.group6.petssion.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,12 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Users")
@@ -49,11 +49,9 @@ public class Users implements Serializable {
 	
 	private Integer Blockade;
 	
-	@ManyToMany(cascade = {CascadeType.ALL})
-	 @JoinTable(name = "hobby_users",
-	 joinColumns= {@JoinColumn(name="hobby_id", referencedColumnName="id")},
-	    inverseJoinColumns= {@JoinColumn(name="users_id", referencedColumnName="id")})
-	 private List<Hobby> hobby=new ArrayList<>();
+	@ManyToMany(targetEntity = Hobby.class,cascade = CascadeType.ALL )
+	@JsonIgnore
+	 private List<Hobby> hobby;
 	
 	//對應account類
 	@OneToOne(mappedBy = "users")
@@ -73,7 +71,7 @@ public class Users implements Serializable {
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, Integer manager,
 			Date regdate, Job job, Integer blockade, List<Hobby> hobby,
-			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg) {
+			account_password account_password, List<Pet> pet, List<UsersImg> usersImg) {
 		super();
 		this.id = id;
 		this.name = name;
