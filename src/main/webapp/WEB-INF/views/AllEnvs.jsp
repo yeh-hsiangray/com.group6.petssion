@@ -17,11 +17,12 @@
 		let role = '${userRole}'
 
 		checkRole()
+		flashMsg()
 
 		function checkRole() {
 			let role = '${userRole}'
 			if (role == "admin") {
-				alert("it's role admin")
+				// alert("it's role admin")
 				var adminClass = document.querySelectorAll(".roleGeneral")
 				for (i = 0; i < adminClass.length; i++) {
 					adminClass[i].hidden = true
@@ -33,6 +34,14 @@
 					adminClass[i].hidden = true
 				}
 			}
+		}
+
+		function flashMsg() {
+			let msg = document.getElementById("msg")
+			var millisecondsToWait = 1200;
+			setTimeout(function() {
+				msg.innerHTML=""
+			}, millisecondsToWait);
 		}
 	}
 </script>
@@ -47,7 +56,7 @@
 			<div class="framefriendly">
 				<div class="content">
 					<P id="msg" align="center"
-						style="color: red; font-size: 20px; font-weight: bold; margin-top: 10px">${SUCCESS}</P>
+						style="color: red; font-size: 20px; font-weight: bold; margin-top: 10px; background-color: white; opacity: 0.5; width: 500px;">${SUCCESS}</P>
 					<br>
 					<table border="1">
 						<tr>

@@ -19,7 +19,7 @@
 		function checkRole() {
 			let role = '${userRole}'
 			if (role == "admin") {
-				alert("it's role admin")
+				// alert("it's role admin")
 				var adminClass = document.querySelectorAll(".roleGeneral")
 				for (i = 0; i < adminClass.length; i++) {
 					adminClass[i].hidden = true

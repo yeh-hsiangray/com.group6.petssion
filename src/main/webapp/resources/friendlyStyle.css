@@ -22,17 +22,25 @@ body {
 	background-color: rgb(243, 224, 115) !important;
 	width: 100vw !important;
 	color: black !important;
+	margin-top: 30px;
 }
 
 .black {
 	font-size: 18px;
-	
 }
-.title1 h1{
+
+.title1 h1 {
 	text-align: center !important;
-	
 }
+
 .title1 {
 	display: flex !important;
-	justify-content: center !important;	
+	justify-content: center !important;
+}
+
+#msg {
+	position: absolute;
+	top: 2px;
+	left: 50%;
+	margin-left: -250px;
 }
