@@ -7,9 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group6.petssion.bean.Food;
+import com.group6.petssion.bean.Kind;
+import com.group6.petssion.bean.Personality;
 import com.group6.petssion.bean.Pet;
+import com.group6.petssion.bean.Type;
 import com.group6.petssion.petprofile.dao.impl.PetDaoImpl;
+import com.group6.petssion.petprofile.service.FoodService;
+import com.group6.petssion.petprofile.service.KindService;
+import com.group6.petssion.petprofile.service.PersonalityService;
 import com.group6.petssion.petprofile.service.PetService;
+import com.group6.petssion.petprofile.service.TypeService;
 import com.group6.petssion.repository.PetRepository;
 
 @Service
@@ -21,9 +29,29 @@ public class PetServiceImpl implements PetService {
 
 	@Autowired
 	PetDaoImpl petDao2;
+	@Autowired
+	FoodService foodService;
+	@Autowired
+	TypeService typeService;
+	@Autowired
+	KindService kindService;
+	@Autowired
+	PersonalityService personalityService;
 
 	@Override
 	public Pet savePet(Pet pet) {
+		Type type = typeService.getType(pet.getType().getId());
+		pet.setType(type);
+
+		Kind kind = kindService.getKind(pet.getKind().getId());
+		pet.setKind(kind);
+
+		Food food = foodService.getFood(pet.getFood().getId());
+		pet.setFood(food);
+
+		Personality personality = personalityService.getPersonality(pet.getPersonality().getId());
+		pet.setPersonality(personality);
+		
 		return petDao.save(pet);
 	}
 

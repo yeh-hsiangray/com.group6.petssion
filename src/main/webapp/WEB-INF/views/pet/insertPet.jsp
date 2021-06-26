@@ -255,9 +255,6 @@ display: none;
 </style>
 </head>
 <body>
-	<!-- <div class="pen-title">
-		<h1>寵物資料</h1>
-	</div> -->
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
@@ -269,28 +266,27 @@ display: none;
 					</div>
 				<table class="t1">
 				<tr>
-				
 				<td>
 <!-- 					<label> -->
 <!-- 					<input type="button" class="b1" id="btnClear" onchange="delURL()"/><img src="https://img.icons8.com/material/40/000000/xbox-x.png" width="25px"/> -->
 <!-- 					</label> -->
 					<label> 
-					<form:input type="file" path="img" targetID="preview_petImage" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 					</td>
 				<td><label>
-					<form:input type="file" path="img" targetID="preview_petImage1" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage1" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage1" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 					</td>
 				<td><label>
-					<form:input type="file" path="img" targetID="preview_petImage2" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage2" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage2" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
 				<td><label>
-					<form:input type="file" path="img" targetID="preview_petImage3" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage3" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage3" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
@@ -298,25 +294,25 @@ display: none;
 				<tr>
 				<td>
 					<label>
-					<form:input type="file" path="img" targetID="preview_petImage4" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage4" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage4" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
 				<td>
 					<label>
-					<form:input type="file" path="img" targetID="preview_petImage5" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage5" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage5" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
 				<td>
 					<label>
-					<form:input type="file" path="img" targetID="preview_petImage6" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage6" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage6" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
 				<td>
 					<label>
-					<form:input type="file" path="img" targetID="preview_petImage7" size="5242880" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<form:input type="file" path="img" targetID="preview_petImage7" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage7" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
