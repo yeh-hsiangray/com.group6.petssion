@@ -1,6 +1,7 @@
 package com.group6.petssion.petprofile.validate;
 
 import java.util.List;
+
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import com.group6.petssion.bean.Food;
 import com.group6.petssion.bean.Kind;
@@ -45,13 +47,17 @@ public class PetDto {
 	private Personality personality;
 
 	// 對應petImg類
+
 	private Set<PetImg> petImg;
+
 
 	// 對應User類
 	private Integer userId;
 	private Users user;
+
 	
 	List<MultipartFile> img;
+
 
 	public PetDto() {
 	}
@@ -76,6 +82,7 @@ public class PetDto {
 		this.userId = userId;
 		this.user = user;
 		this.img = img;
+
 	}
 
 	public Integer getId() {
@@ -110,6 +117,7 @@ public class PetDto {
 		this.age = age;
 	}
 
+
 	public Food getFood() {
 		return food;
 	}
@@ -134,6 +142,7 @@ public class PetDto {
 		this.kind = kind;
 	}
 
+
 	public Personality getPersonality() {
 		return personality;
 	}
@@ -142,11 +151,13 @@ public class PetDto {
 		this.personality = personality;
 	}
 
+
 	public Set<PetImg> getPetImg() {
 		return petImg;
 	}
 
 	public void setPetImg(Set<PetImg> petImg) {
+
 		this.petImg = petImg;
 	}
 
@@ -165,6 +176,7 @@ public class PetDto {
 	public void setUser(Users user) {
 		this.user = user;
 	}
+
 
 	public List<MultipartFile> getImg() {
 		return img;

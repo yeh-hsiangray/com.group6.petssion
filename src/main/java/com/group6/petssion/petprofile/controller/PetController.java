@@ -1,6 +1,8 @@
 package com.group6.petssion.petprofile.controller;
 
+
 import java.sql.Blob;
+
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -8,7 +10,9 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.sql.rowset.serial.SerialBlob;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -56,6 +60,7 @@ public class PetController {
 
 	@GetMapping("/showUserPets")
 	public String list(Model model, HttpServletRequest request) {
+
 //		HttpSession session=request.getSession();
 //		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		System.out.println(SessionUserId);
@@ -102,6 +107,7 @@ public class PetController {
 			for (ObjectError error : list) {
 				System.out.println("有錯誤：" + error);
 			}
+
 			return "pet/insertPet";
 		}
 
@@ -122,6 +128,7 @@ public class PetController {
 //				}
 //			}
 //		}
+
 
 //		----------------------------------
 		List<MultipartFile> pictures = pet.getImg();
@@ -163,6 +170,7 @@ public class PetController {
 		try {
 			petService.savePet(pet);
 			petImgService.savePetImg(petImg);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "pet/insertPet";

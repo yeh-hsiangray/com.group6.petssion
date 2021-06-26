@@ -156,7 +156,9 @@ public class Pet implements Serializable {
 		this.personality = personality;
 	}
 
+
 	public Set<PetImg>getPetImg() {
+
 		return petImg;
 	}
 

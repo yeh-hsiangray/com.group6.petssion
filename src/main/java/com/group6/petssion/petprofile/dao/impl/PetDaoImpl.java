@@ -13,6 +13,7 @@ import com.group6.petssion.bean.Food;
 import com.group6.petssion.bean.Kind;
 import com.group6.petssion.bean.Personality;
 import com.group6.petssion.bean.Pet;
+
 import com.group6.petssion.bean.Type;
 
 @Repository
@@ -20,6 +21,7 @@ public class PetDaoImpl {
 
 	@PersistenceContext
 	EntityManager entityManager;
+
 
 	public void updatePet(Pet pet) {
 		entityManager.clear();
@@ -40,6 +42,7 @@ public class PetDaoImpl {
 //	}
 //
 	@SuppressWarnings("unchecked")
+//	@Override
 	public List<Pet> findAllPetByUserId(int userId) {
 		String hql = "from Pet p where p.user.id=:id";
 		List<Pet> list = new ArrayList<>();
@@ -92,4 +95,5 @@ public class PetDaoImpl {
 	public void detachPersonality(Personality personality) {
 		entityManager.detach(personality);
 	}
+
 }
