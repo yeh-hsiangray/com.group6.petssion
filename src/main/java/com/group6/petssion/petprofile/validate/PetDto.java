@@ -1,15 +1,14 @@
 package com.group6.petssion.petprofile.validate;
 
 import java.util.List;
+import java.util.Set;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.group6.petssion.bean.Food;
 import com.group6.petssion.bean.Kind;
@@ -46,20 +45,24 @@ public class PetDto {
 	private Personality personality;
 
 	// 對應petImg類
-	private List<PetImg> petImg;
+	private Set<PetImg> petImg;
 
 	// 對應User類
 	private Integer userId;
 	private Users user;
+	
+	List<MultipartFile> img;
 
 	public PetDto() {
 	}
 
 	public PetDto(Integer id,
-			@NotBlank(message = "寵物名不能為空") @Length(min = 1, max = 12, message = "用户名长度必须位于1到12之间") String name,
-			String gender, @Range(min = 1, max = 20, message = "年齡異常,範圍{min}到{max}") Integer age, Food food,
-			@NotNull Type type, @NotNull Kind kind, Personality personality, List<PetImg> petImg, Integer userId,
-			Users user) {
+			@NotBlank(message = "寵物名不能為空") @Length(min = 1, max = 12, message = "用戶名必須位於1到12之間") String name,
+			@NotNull(message = "性別不能為空") String gender,
+			@Range(min = 1, max = 20, message = "年齡異常,範圍{min}到{max}") Integer age,
+			@NotNull(message = "喜愛食物不能為空") Food food, @NotNull Type type, @NotNull Kind kind,
+			@NotNull(message = "個性不能為空") Personality personality, Set<PetImg> petImg, Integer userId, Users user,
+			List<MultipartFile> img) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -72,6 +75,7 @@ public class PetDto {
 		this.petImg = petImg;
 		this.userId = userId;
 		this.user = user;
+		this.img = img;
 	}
 
 	public Integer getId() {
@@ -106,6 +110,14 @@ public class PetDto {
 		this.age = age;
 	}
 
+	public Food getFood() {
+		return food;
+	}
+
+	public void setFood(Food food) {
+		this.food = food;
+	}
+
 	public Type getType() {
 		return type;
 	}
@@ -122,14 +134,6 @@ public class PetDto {
 		this.kind = kind;
 	}
 
-	public Food getFood() {
-		return food;
-	}
-
-	public void setFood(Food food) {
-		this.food = food;
-	}
-
 	public Personality getPersonality() {
 		return personality;
 	}
@@ -138,11 +142,11 @@ public class PetDto {
 		this.personality = personality;
 	}
 
-	public List<PetImg> getPetImg() {
+	public Set<PetImg> getPetImg() {
 		return petImg;
 	}
 
-	public void setPetImg(List<PetImg> petImg) {
+	public void setPetImg(Set<PetImg> petImg) {
 		this.petImg = petImg;
 	}
 
@@ -160,6 +164,14 @@ public class PetDto {
 
 	public void setUser(Users user) {
 		this.user = user;
+	}
+
+	public List<MultipartFile> getImg() {
+		return img;
+	}
+
+	public void setImg(List<MultipartFile> img) {
+		this.img = img;
 	}
 
 }

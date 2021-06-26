@@ -1,64 +1,21 @@
 package com.group6.petssion.petprofile.dao.impl;
 
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
 
 import com.group6.petssion.bean.PetImg;
-import com.group6.petssion.repository.PetImgDao;
+@Repository
+public class PetImgDaoImpl {
+	
+	@PersistenceContext
+	EntityManager entityManager;
 
-public class PetImgDaoImpl implements PetImgDao{
-
-	@Override
-	public PetImg findByPrimaryKey(int key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PetImg findByPetId(int petId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int savePetImg(PetImg petImg) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void updatePetImg(PetImg petImg) {
-		// TODO Auto-generated method stub
-		
+		entityManager.clear();
+		entityManager.merge(petImg);
 	}
-
-	@Override
-	public void deletePetImgByPrimaryKey(int key) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<PetImg> findAllPetImg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteAllPetImg() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isPetImgExist(PetImg petImg) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String checkPetImgId(String PetImgId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
