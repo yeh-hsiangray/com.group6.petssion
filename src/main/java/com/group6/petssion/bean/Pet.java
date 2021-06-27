@@ -1,11 +1,14 @@
 package com.group6.petssion.bean;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,8 +55,8 @@ public class Pet implements Serializable {
 	private Personality personality;
 
 	// 對應petImg類
-	@OneToMany(mappedBy = "pet")
-	private List<PetImg> petImg;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pet")
+	private Set<PetImg> petImg=new LinkedHashSet<PetImg>();
 
 	// 對應User類
 	@Column(name = "fk_user_id")
@@ -71,7 +74,7 @@ public class Pet implements Serializable {
 	
 
 	public Pet(Integer id, String name, String gender, Integer age, Food food, Type type, Kind kind,
-			Personality personality, List<PetImg> petImg, Integer userId, Users user, List<MultipartFile> img) {
+			Personality personality, Set<PetImg> petImg, Integer userId, Users user, List<MultipartFile> img) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -153,11 +156,13 @@ public class Pet implements Serializable {
 		this.personality = personality;
 	}
 
-	public List<PetImg>getPetImg() {
+
+	public Set<PetImg>getPetImg() {
+
 		return petImg;
 	}
 
-	public void setPetImg(List<PetImg> petImg) {
+	public void setPetImg(Set<PetImg> petImg) {
 		this.petImg = petImg;
 	}
 
