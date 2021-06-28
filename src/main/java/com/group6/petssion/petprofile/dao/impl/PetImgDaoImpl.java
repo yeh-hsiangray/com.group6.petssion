@@ -1,6 +1,10 @@
 package com.group6.petssion.petprofile.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -17,5 +21,16 @@ public class PetImgDaoImpl {
 		entityManager.merge(petImg);
 	}
 	
-
+	@SuppressWarnings("unchecked")
+	public List<PetImg> findPetImgByPetId(int petId) {
+		String hql = "from PetImg p where p.pet.id=:id";
+		List<PetImg> list = new ArrayList<>();
+		try {
+			list = (List<PetImg>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
+			System.out.println(hql);
+		} catch (NoResultException e) {
+			;
+		}
+		return list;
+	}
 }

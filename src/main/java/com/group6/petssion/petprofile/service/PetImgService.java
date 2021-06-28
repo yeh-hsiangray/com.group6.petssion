@@ -10,4 +10,5 @@ public interface PetImgService {
 	PetImg get(Integer id);
 	void updatePetImg(PetImg petImg);
 	List<PetImg> finAllPetImg();
+	List<PetImg> findPetImgByPetId(int petId);
 }
