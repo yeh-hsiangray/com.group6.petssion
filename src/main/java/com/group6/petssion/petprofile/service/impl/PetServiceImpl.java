@@ -21,7 +21,7 @@ import com.group6.petssion.petprofile.service.TypeService;
 import com.group6.petssion.repository.PetRepository;
 
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class PetServiceImpl implements PetService {
 
 	@Autowired

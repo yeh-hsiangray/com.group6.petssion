@@ -52,11 +52,6 @@ body {
 	box-sizing: border-box;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: 0.3s ease;
-	/* Title */
-	/* Inputs */
-	/* Button */
-	/* Footer */
-	/* Alt Card */
 }
 
 .card:first-child {
@@ -267,9 +262,6 @@ display: none;
 				<table class="t1">
 				<tr>
 				<td>
-<!-- 					<label> -->
-<!-- 					<input type="button" class="b1" id="btnClear" onchange="delURL()"/><img src="https://img.icons8.com/material/40/000000/xbox-x.png" width="25px"/> -->
-<!-- 					</label> -->
 					<label> 
 					<form:input type="file" path="img" targetID="preview_petImage" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 					<img id="preview_petImage" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>

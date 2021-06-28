@@ -1,14 +1,16 @@
 package com.group6.petssion.petprofile.controller;
 
-
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.sql.Blob;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -17,12 +19,18 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +65,8 @@ public class PetController {
 	TypeService typeService;
 	@Autowired
 	PersonalityService personalityService;
+	@Autowired
+	ServletContext context;
 
 	@GetMapping("/showUserPets")
 	public String list(Model model, HttpServletRequest request) {
@@ -129,52 +139,41 @@ public class PetController {
 //			}
 //		}
 
-
 //		----------------------------------
 		List<MultipartFile> pictures = pet.getImg();
-		PetImg petImg = new PetImg();
-//		StringBuilder builder = new StringBuilder();
-//		StringBuilder builder1 = new StringBuilder();
 
-		if (null != pictures && pictures.size() > 0) {
+		if ( pictures!=null && pictures.size() > 0) {
 			for (MultipartFile picture : pictures) {
+				PetImg petImg = new PetImg();
 				String fileName = picture.getOriginalFilename();
 				if (picture != null && !picture.isEmpty()) {
 					try {
 						byte[] b = picture.getBytes();
-//						Base64.Encoder encoder=Base64.getEncoder();
-//						String encodedPic = encoder.encodeToString(b);
-//						builder.append(encodedPic+",");
-//						builder1.append(fileName+",");
-						
+
 						Blob blob = new SerialBlob(b);
 						petImg.setFileName(fileName);
 						petImg.setPetImage(blob);
-//					petImg.setFileName(builder1.toString());
-//					petImg.setPetImage(builder.toString());
 						petImg.setPet(pet);
-						Set<PetImg> petImgSet = new LinkedHashSet<PetImg>();
+						System.out.println(blob);
+						List<PetImg> petImgSet = new ArrayList<PetImg>();
 						petImgSet.add(petImg);
 						pet.setPetImg(petImgSet);
-						
-						
+
+						try {
+							petService.savePet(pet);
+							petImgService.savePetImg(petImg);
+						} catch (Exception e) {
+							e.printStackTrace();
+							return "pet/insertPet";
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 					}
 				}
 			}
-			System.out.println(pet.getImg());
 		}
 //		-------------------------------------------------
-		try {
-			petService.savePet(pet);
-			petImgService.savePetImg(petImg);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "pet/insertPet";
-		}
 
 		return "redirect:/pet/showUserPets";
 	}
@@ -193,6 +192,51 @@ public class PetController {
 		model.addAttribute("foodList", foodList);
 		model.addAttribute("personalityList", personalityList);
 		model.addAttribute("genderMap", genderMap);
+	}
+
+	@GetMapping("/picture/{id}")
+	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
+		byte[] body = null;
+		ResponseEntity<byte[]> re = null;
+		MediaType mediaType = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+		List<PetImg> petImgs = petImgService.findPetImgByPetId(id);
+//		PetImg petImg =petImgService.get(id);
+
+		for (PetImg petImg : petImgs) {
+			if (petImgs == null) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+			}
+			String filename = petImg.getFileName();
+			if (filename != null) {
+				mediaType = MediaType.valueOf(context.getMimeType(filename));
+				headers.setContentType(mediaType);
+			}
+			Blob blob = petImg.getPetImage();
+			if (blob != null) {
+				body = blobToByteArray(blob);
+			}
+		}
+		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+		System.out.println(re);
+		return re;
+	}
+
+	public byte[] blobToByteArray(Blob blob) {
+		byte[] result = null;
+		try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			byte[] b = new byte[819200];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			result = baos.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

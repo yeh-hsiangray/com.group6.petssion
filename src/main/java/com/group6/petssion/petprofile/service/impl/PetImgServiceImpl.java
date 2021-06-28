@@ -12,7 +12,7 @@ import com.group6.petssion.petprofile.dao.impl.PetImgDaoImpl;
 import com.group6.petssion.petprofile.service.PetImgService;
 import com.group6.petssion.repository.PetImgRepository;
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class PetImgServiceImpl implements PetImgService {
 	@Autowired
 	PetImgRepository petImgDao;
@@ -52,4 +52,8 @@ public class PetImgServiceImpl implements PetImgService {
 		return petImgDao.findAll();
 	}
 
+	@Override
+	public List<PetImg> findPetImgByPetId(int petId) {
+		return petImgDao2.findPetImgByPetId(petId);
+	}
 }
