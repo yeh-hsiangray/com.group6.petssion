@@ -1,20 +1,26 @@
 package com.group6.petssion.member.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.sql.Blob;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
+import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.bean.UsersImg;
 import com.group6.petssion.member.service.HobbyService;
@@ -39,14 +46,10 @@ import com.group6.petssion.member.service.JobService;
 import com.group6.petssion.member.service.UserService;
 import com.group6.petssion.member.service.UsersImgService;
 import com.group6.petssion.member.validate.UsersDto;
-import com.group6.petssion.repository.UsersRepository;
 
 @Controller
 @RequestMapping("/user")
 public class UsersController {
-
-	@Autowired
-	private UsersRepository userRepository;
 	
 	@Autowired
 	UsersImgService usersImgService;
@@ -60,20 +63,56 @@ public class UsersController {
 	@Autowired
 	JobService jobService;
 	
+	@Autowired
+	ServletContext context;
+
+	
+	@GetMapping("/memberCenter")
+	public String list(Model model, HttpServletRequest request) {
+
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+//		System.out.println(SessionUserId);
+		model.addAttribute("user", userService.findUserById(1));
+		return "/memberCenter";
+		
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 進入編輯個人資料
+	 * @param model
+	 * @return
+	 */
+	
 	@GetMapping("/updateMember")
 	public String updateMember(Model model) {
 		Users user = new Users();
 		model.addAttribute("user", user);
-		
+		System.out.println(user);
 		return "/updateMember";
 	}
 	
-	@GetMapping("/memberCenter")
-	public String memberCenter() {
-		return "memberCenter";
-	}
+	/**
+	 * 進入個人資訊
+	 * @return
+	 */
+//	@GetMapping("/memberCenter")
+//	public String memberCenter() {
+//		return "memberCenter";
+//	}
 	
-	
+	/**
+	 * 更新個人資訊
+	 * @param usersDto
+	 * @param result
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@PostMapping(value = "/updateMember")
 	public String add(@ModelAttribute("user") @Valid UsersDto usersDto, BindingResult result, Model model,
 			HttpServletRequest request) {
@@ -98,67 +137,50 @@ public class UsersController {
 //		System.out.println(SessionUserId);
 
 		Users user = new Users();
+		Pet pet = new Pet();
 		BeanUtils.copyProperties(usersDto, user);
-
-//		if (petService.isUsersExist(pet)) {
-//			List<Pet> list=petService.getAllPetNameByUserId(SessionUserId);
-//			for(Pet petName:list) {
-//				String name=String.valueOf(petName);
-//				if(name==pet.getName()) {
-//					result.rejectValue("name", "", "名字重複");
-//					return "pet/insertPet";
-//				}
-//			}
-//		}
-
-
+		
+		user.setManager(2);
+		user.setRegdate(LocalDate.now());
+		user.setBlockade(0);
 //		----------------------------------
 		List<MultipartFile> pictures = user.getImg();
-		UsersImg usersImg = new UsersImg();
-//		StringBuilder builder = new StringBuilder();
-//		StringBuilder builder1 = new StringBuilder();
-
+		
 		if (null != pictures && pictures.size() > 0) {
 			for (MultipartFile picture : pictures) {
+				UsersImg usersImg = new UsersImg();
 				String fileName = picture.getOriginalFilename();
 				if (picture != null && !picture.isEmpty()) {
 					try {
 						byte[] b = picture.getBytes();
-//						Base64.Encoder encoder=Base64.getEncoder();
-//						String encodedPic = encoder.encodeToString(b);
-//						builder.append(encodedPic+",");
-//						builder1.append(fileName+",");
 						
 						Blob blob = new SerialBlob(b);
 						usersImg.setFileName(fileName);
 						usersImg.setUsersImage(blob);
-//					petImg.setFileName(builder1.toString());
-//					petImg.setPetImage(builder.toString());
 						usersImg.setUsers(user);
-						Set<UsersImg> usersImgSet = new LinkedHashSet<UsersImg>();
+						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
 						usersImgSet.add(usersImg);
 						user.setUsersImg(usersImgSet);
+						List<Pet> petSet = new ArrayList<Pet>();
+						petSet.add(pet);
+						user.setPet(petSet);
 						
-						
+						try {
+							userService.saveUser(user);
+							usersImgService.saveUsersImg(usersImg);
+						} catch (Exception e) {
+							e.printStackTrace();
+							return "updateMember";
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 					}
 				}
 			}
-			System.out.println(user.getImg());
-		}
-//		-------------------------------------------------
-		try {
-			userService.saveUser(user);
-			usersImgService.saveUsersImg(usersImg);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "updateMember";
 		}
 
-		return "redirect:/memberCenter";
+		return "redirect:/user/memberCenter";
 	}
 	
 	
@@ -180,6 +202,53 @@ public class UsersController {
 		model.addAttribute("hobbyList", hobbyList);
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("genderMap", genderMap);
+		System.out.println(hobbyList);
+		System.out.println(jobList);
+	}
+	
+	
+	@GetMapping("/picture/{id}")
+	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
+		byte[] body = null;
+		ResponseEntity<byte[]> re = null;
+		MediaType mediaType = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+
+		List<UsersImg> usersImgs = usersImgService.findUserImgByUserId(id);
+
+		for (UsersImg userImg : usersImgs) {
+			if (usersImgs == null) {
+				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+			}
+			String filename = userImg.getFileName();
+			if (filename != null) {
+				mediaType = MediaType.valueOf(context.getMimeType(filename));
+				headers.setContentType(mediaType);
+			}
+			Blob blob = userImg.getUsersImage();
+			if (blob != null) {
+				body = blobToByteArray(blob);
+			}
+		}
+		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+		System.out.println(re);
+		return re;
+	}
+
+	public byte[] blobToByteArray(Blob blob) {
+		byte[] result = null;
+		try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			byte[] b = new byte[819200];
+			int len = 0;
+			while ((len = is.read(b)) != -1) {
+				baos.write(b, 0, len);
+			}
+			result = baos.toByteArray();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**
