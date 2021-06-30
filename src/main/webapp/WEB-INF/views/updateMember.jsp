@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>我的帳戶</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 
 span.error {
@@ -255,6 +256,15 @@ display: none;
 }
 
 </style>
+
+<script type="text/javascript">  
+function confirmDel(param)
+{
+         if(window.confirm("您确定送出更新？")){
+   document.location="DeleteNew?id="+param
+}
+ }  
+</script>
 </head>
 <body>
 	<div class="container">
@@ -262,7 +272,7 @@ display: none;
 		<div class="card">
 			<h1 class="title">個人檔案</h1>
 			<form:form method="POST" modelAttribute="user"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onSubmit="return CheckForm();">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
 					</div>
@@ -348,6 +358,21 @@ display: none;
 					  }
 
 					}
+				
+				function CheckForm()
+
+				{
+
+				  if(confirm("確認更新嗎？")==true)   
+
+				    return true;
+
+				  else  
+
+				    return false;
+
+				}
+				
 				</script>
 <!-- 			=========================================================== -->
 
@@ -417,7 +442,7 @@ display: none;
 				
 				<div class="ra1">
 					<label for="#{label}">工作:</label>
-					<form:select path="job.id" name="s1"
+					<form:select path="job" name="s1"
 						OnChange="Buildkey(this.selectedIndex);">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${jobList}" itemLabel='name' itemValue='id' />
@@ -425,27 +450,30 @@ display: none;
 					<form:errors path="job" cssClass="error" />
 				</div>
 				
-<!--   				<div class="ra1"> -->
-<%--   					<label for="#{label}">興趣:</label> --%>
-<%--  					<form:radiobuttons path="hobby.id" items="${hobbyList}" --%>
-<%--  						itemLabel="name" itemValue="id" /> --%>
-<%-- 					<form:errors path="hobby" cssClass="error" /> --%>
-<!-- 										<div class="bar"></div> -->
-<!-- 				</div> -->
+   				<div class="ra1">
+    					<label for="#{label}">興趣:</label>
+  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" itemValue="id" />
+ 				<form:errors path="hobby" cssClass="error" />
+ 									<div class="bar"></div>
+ 				</div>
 				
-				<div class="input-container">
-					<form:input path='selfintroduction' type="#{type}" id="#{label}"
+				<div class="ra1">
+				<label for="#{label}">自我介紹(小提示:內容愈有趣愈能增加配對機率唷!!):</label>
+				<br>
+					<form:textarea style="resize:none;width:360px;height:150px;" path='selfintroduction' type="#{textarea}" id="#{label}"
 						autocomplete="off" />
 					<form:errors path="selfintroduction" cssClass="error" />
-					<label for="#{label}">自我介紹(小提示:內容愈有趣愈能增加配對機率唷!!):</label>
-					<div class="bar"></div>
+					
+<!-- 					<div class="bar"></div> -->
 				</div>
-				
+
 				<div class="button-container">
 					<button type="submit">
 						<span>確認</span>
 					</button>
+<!-- 					<button class="button-container" id="oneKeyFillIn">一鍵輸入</button> -->
 				</div>
+
 			</form:form>
 		</div>
 	</div>
