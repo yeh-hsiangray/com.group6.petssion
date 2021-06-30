@@ -1,4 +1,4 @@
-package com.group6.petssion.petprofile.controller;
+package com.group6.petssion;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,5 +16,6 @@ public class BaseController {
 	public String Users() {
 		return "members";
 	}
-
+	
+	
 }
