@@ -2,6 +2,7 @@ package com.group6.petssion.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,6 +35,8 @@ public class Users implements Serializable {
 	private Integer id;
 	private String name;
 	private String gender;
+	
+	@DateTimeFormat
 	private Date birthday;
 	private String address;
 	private String constellation;
@@ -41,7 +48,7 @@ public class Users implements Serializable {
 	
 	//@Column(name = "manager", nullable = false)
 	private Integer manager;
-	private Date regdate;
+	private LocalDate regdate;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fk_job_id", referencedColumnName = "id")
@@ -60,9 +67,13 @@ public class Users implements Serializable {
 	// 對應Pet類
 	@OneToMany(mappedBy = "user")
 	private List<Pet> pet;
+	
 	// 對應UsersImg類
 	@OneToMany(mappedBy = "users")
 	private List<UsersImg> usersImg;
+	
+	@Transient
+	List<MultipartFile> img;
 
 	public Users() {
 
@@ -70,8 +81,9 @@ public class Users implements Serializable {
 
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, Integer manager,
-			Date regdate, Job job, Integer blockade, List<Hobby> hobby,
-			account_password account_password, List<Pet> pet, List<UsersImg> usersImg) {
+			LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
+			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
+			List<MultipartFile> img) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -92,6 +104,7 @@ public class Users implements Serializable {
 		this.account_password = account_password;
 		this.pet = pet;
 		this.usersImg = usersImg;
+		this.img = img;
 	}
 
 	public Integer getId() {
@@ -190,12 +203,12 @@ public class Users implements Serializable {
 		this.manager = manager;
 	}
 
-	public Date getRegdate() {
+	public LocalDate getRegdate() {
 		return regdate;
 	}
 
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
+	public void setRegdate(LocalDate localDate) {
+		this.regdate = localDate;
 	}
 
 	public Job getJob() {
@@ -246,10 +259,12 @@ public class Users implements Serializable {
 		this.usersImg = usersImg;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public List<MultipartFile> getImg() {
+		return img;
 	}
 
-
-
+	public void setImg(List<MultipartFile> img) {
+		this.img = img;
+	}
+	
 }

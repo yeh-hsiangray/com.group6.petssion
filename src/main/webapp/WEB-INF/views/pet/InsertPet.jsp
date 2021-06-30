@@ -10,6 +10,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+span.error {
+	color: red;
+	display: inline-block;
+	font-size: 5pt;
+}
 
 body {
 	background: #fff281;
@@ -23,7 +28,7 @@ body {
 /* Container */
 .container {
 	position: relative;
-	max-width: 600px;
+	max-width: 900px;
 	width: 100%;
 	margin: 0 auto 100px;
 }
@@ -47,11 +52,6 @@ body {
 	box-sizing: border-box;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: 0.3s ease;
-	/* Title */
-	/* Inputs */
-	/* Button */
-	/* Footer */
-	/* Alt Card */
 }
 
 .card:first-child {
@@ -119,7 +119,7 @@ body {
 }
 
 .card .ra1 label {
-	/* position: absolute; */
+	/*  	position: absolute; */
 	top: 0;
 	left: 0;
 	color: #757575;
@@ -218,72 +218,188 @@ body {
 	opacity: 1;
 	transform: scale(10);
 }
+input[type="file"] {
+    display: none;
+}
+
+ .t1 img{ 
+/*      opacity:0 */
+ } 
+.a1{
+top: 0;
+	left: 0;
+	color: #757575;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 60px;
+	margin: 0 60px 0;
+}
+.t1 td{
+border: 2px solid #ccc;
+width: 200px;
+height: 200px;
+padding: o;
+
+}
+.t1{
+margin: auto;
+}
+.b1{
+display: none;
+}
 </style>
 </head>
 <body>
-	<!-- <div class="pen-title">
-		<h1>寵物資料</h1>
-	</div> -->
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
 			<h1 class="title">寵物檔案</h1>
 			<form:form method="POST" modelAttribute="pet"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onSubmit="return CheckForm();">
+				<div class="a1">
+					<label for="#{label}">圖片上傳:</label>
+					</div>
+				<table class="t1">
+				<tr>
+				<td>
+					<label> 
+					<form:input type="file" path="img" targetID="preview_petImage" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+					</td>
+				<td><label>
+					<form:input type="file" path="img" targetID="preview_petImage1" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage1" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+					</td>
+				<td><label>
+					<form:input type="file" path="img" targetID="preview_petImage2" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage2" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
+				<td><label>
+					<form:input type="file" path="img" targetID="preview_petImage3" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage3" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
+				</tr>
+				<tr>
+				<td>
+					<label>
+					<form:input type="file" path="img" targetID="preview_petImage4" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage4" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
+				<td>
+					<label>
+					<form:input type="file" path="img" targetID="preview_petImage5" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage5" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
+				<td>
+					<label>
+					<form:input type="file" path="img" targetID="preview_petImage6" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage6" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
+				<td>
+					<label>
+					<form:input type="file" path="img" targetID="preview_petImage7" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage7" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
+				</tr>
+				</table>
+				<form:errors path="img" cssClass="error" />
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+<!-- 				=========================================================== -->
+				<script type="text/javascript">
+					  if(input.files && input.files[0]){
+
+					    var imageTagID = input.getAttribute("targetID");
+
+					    var reader = new FileReader();
+
+					    reader.onload = function (e) {
+
+					       var img = document.getElementById(imageTagID);
+
+					       img.setAttribute("src", e.target.result)
+					       img.style.opacity=1
+
+					    }
+
+					    reader.readAsDataURL(input.files[0]);
+
+					  }
+
+					}
+				
+				function CheckForm(){
+				      if(confirm("確認輸入寵物資料嗎？")==true)   
+				        return true;
+				      else  
+				        return false;
+				    }
+				</script>
+<!-- 			=========================================================== -->
+
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
-					<form:errors path='name' cssClass="error" />
-					<label for="#{label}">名字</label>
+						required="required" autocomplete="off" name="input1"/>
+					<form:errors path="name" cssClass="error" />
+					<label for="#{label}">名字:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">性別:</label>
-					<form:radiobuttons path="gender" items="${genderMap}"/>
-					<form:errors path='gender' cssClass="error" />
-					<div class="bar"></div>
-				</div>
-			
-                <div class="input-container">
-					<form:input path="age" type="#{type}" id="#{label}" 
-					autocomplete="off"/>
-					<label for="#{label}">年齡</label>
-					<form:errors path='age' cssClass="error" />
-					<div class="bar"></div>
+					<form:radiobuttons path="gender" items="${genderMap}" name="input2"/>
+					<form:errors path="gender" cssClass="error" />
+					<!-- 					<div class="bar"></div> -->
 				</div>
 
+				<div class="input-container">
+					<form:input path='age' type="#{type}" id="#{label}"
+						autocomplete="off" required="required" name="input3"/>
+					<form:errors path="age" cssClass="error" />
+					<label for="#{label}">年齡:</label>
+					<div class="bar"></div>
+				</div>
 				<div class="ra1">
 					<label for="#{label}">種類:</label>
-					<form:select path="type.id">
+					<form:select path="type.id" name="input4">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:select path="kind.id">
+					<form:select path="kind.id" name="input5">
 						<form:option label="請挑選" value="-1" />
-						<form:options items="${kindList}" itemLabel="name" itemValue="id"/>
+						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
 					</form:select>
+					<form:errors path="type" cssClass="error" />
 					<form:errors path="kind" cssClass="error" />
-					<div class="bar"></div>
 				</div>
 
 				<div class="ra1">
-					<label for="#{label}">喜愛食物:</label><br>
-						<form:radiobuttons path="food.id" items="${foodList}"
-						itemLabel="name" itemValue="id"/>
+					<label for="#{label}">喜愛食物:</label>
+					<form:radiobuttons path="food.id" items="${foodList}"
+						itemLabel="name" itemValue="id" name="input6"/>
 					<form:errors path="food" cssClass="error" />
-					<div class="bar"></div>
+					<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="ra1">
-					<label for="#{label}">個性:</label><br>
+					<label for="#{label}">個性:</label>
 					<form:radiobuttons path="personality.id" items="${personalityList}"
-						itemLabel="name" itemValue="id"/>
-					<form:errors path="food" cssClass="error" />
-					<div class="bar"></div>
+						itemLabel="name" itemValue="id" name="input7"/>
+					<form:errors path="personality" cssClass="error" />
+					<!-- 					<div class="bar"></div> -->
 				</div>
-
 				<div class="button-container">
-					<button>
+					<button type="submit">
 						<span>確認</span>
 					</button>
 				</div>

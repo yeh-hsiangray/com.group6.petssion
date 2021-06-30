@@ -8,10 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>我的帳戶</title>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<title>Insert title here</title>
 <style type="text/css">
-
 span.error {
 	color: red;
 	display: inline-block;
@@ -54,11 +52,6 @@ body {
 	box-sizing: border-box;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: 0.3s ease;
-	/* Title */
-	/* Inputs */
-	/* Button */
-	/* Footer */
-	/* Alt Card */
 }
 
 .card:first-child {
@@ -254,81 +247,33 @@ margin: auto;
 .b1{
 display: none;
 }
-
 </style>
-
-<script type="text/javascript">  
-function confirmDel(param)
-{
-         if(window.confirm("您确定送出更新？")){
-   document.location="DeleteNew?id="+param
-}
- }  
-</script>
 </head>
 <body>
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
-			<h1 class="title">個人檔案</h1>
-			<form:form method="POST" modelAttribute="user"
-				enctype="multipart/form-data" onSubmit="return CheckForm();">
+			<h1 class="title">寵物檔案</h1>
+			<form:form method="POST" modelAttribute="pet"
+				enctype="multipart/form-data">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
 					</div>
 				<table class="t1">
+<%-- 			<c:forEach begin="0" end="21" step="3" varStatus="loop"> --%>
+<%-- 			<c:out value="${loop.count}"/> --%>
+<%-- 			<c:if test="${loop.count % 4 == 0}" > --%>
 				<tr>
-				<td>
-<!-- 					<label> -->
-<!-- 					<input type="button" class="b1" id="btnClear" onchange="delURL()"/><img src="https://img.icons8.com/material/40/000000/xbox-x.png" width="25px"/> -->
-<!-- 					</label> -->
-					<label> 
-					<form:input type="file" path="img" targetID="preview_usersImage" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
+				
+				<c:forEach var='petImg' items='${petImgIdMap[pet.id]}' varStatus="petStatus">
+					<td>
+						<img id="preview_petImage" src="<c:url value='/' />pet/picture/${petImg}" width="200px" />
 					</td>
-				<td><label>
-					<form:input type="file" path="img" targetID="preview_usersImage1" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage1" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-					</td>
-				<td><label>
-					<form:input type="file" path="img" targetID="preview_usersImage2" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage2" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td><label>
-					<form:input type="file" path="img" targetID="preview_usersImage3" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage3" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
+				</c:forEach>
+				
 				</tr>
-				<tr>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_usersImage4" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage4" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_usersImage5" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage5" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_usersImage6" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage6" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_usersImage7" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_usersImage7" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				</tr>
+<%-- 			</c:if> --%>
+<%-- 			</c:forEach> --%>
 				</table>
 				<br>
 				<br>
@@ -358,21 +303,6 @@ function confirmDel(param)
 					  }
 
 					}
-				
-				function CheckForm()
-
-				{
-
-				  if(confirm("確認更新嗎？")==true)   
-
-				    return true;
-
-				  else  
-
-				    return false;
-
-				}
-				
 				</script>
 <!-- 			=========================================================== -->
 
@@ -389,91 +319,51 @@ function confirmDel(param)
 					<form:errors path="gender" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
-				
-				
-				<div class="input-container">
-					<form:input path='birthday' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
-					<form:errors path="birthday" cssClass="error" />
-					<label for="#{label}">生日(輸入範例:1990-01-01):</label>
-					<div class="bar"></div>
-				
-				</div>
 
 				<div class="input-container">
-					<form:input path='address' type="#{type}" id="#{label}"
+					<form:input path='age' type="#{type}" id="#{label}"
 						autocomplete="off" required="required" />
-					<form:errors path="address" cssClass="error" />
- 					<label for="#{label}">住址:</label>
+					<form:errors path="age" cssClass="error" />
+					<label for="#{label}">年齡:</label>
 					<div class="bar"></div>
 				</div>
-				
-				<div class="input-container">
-					<form:input path='constellation' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
-					<form:errors path="constellation" cssClass="error" />
- 					<label for="#{label}">星座:</label>
-					<div class="bar"></div>
-				</div>
-				
-				<div class="input-container">
-					<form:input path='height' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
-					<form:errors path="height" cssClass="error" />
-					<label for="#{label}">身高:</label>
-					<div class="bar"></div>
-				</div>
-				
-				<div class="input-container">
-					<form:input path='weight' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
-					<form:errors path="weight" cssClass="error" />
-					<label for="#{label}">體重:</label>
-					<div class="bar"></div>
-				</div>
-				
-				<div class="input-container">
-					<form:input path='mobilephone' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
-					<form:errors path="mobilephone" cssClass="error" />
-					<label for="#{label}">行動電話:</label>
-					<div class="bar"></div>
-				</div>
-				
 				<div class="ra1">
-					<label for="#{label}">工作:</label>
-					<form:select path="job" name="s1"
+					<label for="#{label}">種類:</label>
+					<form:select path="type.id" name="s1"
 						OnChange="Buildkey(this.selectedIndex);">
 						<form:option label="請挑選" value="-1" />
-						<form:options items="${jobList}" itemLabel='name' itemValue='id' />
+						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:errors path="job" cssClass="error" />
+					<form:select path="kind.id" name="s2">
+						<form:option label="請挑選" value="-1" />
+						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
+					</form:select>
+					<form:errors path="type" cssClass="error" />
+					<form:errors path="kind" cssClass="error" />
 				</div>
-				
-   				<div class="ra1">
-    					<label for="#{label}">興趣:</label>
-  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" itemValue="id" />
- 				<form:errors path="hobby" cssClass="error" />
- 									<div class="bar"></div>
- 				</div>
-				
+
 				<div class="ra1">
-				<label for="#{label}">自我介紹(小提示:內容愈有趣愈能增加配對機率唷!!):</label>
-				<br>
-					<form:textarea style="resize:none;width:360px;height:150px;" path='selfintroduction' type="#{textarea}" id="#{label}"
-						autocomplete="off" />
-					<form:errors path="selfintroduction" cssClass="error" />
-					
-<!-- 					<div class="bar"></div> -->
+					<label for="#{label}">喜愛食物:</label>
+					<form:radiobuttons path="food.id" items="${foodList}"
+						itemLabel="name" itemValue="id" />
+					<form:errors path="food" cssClass="error" />
+					<!-- 					<div class="bar"></div> -->
+				</div>
+
+				<div class="ra1">
+					<label for="#{label}">個性:</label>
+					<form:radiobuttons path="personality.id" items="${personalityList}"
+						itemLabel="name" itemValue="id" />
+					<form:errors path="personality" cssClass="error" />
+					<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="button-container">
 					<button type="submit">
 						<span>確認</span>
 					</button>
-<!-- 					<button class="button-container" id="oneKeyFillIn">一鍵輸入</button> -->
+					<!-- 					<input type='submit'> -->
 				</div>
-
 			</form:form>
 		</div>
 	</div>

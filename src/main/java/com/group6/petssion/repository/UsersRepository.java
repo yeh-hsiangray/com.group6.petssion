@@ -6,4 +6,6 @@ import com.group6.petssion.bean.Users;
 
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 
+	Users findByname(String name);
+
 }

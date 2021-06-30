@@ -1,78 +1,74 @@
-package com.group6.petssion.bean;
+package com.group6.petssion.petprofile.validate;
 
-import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import java.util.Set;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
-@Entity
-@Table(name = "Pet")
-public class Pet implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "id", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+import com.group6.petssion.bean.Food;
+import com.group6.petssion.bean.Kind;
+import com.group6.petssion.bean.Personality;
+import com.group6.petssion.bean.PetImg;
+import com.group6.petssion.bean.Type;
+import com.group6.petssion.bean.Users;
+
+public class PetDto {
 	private Integer id;
-	@Column(name = "name", nullable = false)
+	@NotBlank(message="寵物名不能為空")
+	@Length(min=1,max = 12,message="用戶名必須位於1到12之間")
 	private String name;
+	@NotNull(message = "性別不能為空")
 	private String gender;
+	@Range(min=1, max=20,message = "年齡異常,範圍{min}到{max}")
+//	@Pattern(regexp = "^[0-9]*$", message = "請輸入數字")
 	private Integer age;
 
 	// 對應喜愛食物選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinColumn(name = "fk_food_id")
+	@NotNull(message = "喜愛食物不能為空")
 	private Food food;
 
 	// 對應種類類型選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinColumn(name = "fk_type_id")
+	@NotNull
 	private Type type;
 
 	// 對應種類選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinColumn(name = "fk_kind_id")
+	@NotNull
 	private Kind kind;
 
 	// 對應個性選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinColumn(name = "fk_personality_id")
+	@NotNull(message = "個性不能為空")
 	private Personality personality;
 
 	// 對應petImg類
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pet")
-	private List<PetImg> petImg;
+
+	private Set<PetImg> petImg;
+
 
 	// 對應User類
-	@Column(name = "fk_user_id")
-	@Transient
 	private Integer userId;
-	@ManyToOne
-	@JoinColumn(name = "fk_user_id")
 	private Users user;
-	@Transient
+
+//	@NotNull(message = "必須上傳圖片")
 	List<MultipartFile> img;
 
-	public Pet() {
+
+	public PetDto() {
 	}
 
-	
-
-	public Pet(Integer id, String name, String gender, Integer age, Food food, Type type, Kind kind,
-			Personality personality, List<PetImg> petImg, Integer userId, Users user, List<MultipartFile> img) {
+	public PetDto(Integer id,
+			@NotBlank(message = "寵物名不能為空") @Length(min = 1, max = 12, message = "用戶名必須位於1到12之間") String name,
+			@NotNull(message = "性別不能為空") String gender,
+			@Range(min = 1, max = 20, message = "年齡異常,範圍{min}到{max}") Integer age,
+			@NotNull(message = "喜愛食物不能為空") Food food, @NotNull Type type, @NotNull Kind kind,
+			@NotNull(message = "個性不能為空") Personality personality, Set<PetImg> petImg, Integer userId, Users user,
+			List<MultipartFile> img) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -86,9 +82,8 @@ public class Pet implements Serializable {
 		this.userId = userId;
 		this.user = user;
 		this.img = img;
+
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -122,6 +117,7 @@ public class Pet implements Serializable {
 		this.age = age;
 	}
 
+
 	public Food getFood() {
 		return food;
 	}
@@ -146,6 +142,7 @@ public class Pet implements Serializable {
 		this.kind = kind;
 	}
 
+
 	public Personality getPersonality() {
 		return personality;
 	}
@@ -155,12 +152,12 @@ public class Pet implements Serializable {
 	}
 
 
-	public List<PetImg>getPetImg() {
-
+	public Set<PetImg> getPetImg() {
 		return petImg;
 	}
 
-	public void setPetImg(List<PetImg> petImg) {
+	public void setPetImg(Set<PetImg> petImg) {
+
 		this.petImg = petImg;
 	}
 
@@ -181,12 +178,9 @@ public class Pet implements Serializable {
 	}
 
 
-
 	public List<MultipartFile> getImg() {
 		return img;
 	}
-
-
 
 	public void setImg(List<MultipartFile> img) {
 		this.img = img;
