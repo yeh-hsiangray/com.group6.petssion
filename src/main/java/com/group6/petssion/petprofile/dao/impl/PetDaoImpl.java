@@ -80,11 +80,12 @@ public class PetDaoImpl {
 		return list;
 	}
 	
+	
 	public void detachFood(Food food) {
 		entityManager.detach(food);
 	}
 	
-	public void detachTtpe(Type type) {
+	public void detachType(Type type) {
 		entityManager.detach(type);
 	}
 	

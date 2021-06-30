@@ -255,7 +255,7 @@ display: none;
 		<div class="card">
 			<h1 class="title">寵物檔案</h1>
 			<form:form method="POST" modelAttribute="pet"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onSubmit="return CheckForm();">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
 					</div>
@@ -310,6 +310,7 @@ display: none;
 				</td>
 				</tr>
 				</table>
+				<form:errors path="img" cssClass="error" />
 				<br>
 				<br>
 				<br>
@@ -317,7 +318,6 @@ display: none;
 				<br>
 <!-- 				=========================================================== -->
 				<script type="text/javascript">
-				function readURL(input){
 					  if(input.files && input.files[0]){
 
 					    var imageTagID = input.getAttribute("targetID");
@@ -338,38 +338,44 @@ display: none;
 					  }
 
 					}
+				
+				function CheckForm(){
+				      if(confirm("確認輸入寵物資料嗎？")==true)   
+				        return true;
+				      else  
+				        return false;
+				    }
 				</script>
 <!-- 			=========================================================== -->
 
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
+						required="required" autocomplete="off" name="input1"/>
 					<form:errors path="name" cssClass="error" />
 					<label for="#{label}">名字:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">性別:</label>
-					<form:radiobuttons path="gender" items="${genderMap}" />
+					<form:radiobuttons path="gender" items="${genderMap}" name="input2"/>
 					<form:errors path="gender" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="input-container">
 					<form:input path='age' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
+						autocomplete="off" required="required" name="input3"/>
 					<form:errors path="age" cssClass="error" />
 					<label for="#{label}">年齡:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">種類:</label>
-					<form:select path="type.id" name="s1"
-						OnChange="Buildkey(this.selectedIndex);">
+					<form:select path="type.id" name="input4">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:select path="kind.id" name="s2">
+					<form:select path="kind.id" name="input5">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
 					</form:select>
@@ -380,7 +386,7 @@ display: none;
 				<div class="ra1">
 					<label for="#{label}">喜愛食物:</label>
 					<form:radiobuttons path="food.id" items="${foodList}"
-						itemLabel="name" itemValue="id" />
+						itemLabel="name" itemValue="id" name="input6"/>
 					<form:errors path="food" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
@@ -388,16 +394,14 @@ display: none;
 				<div class="ra1">
 					<label for="#{label}">個性:</label>
 					<form:radiobuttons path="personality.id" items="${personalityList}"
-						itemLabel="name" itemValue="id" />
+						itemLabel="name" itemValue="id" name="input7"/>
 					<form:errors path="personality" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
-
 				<div class="button-container">
 					<button type="submit">
 						<span>確認</span>
 					</button>
-					<!-- 					<input type='submit'> -->
 				</div>
 			</form:form>
 		</div>
