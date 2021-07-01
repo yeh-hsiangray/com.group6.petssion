@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.signIn.service.SignInService;
 
 @Controller
 @RequestMapping("/signIn")
-public class TestApi {
+public class signInController {
 
 	@Autowired
 	SignInService signInService;
@@ -41,6 +40,7 @@ public class TestApi {
 				session.setMaxInactiveInterval(date);
 				session.setAttribute("userId", user.getId());
 				session.setAttribute("userManager", user.getManager());
+				session.setAttribute("userName", user.getName());
 				return 1;
 			}else {
 				return 2;
