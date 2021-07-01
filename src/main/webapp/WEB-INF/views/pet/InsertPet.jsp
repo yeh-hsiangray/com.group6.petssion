@@ -261,53 +261,20 @@ display: none;
 					</div>
 				<table class="t1">
 				<tr>
-				<td>
-					<label> 
-					<form:input type="file" path="img" targetID="preview_petImage" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-					</td>
-				<td><label>
-					<form:input type="file" path="img" targetID="preview_petImage1" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage1" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-					</td>
-				<td><label>
-					<form:input type="file" path="img" targetID="preview_petImage2" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage2" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td><label>
-					<form:input type="file" path="img" targetID="preview_petImage3" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage3" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				</tr>
-				<tr>
+				<c:forEach begin="0" end="21" step="3" varStatus="loop">
+			
 				<td>
 					<label>
-					<form:input type="file" path="img" targetID="preview_petImage4" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage4" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage${loop.count}" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
 					</label>
 				</td>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_petImage5" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage5" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_petImage6" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage6" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_petImage7" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage7" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
+				
+				<c:if test="${loop.count % 4 == 0}" >
+				<tr></tr>
+				</c:if>
+				
+			</c:forEach>
 				</tr>
 				</table>
 				<form:errors path="img" cssClass="error" />
@@ -318,6 +285,7 @@ display: none;
 				<br>
 <!-- 				=========================================================== -->
 				<script type="text/javascript">
+				function readURL(input){
 					  if(input.files && input.files[0]){
 
 					    var imageTagID = input.getAttribute("targetID");

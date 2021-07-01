@@ -260,20 +260,29 @@ display: none;
 					<label for="#{label}">圖片上傳:</label>
 					</div>
 				<table class="t1">
-<%-- 			<c:forEach begin="0" end="21" step="3" varStatus="loop"> --%>
-<%-- 			<c:out value="${loop.count}"/> --%>
-<%-- 			<c:if test="${loop.count % 4 == 0}" > --%>
 				<tr>
+			<c:forEach begin="0" end="21" step="3" varStatus="loop">
+			
+				<td>
+					<label>
+					<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage${loop.count}" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					</label>
+				</td>
 				
-				<c:forEach var='petImg' items='${petImgIdMap[pet.id]}' varStatus="petStatus">
-					<td>
-						<img id="preview_petImage" src="<c:url value='/' />pet/picture/${petImg}" width="200px" />
-					</td>
-				</c:forEach>
+				<c:if test="${loop.count % 4 == 0}" >
+				<tr></tr>
+				</c:if>
 				
+			</c:forEach>
 				</tr>
-<%-- 			</c:if> --%>
-<%-- 			</c:forEach> --%>
+
+
+<%-- 				<c:forEach var='petImg' items='${petImgIdMap[pet.id]}' varStatus="petStatus"> --%>
+<!-- 					<td> -->
+<%-- 						<img id="preview_petImage" src="<c:url value='/' />pet/picture/${petImg}" width="200px" /> --%>
+<!-- 					</td> -->
+<%-- 				</c:forEach> --%>
 				</table>
 				<br>
 				<br>
