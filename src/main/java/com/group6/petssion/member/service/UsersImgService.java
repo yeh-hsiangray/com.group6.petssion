@@ -10,4 +10,5 @@ public interface UsersImgService {
 	UsersImg get(Integer id);
 	void updateUsersImg(UsersImg usersImg);
 	List<UsersImg> finAllUsersImg();
+	List<UsersImg> findUserImgByUserId(int userId);
 }

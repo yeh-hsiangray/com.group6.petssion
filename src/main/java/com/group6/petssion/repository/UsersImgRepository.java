@@ -4,6 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.group6.petssion.bean.UsersImg;
 
-public interface UsersImgRepository extends JpaRepository<UsersImg, Integer>{
+public interface UsersImgRepository extends JpaRepository<UsersImg, Integer> {
+
+	
+
+
 
 }

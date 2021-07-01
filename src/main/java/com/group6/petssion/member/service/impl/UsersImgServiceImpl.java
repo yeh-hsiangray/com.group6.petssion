@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group6.petssion.bean.PetImg;
 import com.group6.petssion.bean.UsersImg;
 import com.group6.petssion.member.dao.impl.UsersImgDaoImpl;
 import com.group6.petssion.member.service.UsersImgService;
@@ -52,5 +53,11 @@ public class UsersImgServiceImpl implements UsersImgService {
 	@Override
 	public List<UsersImg> finAllUsersImg() {
 		return usersImgDao.findAll();
+	}
+	
+	
+	@Override
+	public List<UsersImg> findUserImgByUserId(int userId) {
+		return usersImgDao2.findUserImgByUserId(userId);
 	}
 }
