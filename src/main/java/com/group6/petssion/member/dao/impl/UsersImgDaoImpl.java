@@ -23,11 +23,11 @@ public class UsersImgDaoImpl {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<UsersImg> findUserImgByUserId(int userId) {
-		String hql = "from UsersImg p where p.users.id=:id";
-		List<UsersImg> list = new ArrayList<>();
+	public List<String> findUserImgByUserId(int userId) {
+		String hql = "select p.id from UsersImg p where p.users.id=:id";
+		List<String> list = new ArrayList<>();
 		try {
-			list = (List<UsersImg>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();
+			list = (List<String>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();
 			System.out.println(hql);
 		} catch (NoResultException e) {
 			;
