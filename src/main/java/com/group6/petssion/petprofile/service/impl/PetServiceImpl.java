@@ -58,7 +58,26 @@ public class PetServiceImpl implements PetService {
 	@Transactional
 	@Override
 	public void updatePet(Pet pet) {
+		
+		petDao2.detachType(pet.getType());
+		petDao2.detachKind(pet.getKind());
+		petDao2.detachFood(pet.getFood());
+		petDao2.detachPersonality(pet.getPersonality());
+		
+		Type type = typeService.getType(pet.getType().getId());
+		pet.setType(type);
+
+		Kind kind = kindService.getKind(pet.getKind().getId());
+		pet.setKind(kind);
+
+		Food food = foodService.getFood(pet.getFood().getId());
+		pet.setFood(food);
+
+		Personality personality = personalityService.getPersonality(pet.getPersonality().getId());
+		pet.setPersonality(personality);
 		petDao2.updatePet(pet);
+		
+		petDao.save(pet);
 	}
 
 	@Override

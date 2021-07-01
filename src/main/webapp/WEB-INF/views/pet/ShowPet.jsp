@@ -209,10 +209,6 @@ body {
 	transform: scale(10);
 }
 
-input[type="file"] {
-	display: none;
-}
-
 .t1 img {
 	
 }
@@ -253,6 +249,7 @@ input[type="file"] {
 	display: block;
 	margin: 0;
 	list-style: none;
+	width: 900PX;
 }
 
 .tab-title {
@@ -260,13 +257,12 @@ input[type="file"] {
 }
 
 #tab-demo>ul>li {
-	display: inline-block;
+	display:inline-block;
 	vertical-align: top;
 	font-family: '微軟正黑體';
 	font-size:20px;
 	margin: 0 -1px -1px 0;
 	border: 1px solid #BCBCBC;
-	height:35px;
 	line-height: 25px;
 	background: #cdcdcd;
 	padding: 4px 25px;
@@ -293,8 +289,6 @@ margin:auto;
 	width: 900px;
 }
 
-.tab-inner {
-}
 </style>
 <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -336,13 +330,8 @@ margin:auto;
 
 				<ul class="tab-title">
 					<c:forEach var='pets' items='${pet}' varStatus="petStatus">
-						<c:forEach var='i' begin="${petStatus.begin}"
-							end="${petStatus.end}">
-
+						<c:forEach var='i' begin="${petStatus.begin}" end="${petStatus.end}">
 							<li value="${i}"><a href="#tab0${petStatus.index}">${pets.name}</a></li>
-							<!-- 					<li><a href="#tab02">tab02</a></li> -->
-							<!-- 					<li><a href="#tab03">tab03</a></li> -->
-
 						</c:forEach>
 					</c:forEach>
 				</ul>
@@ -359,67 +348,14 @@ margin:auto;
 									<h1 class="title">寵物檔案:${pets.name}</h1>
 									<table class="t1">
 										<tr>
-											<td><label> <input type="file"
-													targetID="preview_petImage"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> 
-													<img id="preview_petImage"
-													src='picture/${pets.id}'
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_petImage1"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage1"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_petImage2"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage2"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_petImage3"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage3"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-										</tr>
-										<tr>
-											<td><label> <input type="file"
-													targetID="preview_petImage4"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage4"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_petImage5"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage5"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_petImage6"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage6"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_petImage7"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_petImage7"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-										</tr>
-									</table>
+											<c:forEach var='petImg' items='${petImgIdMap[pets.id]}' varStatus="petStatus">
+												<td>
+													<img id="preview_petImage" src='picture/${petImg}' width="200px" />
+												</td>
+											</c:forEach>
+											
+											</tr>
+											</table>
 									<br> <br> <br>
 
 									<div class="ra1">
@@ -428,7 +364,6 @@ margin:auto;
 									</div>
 									<div class="ra1">
 										<label for="#{label}">性別:</label> ${pets.gender}
-										<!-- 					<div class="bar"></div> -->
 									</div>
 
 									<div class="ra1">
@@ -442,7 +377,6 @@ margin:auto;
 
 									<div class="ra1">
 										<label for="#{label}">喜愛食物:</label> ${pets.food.name}
-										<!-- 					<div class="bar"></div> -->
 									</div>
 
 									<div class="ra1">
@@ -450,19 +384,16 @@ margin:auto;
 									</div>
 
 									<div class="button-container">
-										<button type="submit">
-											<span>確認</span>
+										<a href="<c:url value='/' />pet/update/${pets.id}">
+										<button type="button">
+											<span>編輯</span>
 										</button>
+										</a>
 									</div>
 								</div>
 							</div>
-
-
-
-
 							<!-- 					---------------------------- -->
 						</div>
-
 					</c:forEach>
 				</c:forEach>
 			</div>

@@ -22,15 +22,29 @@ public class PetImgDaoImpl {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<PetImg> findPetImgByPetId(int petId) {
-		String hql = "from PetImg p where p.pet.id=:id";
-		List<PetImg> list = new ArrayList<>();
+	public List<String> findPetImgIdByPetId(int petId) {
+		String hql = "select p.id from PetImg p where p.pet.id=:id";
+		List<String> list = new ArrayList<>();
 		try {
-			list = (List<PetImg>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
+			list = (List<String>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
 			System.out.println(hql);
 		} catch (NoResultException e) {
 			;
 		}
 		return list;
 	}
+	
+//	@SuppressWarnings("unchecked")
+//	public List<PetImg> findPetImgByPetId(int petId) {
+//		String hql = "from PetImg p where p.pet.id=:id";
+//		List<PetImg> list = new ArrayList<>();
+//		try {
+//			list = (List<PetImg>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
+//			System.out.println(hql);
+//		} catch (NoResultException e) {
+//			;
+//		}
+//		return list;
+//	}
+	
 }

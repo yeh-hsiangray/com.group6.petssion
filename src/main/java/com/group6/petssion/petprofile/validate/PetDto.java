@@ -55,7 +55,7 @@ public class PetDto {
 	private Integer userId;
 	private Users user;
 
-	
+//	@NotNull(message = "必須上傳圖片")
 	List<MultipartFile> img;
 
 
