@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
 import com.group6.petssion.bean.Users;
+import com.group6.petssion.bean.UsersImg;
 import com.group6.petssion.match.service.MatchStatusService;
 import com.group6.petssion.repository.HobbyRepository;
 import com.group6.petssion.repository.MatchStatusRepository;
@@ -35,25 +36,32 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 	
 	
 	@Override
-	public Optional<Hobby> getUsersById(int hobbyId) {
-		return hobbyRepository.findById(hobbyId);
+	public Optional<Hobby> getUsersById(int id) {
+		//檔案存檔 users 
+		return hobbyRepository.findById(id);
 	}
-
-
 
 	@Override
 	public List<Hobby> getHobby() {
 		
 		return hobbyRepository.findAll();
 	}
-
-
-
+	
 	@Override
-	public List<Hobby> getUsers() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Users> getUsersImg() {
+		
+		return usersRepository.findAll();
 	}
+
+
+
+
+//
+//	@Override
+//	public List<Hobby> getUsers() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 
 
@@ -66,6 +74,12 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 
 	@Override
 	public List<Users> getUserB() {
+		return null;
+	}
+
+	@Override
+	public List<Hobby> getUsers() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

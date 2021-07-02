@@ -6,11 +6,12 @@ import java.util.Optional;
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
 import com.group6.petssion.bean.Users;
+import com.group6.petssion.bean.UsersImg;
 
 public interface MatchStatusService {
 	
 
-	Optional<Hobby> getUsersById(int hobbyId);
+	Optional<Hobby> getUsersById(int id);
 
 
 	List<Hobby> getHobby();
@@ -20,8 +21,9 @@ public interface MatchStatusService {
 	
 	
 	MatchStatus save(MatchStatus status);
+		
 	
-	
+	List<Users> getUsersImg();
 	
 	List<Users> getUserB();
 	

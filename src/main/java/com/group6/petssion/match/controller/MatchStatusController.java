@@ -26,7 +26,7 @@ public class MatchStatusController {
 	@Autowired
 	private MatchStatusService matchStatusService;
 	
-
+	
 	
 	@GetMapping("/selectHobby/getUsers")
 	public @ResponseBody Hobby getHobby(@RequestParam Integer id, 
@@ -35,7 +35,7 @@ public class MatchStatusController {
 		Optional<Hobby> optional =  matchStatusService.getUsersById(id);
 		if (optional.isPresent()) {
 			hobby = optional.get();
-			
+			System.out.println(id);
 		} else {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
@@ -45,11 +45,15 @@ public class MatchStatusController {
 	@GetMapping("/_05/allHobbys")
 	public ResponseEntity<List<Hobby>>  allHobbys()  {
 		List<Hobby> list =  matchStatusService.getHobby();
+		
 		ResponseEntity<List<Hobby>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
 	}
 	
 
+	
+	
+	
 	@PostMapping("/save")
 	public @ResponseBody MatchStatus setMatchStatusByUserB(
 			@RequestParam int user_A,

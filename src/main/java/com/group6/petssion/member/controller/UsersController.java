@@ -154,9 +154,10 @@ public class UsersController {
 					try {
 						byte[] b = picture.getBytes();
 						
-						Blob blob = new SerialBlob(b);
+//						Blob blob = new SerialBlob(b);
 						usersImg.setFileName(fileName);
-						usersImg.setUsersImage(blob);
+						usersImg.setUsersImage(b);
+//						usersImg.setUsersImage(blob);
 						usersImg.setUsers(user);
 						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
 						usersImgSet.add(usersImg);
@@ -226,15 +227,43 @@ public class UsersController {
 				mediaType = MediaType.valueOf(context.getMimeType(filename));
 				headers.setContentType(mediaType);
 			}
-			Blob blob = userImg.getUsersImage();
+			byte[] blob = userImg.getUsersImage();
 			if (blob != null) {
-				body = blobToByteArray(blob);
+				body =blob;
 			}
 		}
 		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 		System.out.println(re);
 		return re;
 	}
+//	@GetMapping("/picture/{id}")
+//	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
+//		byte[] body = null;
+//		ResponseEntity<byte[]> re = null;
+//		MediaType mediaType = null;
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//		
+//		List<UsersImg> usersImgs = usersImgService.findUserImgByUserId(id);
+//		
+//		for (UsersImg userImg : usersImgs) {
+//			if (usersImgs == null) {
+//				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+//			}
+//			String filename = userImg.getFileName();
+//			if (filename != null) {
+//				mediaType = MediaType.valueOf(context.getMimeType(filename));
+//				headers.setContentType(mediaType);
+//			}
+//			Blob blob = userImg.getUsersImage();
+//			if (blob != null) {
+//				body = blobToByteArray(blob);
+//			}
+//		}
+//		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+//		System.out.println(re);
+//		return re;
+//	}
 
 	public byte[] blobToByteArray(Blob blob) {
 		byte[] result = null;
@@ -249,6 +278,19 @@ public class UsersController {
 			e.printStackTrace();
 		}
 		return result;
+//		public byte[] blobToByteArray(Blob blob) {
+//			byte[] result = null;
+//			try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+//				byte[] b = new byte[819200];
+//				int len = 0;
+//				while ((len = is.read(b)) != -1) {
+//					baos.write(b, 0, len);
+//				}
+//				result = baos.toByteArray();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return result;
 	}
 
 	/**

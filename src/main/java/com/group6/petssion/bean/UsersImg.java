@@ -1,6 +1,6 @@
 package com.group6.petssion.bean;
 
-import java.sql.Blob;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -9,30 +9,38 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "UsersImg")
-public class UsersImg {
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class UsersImg implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String fileName;
-	private Blob usersImage;
+	
+	@Lob
+	private byte[] usersImage;
 	@Column(name = "fk_Users_id")
 	@Transient
 	private Integer usersId;
 	@ManyToOne
 	@JoinColumn(name = "fk_Users_id")
+	@JsonIgnore
 	private Users users;
 
 	public UsersImg() {
 	}
 
-	public UsersImg(Integer id, Timestamp admissionTime, String fileName, Blob usersImage, Integer usersId,
+	public UsersImg(Integer id, Timestamp admissionTime, String fileName, byte[] usersImage, Integer usersId,
 			Users users) {
 		super();
 		this.id = id;
@@ -58,11 +66,11 @@ public class UsersImg {
 		this.fileName = fileName;
 	}
 
-	public Blob getUsersImage() {
-		return usersImage;
+	public byte[] getUsersImage() {
+		return usersImage ;
 	}
 
-	public void setUsersImage(Blob usersImage) {
+	public void setUsersImage(byte[] usersImage) {
 		this.usersImage = usersImage;
 	}
 

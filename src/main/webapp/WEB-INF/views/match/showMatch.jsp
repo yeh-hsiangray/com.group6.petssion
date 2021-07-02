@@ -39,7 +39,7 @@
 				for (var i = 0; i < hobbyJson.length; i++) {
 					console.log(hobbyJson[i])
 					// 每一個興趣與主鍵值放入一個陣列
-					var hobby = [ hobbyJson[i].name, hobbyJson[i].hobbyId ];
+					var hobby = [ hobbyJson[i].name, hobbyJson[i].id ];
 					// 在將此陣列放入(push)陣列companyData中
 					
 					companyData.push(hobby);
@@ -54,7 +54,7 @@
 				}
 			}
 		}
-		xhr.open("GET", "<c:url value='/match/_05/allHobbys' />", true);
+		xhr.open("GET", "<c:url value='/match/_05/allHobbys'/>", true);
 		xhr.send();
 		
 		
@@ -68,7 +68,7 @@
 			}
 // 			單個option的屬性 (obj.options[obj.selecedIndex]是指定的某個<option>標籤,是一個—)
 			//使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
-			var hobbyId = selectElement.options[ selectElement.selectedIndex ].value;
+			var id = selectElement.options[ selectElement.selectedIndex ].value;
 			// 定義open方法
 			xhr2.open("GET", "<c:url value='/match/selectHobby/getUsers' />" + "?id=" + id, true);
 			// 送出請求
@@ -104,17 +104,17 @@
 		    	 		     			
 				console.log(dataJson[i])
 				var content="<input class='n"+i+" nav' name='nav' type='radio'>";			
-			        content += "<section class='s"+i+"'><div class='con'>";
+			        content += "<section class='s"+i+"'><div class='right'>";
          
-				content += "<p>姓名:" + dataJson.users[i].name + "</p>" +            
+			    content += "<p>姓名:" + dataJson.users[i].name + "</p>" +            
 				           "<p>性別:" + dataJson.users[i].gender + "</p>" +
 				           "<p>星座:" + dataJson.users[i].constellation + "</p>" +
-				           "<p>自我介紹:" + dataJson.users[i].selfintroduction + "</p>" +
-				           "<p>照片:<img  width='40' height='48' src='" + dataJson.users[i].usersImg + "'></p>"+			           
-				           "<p><button  type='button'  name='love_Btn'  id='submit_Btn' onClick='loveSubmit("+"\'"+dataJson.users[i].name+"\'"+")'>"+
+				           "<p>自我介紹:" + dataJson.users[i].selfintroduction + "</p></div>" +
+// 				           "<div class='left'><figure>照片:<img  width='40' height='48' src='" + dataJson.users[i].usersImg[0].usersImage + "'></figure></div>"+
+				           "<div><button  type='button'  name='love_Btn'  id='submit_Btn' onClick='loveSubmit("+"\'"+dataJson.users[i].id+"\'"+")'>"+
 				           "<img  src='../img/heart.png'></button>"+
 				           "<button  type='button'  name='hate_Btn'  id='submit_Btn' onClick='hateSubmit()'>"+
-				           "<img  src='../img/cross.png'></button></p>";
+				           "<img  src='../img/cross.png'></button>";
 		     }
 			content +="</div></section>";
 			showuser.innerHTML = content; 	
