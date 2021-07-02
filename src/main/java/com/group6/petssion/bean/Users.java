@@ -63,6 +63,7 @@ public class Users implements Serializable {
 	
 	//對應account類
 	@OneToOne(mappedBy = "users")
+	@JsonIgnore
 	private account_password account_password;
 	
 	// 對應Pet類

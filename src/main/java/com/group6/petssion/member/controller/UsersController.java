@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -26,19 +25,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
-import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.bean.UsersImg;
 import com.group6.petssion.member.service.HobbyService;
@@ -70,15 +66,40 @@ public class UsersController {
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
-		model.addAttribute("user", userService.findUserById(1));
-		return "/memberCenter";
+		List<Users> users = userService.findAllUserByUserId(1);
+		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
 		
+		for(Users user: users) {
+			Integer userId = user.getId();
+			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			map.put(userId, userImgIdList);
+		}
+		
+		model.addAttribute("userImgIdMap",map);
+		model.addAttribute("user", users);
+		
+		return "/memberCenter";
 	}
 	
 	
+	
+	
+	/**
+	 * 會員資訊
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	
+//	@GetMapping("/memberCenter")
+//	 public String list(Model model, HttpServletRequest request) {
+//
+//
+//	  model.addAttribute("user", userService.findUserById(1));
+//	  return "/memberCenter";
+//	  
+//	 }
+//	
 	
 	
 	
@@ -92,7 +113,7 @@ public class UsersController {
 	public String updateMember(Model model) {
 		Users user = new Users();
 		model.addAttribute("user", user);
-		System.out.println(user);
+		
 		return "/updateMember";
 	}
 	
@@ -137,7 +158,6 @@ public class UsersController {
 //		System.out.println(SessionUserId);
 
 		Users user = new Users();
-		Pet pet = new Pet();
 		BeanUtils.copyProperties(usersDto, user);
 		
 		user.setManager(2);
@@ -146,7 +166,7 @@ public class UsersController {
 //		----------------------------------
 		List<MultipartFile> pictures = user.getImg();
 		
-		if (null != pictures && pictures.size() > 0) {
+		if (pictures != null && pictures.size() > 0) {
 			for (MultipartFile picture : pictures) {
 				UsersImg usersImg = new UsersImg();
 				String fileName = picture.getOriginalFilename();
@@ -159,12 +179,10 @@ public class UsersController {
 						usersImg.setUsersImage(b);
 //						usersImg.setUsersImage(blob);
 						usersImg.setUsers(user);
+						System.out.println(blob);
 						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
 						usersImgSet.add(usersImg);
 						user.setUsersImg(usersImgSet);
-						List<Pet> petSet = new ArrayList<Pet>();
-						petSet.add(pet);
-						user.setPet(petSet);
 						
 						try {
 							userService.saveUser(user);
@@ -212,14 +230,14 @@ public class UsersController {
 	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
 		byte[] body = null;
 		ResponseEntity<byte[]> re = null;
+		
 		MediaType mediaType = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 
-		List<UsersImg> usersImgs = usersImgService.findUserImgByUserId(id);
-
-		for (UsersImg userImg : usersImgs) {
-			if (usersImgs == null) {
+		UsersImg userImg=usersImgService.get(id);
+		
+			if (userImg == null) {
 				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
 			}
 			String filename = userImg.getFileName();
@@ -231,7 +249,7 @@ public class UsersController {
 			if (blob != null) {
 				body =blob;
 			}
-		}
+			
 		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 		System.out.println(re);
 		return re;
@@ -304,58 +322,58 @@ public class UsersController {
 	}
 	
 	
-	/**
-	 * 根據id刪除User資料
-	 * 
-	 * @param id
-	 */
-	@DeleteMapping("/delete/{id}")
-	public void delete(@PathVariable("id") Integer id) {
-		userService.deleteById(id);
-	}
-	
-	
-	/**
-	 * Updated
-	 * @param putuser
-	 * @param id
-	 * @return
-	 */
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> update(@RequestBody Users putuser, @PathVariable Integer id) {
-		try {
-			Users users = userService.findUserById(id);
-			users.setName(putuser.getName());
-			users.setGender(putuser.getGender());
-			users.setBirthday(putuser.getBirthday());
-			users.setAddress(putuser.getAddress());
-			
-			
-			userService.saveUser(users);
-			return new ResponseEntity<>(HttpStatus.OK);
-		} catch (NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	/**
-	 * 特定id
-	 * @param id
-	 * @return
-	 */
-	@GetMapping("/find/{id}")
-	public ResponseEntity<Users> get(@PathVariable(required = false) Integer id) {
-		try {
-			Users product = userService.findUserById(id);
-			return new ResponseEntity<Users>(product, HttpStatus.OK);
-		} catch(NoSuchElementException e) {
-			return new ResponseEntity<Users>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@GetMapping("/all")
-	public List<Users> listUserAll() {
-		return userService.listUserAll();
-	}
+//	/**
+//	 * 根據id刪除User資料
+//	 * 
+//	 * @param id
+//	 */
+//	@DeleteMapping("/delete/{id}")
+//	public void delete(@PathVariable("id") Integer id) {
+//		userService.deleteById(id);
+//	}
+//	
+//	
+//	/**
+//	 * Updated
+//	 * @param putuser
+//	 * @param id
+//	 * @return
+//	 */
+//	@PutMapping("/update/{id}")
+//	public ResponseEntity<?> update(@RequestBody Users putuser, @PathVariable Integer id) {
+//		try {
+//			Users users = userService.findUserById(id);
+//			users.setName(putuser.getName());
+//			users.setGender(putuser.getGender());
+//			users.setBirthday(putuser.getBirthday());
+//			users.setAddress(putuser.getAddress());
+//			
+//			
+//			userService.saveUser(users);
+//			return new ResponseEntity<>(HttpStatus.OK);
+//		} catch (NoSuchElementException e) {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//	}
+//	
+//	/**
+//	 * 特定id
+//	 * @param id
+//	 * @return
+//	 */
+//	@GetMapping("/find/{id}")
+//	public ResponseEntity<Users> get(@PathVariable(required = false) Integer id) {
+//		try {
+//			Users product = userService.findUserById(id);
+//			return new ResponseEntity<Users>(product, HttpStatus.OK);
+//		} catch(NoSuchElementException e) {
+//			return new ResponseEntity<Users>(HttpStatus.NOT_FOUND);
+//		}
+//	}
+//	
+//	@GetMapping("/all")
+//	public List<Users> listUserAll() {
+//		return userService.listUserAll();
+//	}
 
 }

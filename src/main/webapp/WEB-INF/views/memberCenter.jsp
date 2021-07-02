@@ -324,7 +324,7 @@ margin:auto;
 		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
 
 	<c:choose>
-		<c:when test="${empty users}">
+		<c:when test="${empty user}">
 			<p align="center">
 				沒有任何資料<br>
 		</c:when>
@@ -332,18 +332,13 @@ margin:auto;
 
 			<div id="tab-demo">
 
-				<ul class="tab-title">
-					<c:forEach var='users' items='${users}' varStatus="userStatus">
-						<c:forEach var='i' begin="${userStatus.begin}"
-							end="${userStatus.end}">
-
-							<li value="${i}"><a href="#tab0${userStatus.index}">${users.name}</a></li>
-							<!-- 					<li><a href="#tab02">tab02</a></li> -->
-							<!-- 					<li><a href="#tab03">tab03</a></li> -->
-
-						</c:forEach>
-					</c:forEach>
-				</ul>
+<!-- 				<ul class="tab-title"> -->
+<%-- 					<c:forEach var='users' items='${user}' varStatus="userStatus"> --%>
+<%-- 						<c:forEach var='i' begin="${userStatus.begin}" end="${userStatus.end}"> --%>
+<%-- 							<li value="${i}"><a href="#tab0${userStatus.index}">${users.name}</a></li> --%>
+<%-- 						</c:forEach> --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</ul> -->
 
 				<c:forEach var='users' items='${user}' varStatus="userStatus">
 					<c:forEach var='i' begin="${userStatus.begin}"
@@ -357,77 +352,19 @@ margin:auto;
 									<h1 class="title">個人檔案:${users.name}</h1>
 									<table class="t1">
 										<tr>
-											<td><label> <input type="file"
-													targetID="preview_usersImage"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> 
-													<img id="preview_usersImage"
-													src='picture/${users.id}'
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_usersImage1"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage1"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_usersImage2"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage2"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_usersImage3"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage3"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-										</tr>
-										<tr>
-											<td><label> <input type="file"
-													targetID="preview_usersImage4"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage4"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_usersImage5"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage5"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_usersImage6"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage6"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-											<td><label> <input type="file"
-													targetID="preview_usersImage7"
-													accept="image/gif, image/jpeg, image/png"
-													onchange="readURL(this)" /> <img id="preview_usersImage7"
-													src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png"
-													width="200px" />
-											</label></td>
-										</tr>
+											<c:forEach var='userImg' items='${userImgIdMap[users.id]}' varStatus="userStatus">
+												<td>
+													<img id="preview_userImage" src='picture/${userImg}' width="200px" />
+												</td>
+											</c:forEach>
+											</tr>
 									</table>
 									<br> <br> <br>
 
 									<div class="ra1">
 										<label for="#{label}">名字:</label> ${users.name}
-										<div class="bar"></div>
+<!-- 										<div class="bar"></div> -->
 									</div>
-									<div class="ra1">
-										<label for="#{label}">性別:</label> ${users.gender}
-									</div>
-									
 									<div class="ra1">
 										<label for="#{label}">性別:</label> ${users.gender}
 									</div>
@@ -435,6 +372,54 @@ margin:auto;
 									<div class="ra1">
 										<label for="#{label}">生日:</label>
 										${users.birthday}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">住址:</label>
+										${users.address}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">星座:</label>
+										${users.constellation}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">身高:</label>
+										${users.height}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">體重:</label>
+										${users.weight}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">行動電話:</label>
+										${users.mobilephone}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">工作:</label>
+										${users.job.name}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">興趣:</label>
+										${users.hobby}
+									</div>
+									
+									<div class="ra1">
+										<label for="#{label}">自我介紹:</label>
+										${users.selfintroduction}
+									</div>
+									
+									<div class="button-container">
+										<a href="<c:url value='/' />updateMember/${users.id}">
+										<button type="button">
+											<span>編輯</span>
+										</button>
+										</a>
 									</div>
 								</div>
 							</div>
