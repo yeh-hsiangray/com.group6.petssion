@@ -36,7 +36,7 @@ public class Users implements Serializable {
 	private String name;
 	private String gender;
 	
-	@DateTimeFormat
+//	@DateTimeFormat
 	private Date birthday;
 	private String address;
 	private String constellation;
