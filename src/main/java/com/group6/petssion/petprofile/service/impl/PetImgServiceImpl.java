@@ -53,11 +53,8 @@ public class PetImgServiceImpl implements PetImgService {
 	}
 
 	@Override
-	public List<String> findPetImgIdByPetId(int petId) {
+	public List<Integer> findPetImgIdByPetId(int petId) {
 		return petImgDao2.findPetImgIdByPetId(petId);
 	}
-//	public List<PetImg> findPetImgByPetId(int petId){
-//		return petImgDao2.findPetImgByPetId(petId);
-//	}
 	
 }

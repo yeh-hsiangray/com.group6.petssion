@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>InsertPet</title>
 <style type="text/css">
 span.error {
 	color: red;
@@ -266,7 +266,7 @@ display: none;
 				<td>
 					<label>
 					<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage${loop.count}" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
+					<img id="preview_petImage${loop.count}" src="<c:url value='/' />img/plus.png" width="200px"/>
 					</label>
 				</td>
 				

@@ -10,6 +10,7 @@ public interface PetImgService {
 	PetImg get(Integer id);
 	void updatePetImg(PetImg petImg);
 	List<PetImg> finAllPetImg();
-	List<String> findPetImgIdByPetId(int petId);
-//	public List<PetImg> findPetImgByPetId(int petId);
+	List<Integer> findPetImgIdByPetId(int petId);
+//	List<String> delPetImgByPetImgId(int imgId);
+//	void delPetImgByPetImgId(int imgId);
 }

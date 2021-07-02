@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>UpdatePet</title>
 <style type="text/css">
 span.error {
 	color: red;
@@ -247,13 +247,16 @@ margin: auto;
 .b1{
 display: none;
 }
+#del1{
+float: right;
+}
 </style>
 </head>
 <body>
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
-			<h1 class="title">寵物檔案</h1>
+			<h1 class="title">寵物檔案:${pet.name}</h1>
 			<form:form method="POST" modelAttribute="pet"
 				enctype="multipart/form-data">
 				<div class="a1">
@@ -261,28 +264,35 @@ display: none;
 					</div>
 				<table class="t1">
 				<tr>
-			<c:forEach begin="0" end="21" step="3" varStatus="loop">
-			
-				<td>
-					<label>
-					<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-					<img id="preview_petImage${loop.count}" src="https://i.ibb.co/Zm54hdZ/plus-removebg-preview.png" width="200px"/>
-					</label>
-				</td>
+				<c:forEach var='petImg' items='${petImgIdMap[pet.id]}' varStatus="loop">
 				
-				<c:if test="${loop.count % 4 == 0}" >
-				<tr></tr>
-				</c:if>
-				
-			</c:forEach>
+					<td>
+						<c:if test="${empty petImg}" >
+							<label>
+							<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<img id="preview_petImage${loop.count}" src="<c:url value='/' />img/plus.png" width="200px"/>
+							</label>
+						</c:if>
+						
+						<c:if test="${not empty petImg}">
+							
+							<a href="<c:url value='/' />pet/delPicture/${petImg}-${pet.id}">
+											<img  src="<c:url value='/' />img/x.png" width="23px" id="del1">
+										</a>
+							
+							<label>
+							<form:input id="fileInput" type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<img id="preview_petImage${loop.count}" src="<c:url value='/' />pet/picture/${petImg}" width="200px"/>
+							</label>
+						</c:if>
+					</td>
+<!-- 					在4格後新增tr換列 -->
+					<c:if test="${loop.count % 4 == 0}" >
+					<tr></tr>
+					</c:if>
+					
+				</c:forEach>
 				</tr>
-
-
-<%-- 				<c:forEach var='petImg' items='${petImgIdMap[pet.id]}' varStatus="petStatus"> --%>
-<!-- 					<td> -->
-<%-- 						<img id="preview_petImage" src="<c:url value='/' />pet/picture/${petImg}" width="200px" /> --%>
-<!-- 					</td> -->
-<%-- 				</c:forEach> --%>
 				</table>
 				<br>
 				<br>
@@ -312,6 +322,20 @@ display: none;
 					  }
 
 					}
+				
+// 				  var btn = document.getElementById("del1");
+// 				     var file = document.getElementById("fileInput");
+// 				 btn.onclick = function() {
+// 				         // for IE, Opera, Safari, Chrome
+// 				         if (file.outerHTML) {
+// 				             file.outerHTML = file.outerHTML
+
+				 
+
+// 				} else { // FF(包括3.5)
+// 				             file.value = "";
+// 				         }
+// 				    }
 				</script>
 <!-- 			=========================================================== -->
 
