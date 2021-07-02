@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,28 +80,6 @@ public class UsersController {
 		return "/memberCenter";
 	}
 	
-	
-	
-	
-	/**
-	 * 會員資訊
-	 * @param model
-	 * @param request
-	 * @return
-	 */
-	
-//	@GetMapping("/memberCenter")
-//	 public String list(Model model, HttpServletRequest request) {
-//
-//
-//	  model.addAttribute("user", userService.findUserById(1));
-//	  return "/memberCenter";
-//	  
-//	 }
-//	
-	
-	
-	
 	/**
 	 * 進入編輯個人資料
 	 * @param model
@@ -116,15 +93,6 @@ public class UsersController {
 		
 		return "/updateMember";
 	}
-	
-	/**
-	 * 進入個人資訊
-	 * @return
-	 */
-//	@GetMapping("/memberCenter")
-//	public String memberCenter() {
-//		return "memberCenter";
-//	}
 	
 	/**
 	 * 更新個人資訊
@@ -201,7 +169,57 @@ public class UsersController {
 		return "redirect:/user/memberCenter";
 	}
 	
+	@GetMapping(value = "/update/{id}")
+	public String showDataForm(@PathVariable("id") Integer id, Model model) {
+		
+		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Users users = userService.get(id);
+			Integer userId = users.getId();
+			System.out.println(userId);
+			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			map.put(userId, userImgIdList);
+		
+			model.addAttribute("userImgIdMap",map);
+			model.addAttribute("user", users);
+		return "/ModifyUser";
+	}
 	
+	@PostMapping("/update/{id}")
+	public String modify(@ModelAttribute("user") @Valid UsersDto usersDto,
+			BindingResult result,
+			Model model,
+			@PathVariable Integer id
+			) {
+
+		if (usersDto.getJob().getId() == -1) {
+			result.rejectValue("job", "", "必須挑選工作的選項");
+		}
+		if (usersDto.getHobby().getId() == -1) {
+			result.rejectValue("hobby", "", "必須挑選興趣的選項");
+		}
+
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				System.out.println("有錯誤：" + error);
+			}
+			return "/ModifyUser";
+		}
+
+
+		Users user = new Users();
+		BeanUtils.copyProperties(usersDto, user);
+
+
+//		-------------------------------------------------
+		try {
+			userService.updateUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/updateMember";
+		}
+		return "redirect:/memberCenter";
+	}
 	
 	
 	
@@ -268,16 +286,6 @@ public class UsersController {
 		}
 		return result;
 	}
-
-	/**
-	 * 新增資料
-	 * 
-	 * @param user
-	 */
-	@PostMapping("/create")
-	public void add(@RequestBody Users user) {
-		userService.saveUser(user);
-	}
 	
 	
 //	/**
@@ -288,30 +296,6 @@ public class UsersController {
 //	@DeleteMapping("/delete/{id}")
 //	public void delete(@PathVariable("id") Integer id) {
 //		userService.deleteById(id);
-//	}
-//	
-//	
-//	/**
-//	 * Updated
-//	 * @param putuser
-//	 * @param id
-//	 * @return
-//	 */
-//	@PutMapping("/update/{id}")
-//	public ResponseEntity<?> update(@RequestBody Users putuser, @PathVariable Integer id) {
-//		try {
-//			Users users = userService.findUserById(id);
-//			users.setName(putuser.getName());
-//			users.setGender(putuser.getGender());
-//			users.setBirthday(putuser.getBirthday());
-//			users.setAddress(putuser.getAddress());
-//			
-//			
-//			userService.saveUser(users);
-//			return new ResponseEntity<>(HttpStatus.OK);
-//		} catch (NoSuchElementException e) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
 //	}
 //	
 //	/**

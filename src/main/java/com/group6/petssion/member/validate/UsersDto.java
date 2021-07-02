@@ -48,7 +48,6 @@ public class UsersDto {
 	@NotNull
 	private Job job;
 	
-	@NotNull
 	private Hobby hobby;
 	
 	@Length(min=1,max = 100,message="自我介紹字數最多1到100之間")
