@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<title>Insert title here</title>
+<title>ShowPet</title>
 <style type="text/css">
 span.error {
 	color: red;
@@ -348,10 +348,15 @@ margin:auto;
 									<h1 class="title">寵物檔案:${pets.name}</h1>
 									<table class="t1">
 										<tr>
+<!-- 										用map的key值去對應到petId 取出對應的圖片id -->
 											<c:forEach var='petImg' items='${petImgIdMap[pets.id]}' varStatus="petStatus">
 												<td>
 													<img id="preview_petImage" src='picture/${petImg}' width="200px" />
 												</td>
+<!-- 												在4格後新增tr換列 -->
+												<c:if test="${petStatus.count % 4 == 0}" >
+													<tr></tr>
+												</c:if>
 											</c:forEach>
 											
 											</tr>

@@ -22,11 +22,11 @@ public class PetImgDaoImpl {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<String> findPetImgIdByPetId(int petId) {
+	public List<Integer> findPetImgIdByPetId(int petId) {
 		String hql = "select p.id from PetImg p where p.pet.id=:id";
-		List<String> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<>();
 		try {
-			list = (List<String>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
+			list = (List<Integer>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
 			System.out.println(hql);
 		} catch (NoResultException e) {
 			;
@@ -35,16 +35,15 @@ public class PetImgDaoImpl {
 	}
 	
 //	@SuppressWarnings("unchecked")
-//	public List<PetImg> findPetImgByPetId(int petId) {
-//		String hql = "from PetImg p where p.pet.id=:id";
-//		List<PetImg> list = new ArrayList<>();
+//	public List<String> delPetImgByPetImgId(int imgId) {
+//		String hql = "delete from PetImg p where p.id=:id";
+//		List<String> list = new ArrayList<>();
 //		try {
-//			list = (List<PetImg>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
+//			list = (List<String>) entityManager.createQuery(hql).setParameter("id", imgId).getResultList();
 //			System.out.println(hql);
 //		} catch (NoResultException e) {
 //			;
 //		}
 //		return list;
 //	}
-	
 }
