@@ -27,7 +27,7 @@ import com.group6.petssion.bean.FriendlyEnv;
 import com.group6.petssion.friendlyEnvProfile.service.FriendlyEnvService;
 
 @Controller
-@SessionAttributes({ "userRole" })
+@SessionAttributes({ "userRole"})
 public class FriendlyController {
 
 	@Autowired

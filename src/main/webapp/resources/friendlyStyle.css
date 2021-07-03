@@ -20,9 +20,8 @@ body {
 	display: flex;
 	justify-content: center;
 	background-color: rgb(243, 224, 115) !important;
-	width: 100vw !important;
+	width: 100vw !important; 
 	color: black !important;
-	margin-top: 30px;
 }
 
 .black {
