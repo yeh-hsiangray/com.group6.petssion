@@ -1,18 +1,28 @@
 package com.group6.petssion.petprofile.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.group6.petssion.bean.Food;
+import com.group6.petssion.bean.Kind;
+import com.group6.petssion.bean.Personality;
 import com.group6.petssion.bean.Pet;
-@Repository 
-public class PetDaoImpl{
 
-	@Autowired
-	EntityManager  entityManager;
-	
+import com.group6.petssion.bean.Type;
+
+@Repository
+public class PetDaoImpl {
+
+	@PersistenceContext
+	EntityManager entityManager;
+
+
 	public void updatePet(Pet pet) {
 		entityManager.clear();
 		entityManager.merge(pet);
@@ -31,34 +41,60 @@ public class PetDaoImpl{
 //		return exist;
 //	}
 //
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 //	@Override
-//	public List<Pet> findAllPetByUserId(int userId) {
-//		String hql="FROM Pet p WHERE p.fk_user_id.id=:id";
-//		List<Pet> list=new ArrayList<>();
-//		try {
-//			list = (List<Pet>) entityManager.createQuery(hql)
-//					.setParameter("id", userId)
-//					.getResultList();
-//		} catch (NoResultException e) {
-//			;
-//		}
-//		return list;
-//	}
-//
-//
-//	@Override
+	public List<Pet> findAllPetByUserId(int userId) {
+		String hql = "from Pet p where p.user.id=:id";
+		List<Pet> list = new ArrayList<>();
+		try {
+			list = (List<Pet>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();
+			System.out.println(hql);
+		} catch (NoResultException e) {
+			;
+		}
+		return list;
+	}
+
 	public boolean isUsersExist(Pet pet) {
-		boolean exist=false;
-		String hql="FROM Pet p WHERE p.fk_user_id.id=:id";
+		boolean exist = false;
+		String hql = "from Pet p where p.user.id=:id";
 		try {
 			entityManager.createQuery(hql).setParameter("id", pet.getUserId()).getSingleResult();
-		exist=true;
+			exist = true;
 		} catch (NoResultException e) {
 			;
 		}
 		return exist;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Pet> getAllPetNameByUserId(int userId) {
+		String hql = "select p.name from Pet p where p.user.id=:id";
+		List<Pet> list = new ArrayList<>();
+		try {
+			list = (List<Pet>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();
+			System.out.println(hql);
+		} catch (NoResultException e) {
+			;
+		}
+		return list;
+	}
+	
+	
+	public void detachFood(Food food) {
+		entityManager.detach(food);
+	}
+	
+	public void detachType(Type type) {
+		entityManager.detach(type);
+	}
+	
+	public void detachKind(Kind kind) {
+		entityManager.detach(kind);
+	}
+	
+	public void detachPersonality(Personality personality) {
+		entityManager.detach(personality);
+	}
 
 }

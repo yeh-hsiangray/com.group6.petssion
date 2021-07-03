@@ -1,64 +1,49 @@
 package com.group6.petssion.petprofile.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
 import com.group6.petssion.bean.PetImg;
-import com.group6.petssion.repository.PetImgDao;
+@Repository
+public class PetImgDaoImpl {
+	
+	@PersistenceContext
+	EntityManager entityManager;
 
-public class PetImgDaoImpl implements PetImgDao{
-
-	@Override
-	public PetImg findByPrimaryKey(int key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public PetImg findByPetId(int petId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int savePetImg(PetImg petImg) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void updatePetImg(PetImg petImg) {
-		// TODO Auto-generated method stub
-		
+		entityManager.clear();
+		entityManager.merge(petImg);
 	}
-
-	@Override
-	public void deletePetImgByPrimaryKey(int key) {
-		// TODO Auto-generated method stub
-		
+	
+	@SuppressWarnings("unchecked")
+	public List<Integer> findPetImgIdByPetId(int petId) {
+		String hql = "select p.id from PetImg p where p.pet.id=:id";
+		List<Integer> list = new ArrayList<>();
+		try {
+			list = (List<Integer>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
+			System.out.println(hql);
+		} catch (NoResultException e) {
+			;
+		}
+		return list;
 	}
-
-	@Override
-	public List<PetImg> findAllPetImg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteAllPetImg() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isPetImgExist(PetImg petImg) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String checkPetImgId(String PetImgId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+//	@SuppressWarnings("unchecked")
+//	public List<String> delPetImgByPetImgId(int imgId) {
+//		String hql = "delete from PetImg p where p.id=:id";
+//		List<String> list = new ArrayList<>();
+//		try {
+//			list = (List<String>) entityManager.createQuery(hql).setParameter("id", imgId).getResultList();
+//			System.out.println(hql);
+//		} catch (NoResultException e) {
+//			;
+//		}
+//		return list;
+//	}
 }
