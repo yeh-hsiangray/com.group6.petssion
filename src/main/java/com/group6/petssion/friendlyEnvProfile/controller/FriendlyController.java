@@ -61,9 +61,10 @@ public class FriendlyController {
 		ModelAndView mv = new ModelAndView("envDetail");
 		FriendlyEnv friendlyEnv = service.get(Integer.valueOf(envId));
 		InputStream is = null;
-		if (friendlyEnv.getImage() != null) {
+		if (friendlyEnv.getImage() != null && !friendlyEnv.getFileName().isEmpty() && friendlyEnv.getFileName().trim().length()>0) {
 			is = new ByteArrayInputStream(friendlyEnv.getImage());
 		} else {
+			System.out.println("We are getting the default photo");
 			is = getDefaultPhoto();
 		}
 
@@ -241,6 +242,7 @@ public class FriendlyController {
 	public InputStream getDefaultPhoto() {
 		String fileName = "NoImage.jpg";
 		InputStream is = servletContext.getResourceAsStream("/images/" + fileName);
+		System.out.println("REALPATH====> "+ servletContext.getRealPath(fileName));
 		return is;
 	}
 
