@@ -152,7 +152,7 @@
 				<div>
 					<iframe width="650" height="380"
 						style="border: 2px solid teal; border-radius: 15px; margin: 15px 15px 0px 100px"
-						src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4kryss150V0AlcYltoIxQ251pM5Q6Cao&q=${envDetail.address}">
+						src="https://www.google.com/maps/embed/v1/place?key=&q=${address}">
 					</iframe>
 				</div>
 			</div>
