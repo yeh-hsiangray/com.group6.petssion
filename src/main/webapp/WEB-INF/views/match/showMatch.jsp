@@ -80,21 +80,24 @@
 		
 		function loveSubmit(id){
 			console.log(id);
+			var love=document.getElementById('love_Btn').value = '1';
+			var 
 			xhr3.onreadystatechange = function() {
 				if (xhr2.readyState == 4 && xhr2.status == 200) {
 					
+					
+			console.log("------love="+love+"&--------love_Btn="+id);
+					
+				}	
+			}		
 			xhr3.open("POST","<c:url value='/match/save' />",true);
 			xhr3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr3.send("love"+1 + "&user_B" + id );
-					
-				}
-			}
+			xhr3.send("user_B=" + id+"&status="+love);
+							
 			
 		}
 		
-			
-		  
-		
+					
 		
 		function displayUsers(responseText){
 			var dataJson = JSON.parse(responseText);
@@ -103,25 +106,39 @@
 		     for(var i=0; i < dataJson.users.length; i++){
 		    	 		     			
 				console.log(dataJson[i])
-				var content="<input class='n"+i+" nav' name='nav' type='radio'>";			
-			        content += "<section class='s"+i+"'><div class='right'>";
-         
-			    content += "<p>姓名:" + dataJson.users[i].name + "</p>" +            
-				           "<p>性別:" + dataJson.users[i].gender + "</p>" +
-				           "<p>星座:" + dataJson.users[i].constellation + "</p>" +
-				           "<p>自我介紹:" + dataJson.users[i].selfintroduction + "</p></div>" +
-// 				           "<div class='left'><figure>照片:<img  width='40' height='48' src='" + dataJson.users[i].usersImg[0].usersImage + "'></figure></div>"+
-				           "<div><button  type='button'  name='love_Btn'  id='submit_Btn' onClick='loveSubmit("+"\'"+dataJson.users[i].id+"\'"+")'>"+
-				           "<img  src='../img/heart.png'></button>"+
-				           "<button  type='button'  name='hate_Btn'  id='submit_Btn' onClick='hateSubmit()'>"+
-				           "<img  src='../img/cross.png'></button>";
+				var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
+			                "<section class='s"+i+"'><table>"+
+			                "<tr>"+
+			                       "<td>姓名:</td>"+
+			                       "<td>" + dataJson.users[i].name + "</td>" +               
+				                   "<td rowspan='4'>照片:</td>"+
+				                   "<td rowspan='4'><img  width='40' height='48' src='../img/profile.png'></td>"+
+				            "</tr>" +
+				            "<tr>"+
+				                   "<td > 性別:</td>"+ 
+				                   "<td >" + dataJson.users[i].gender + "</td>"+
+				            "</tr>" +
+				            "<tr>"+
+				                   "<td>星座:</td>"+
+				                   "<td>" + dataJson.users[i].constellation + "</td>"+
+				            "</tr>"+
+				            "<tr>"+
+				                   "<td>自我介紹:</td>"+
+				                   "<td>" + dataJson.users[i].selfintroduction + "</td>"+
+				            "</tr>"+
+				           "<tr>"+				                 				                  
+				            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson.users[i].id+")'>"+
+				                    "<img  src='../img/heart.png'></button>"+
+				                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit()'>"+
+				                     "<img  src='../img/cross.png'></button></td>"+
+				            "</tr>";
 		     }
-			content +="</div></section>";
+			content +="</table></section>";
 			showuser.innerHTML = content; 	
 			
 		}	
 		
-		
+// 		"+"\'"+dataJson.users[i].id+"\'"+"
 	</script>
 
 </body>
