@@ -34,16 +34,5 @@ public class PetImgDaoImpl {
 		return list;
 	}
 	
-//	@SuppressWarnings("unchecked")
-//	public List<String> delPetImgByPetImgId(int imgId) {
-//		String hql = "delete from PetImg p where p.id=:id";
-//		List<String> list = new ArrayList<>();
-//		try {
-//			list = (List<String>) entityManager.createQuery(hql).setParameter("id", imgId).getResultList();
-//			System.out.println(hql);
-//		} catch (NoResultException e) {
-//			;
-//		}
-//		return list;
-//	}
+	
 }

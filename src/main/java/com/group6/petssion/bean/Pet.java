@@ -33,22 +33,22 @@ public class Pet implements Serializable {
 	private Integer age;
 
 	// 對應喜愛食物選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_food_id")
 	private Food food;
 
 	// 對應種類類型選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_type_id")
 	private Type type;
 
 	// 對應種類選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_kind_id")
 	private Kind kind;
 
 	// 對應個性選項
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_personality_id")
 	private Personality personality;
 
@@ -64,15 +64,16 @@ public class Pet implements Serializable {
 	@JoinColumn(name = "fk_user_id")
 	private Users user;
 	@Transient
-	List<MultipartFile> img;
+	private List<MultipartFile> img;
+	@Transient
+	private List<Integer> delImgId;
 
 	public Pet() {
 	}
 
-	
-
 	public Pet(Integer id, String name, String gender, Integer age, Food food, Type type, Kind kind,
-			Personality personality, List<PetImg> petImg, Integer userId, Users user, List<MultipartFile> img) {
+			Personality personality, List<PetImg> petImg, Integer userId, Users user, List<MultipartFile> img,
+			List<Integer>delImgId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -86,9 +87,8 @@ public class Pet implements Serializable {
 		this.userId = userId;
 		this.user = user;
 		this.img = img;
+		this.delImgId = delImgId;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -154,8 +154,7 @@ public class Pet implements Serializable {
 		this.personality = personality;
 	}
 
-
-	public List<PetImg>getPetImg() {
+	public List<PetImg> getPetImg() {
 
 		return petImg;
 	}
@@ -180,16 +179,21 @@ public class Pet implements Serializable {
 		this.user = user;
 	}
 
-
-
 	public List<MultipartFile> getImg() {
 		return img;
 	}
 
-
-
 	public void setImg(List<MultipartFile> img) {
 		this.img = img;
 	}
+
+	public List<Integer> getDelImgId() {
+		return delImgId;
+	}
+
+	public void setDelImgId(List<Integer> delImgId) {
+		this.delImgId = delImgId;
+	}
+
 
 }

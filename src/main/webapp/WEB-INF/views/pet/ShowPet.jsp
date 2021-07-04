@@ -22,7 +22,7 @@ body {
 	background: #fff281;
 	color: #666666;
 	font-family: "RobotoDraft", "Roboto", sans-serif;
-	font-size: 16px;
+	font-size: 20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -81,7 +81,6 @@ body {
 	margin: 0 60px 50px;
 }
 
-
 .card .input-container input:focus ~ label {
 	color: #9d9d9d;
 	transform: translate(-12%, -50%) scale(0.9);
@@ -98,7 +97,7 @@ body {
 }
 
 .card .input-container label {
-/* 	position: absolute; */
+	/* 	position: absolute; */
 	top: 0;
 	left: 0;
 	color: #757575;
@@ -238,7 +237,6 @@ body {
 	display: none;
 }
 
-
 #tab-demo {
 	width: 400px;
 	height: 200px;
@@ -257,10 +255,10 @@ body {
 }
 
 #tab-demo>ul>li {
-	display:inline-block;
+	display: inline-block;
 	vertical-align: top;
 	font-family: '微軟正黑體';
-	font-size:20px;
+	font-size: 20px;
 	margin: 0 -1px -1px 0;
 	border: 1px solid #BCBCBC;
 	line-height: 25px;
@@ -273,7 +271,7 @@ body {
 #tab-demo>ul>li a {
 	color: #000;
 	text-decoration: none;
-	margin:auto;
+	margin: auto;
 }
 
 #tab-demo>ul>li.active {
@@ -282,15 +280,33 @@ body {
 }
 
 #tab-demo>.tab-inner {
-margin:auto;
+	margin: auto;
 	clear: both;
 	color: #000;
-/* 	border: 1px #BCBCBC solid; */
+	/* 	border: 1px #BCBCBC solid; */
 	width: 900px;
 }
 
+.imgPreview {
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%; /*容器佔滿整個螢幕*/
+	height: 100%;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.imgPreview img {
+	z-index: 100;
+	width: 40%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 </style>
-<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var $li = $('ul.tab-title li');
@@ -304,17 +320,37 @@ margin:auto;
 					.removeClass('active');
 		});
 	});
+
+	$(function() {
+
+		$('.img').on('click', function() {
+
+			var src = $(this).attr('src');
+			$('.imgPreview img').attr('src', src);
+			$('.imgPreview').show()
+		});
+		$('.imgPreview').on('click', function() {
+
+			$('.imgPreview').hide()
+		});
+	})
+	
+	function CheckForm(){
+				      if(confirm("確認刪除寵物資料嗎？")==true)   
+				        return true;
+				      else  
+				        return false;
+				    }
 </script>
 
 </head>
 <body>
-	
-			<div style="text-align: center">
-				<h1>寵物列表</h1>
-			</div>
-	
+
+	<div style="text-align: center">
+		<h1 style="font-weight: 600; font-size: 28px">寵物列表</h1>
+	</div>
 	<div align='center'>
-		<a href="<c:url value='/' />">新增寵物</a> <a href="<c:url value='/' />">回首頁</a>
+		<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;<a href="<c:url value='/' />">回首頁</a>
 	</div>
 	<hr
 		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
@@ -330,7 +366,8 @@ margin:auto;
 
 				<ul class="tab-title">
 					<c:forEach var='pets' items='${pet}' varStatus="petStatus">
-						<c:forEach var='i' begin="${petStatus.begin}" end="${petStatus.end}">
+						<c:forEach var='i' begin="${petStatus.begin}"
+							end="${petStatus.end}">
 							<li value="${i}"><a href="#tab0${petStatus.index}">${pets.name}</a></li>
 						</c:forEach>
 					</c:forEach>
@@ -341,26 +378,30 @@ margin:auto;
 						end="${petStatus.end}">
 
 						<div value="${i}" id="tab0${petStatus.index}" class="tab-inner">
-<!-- 							------------------------------------------------------------- -->
+							<!-- 							------------------------------------------------------------- -->
 							<div class="container">
 								<div class="card"></div>
 								<div class="card">
 									<h1 class="title">寵物檔案:${pets.name}</h1>
 									<table class="t1">
 										<tr>
-<!-- 										用map的key值去對應到petId 取出對應的圖片id -->
-											<c:forEach var='petImg' items='${petImgIdMap[pets.id]}' varStatus="petStatus">
-												<td>
-													<img id="preview_petImage" src='picture/${petImg}' width="200px" />
-												</td>
-<!-- 												在4格後新增tr換列 -->
-												<c:if test="${petStatus.count % 4 == 0}" >
+											<!-- 		用map的key值去對應到petId 取出對應的圖片id -->
+											<c:forEach var='petImg' items='${petImgIdMap[pets.id]}'
+												varStatus="petStatus">
+												<td><img id="preview_petImage" src='picture/${petImg}'
+													width="200px" class="img" /></td>
+												<!-- 	在4格後新增tr換列 -->
+												<c:if test="${petStatus.count % 4 == 0}">
 													<tr></tr>
 												</c:if>
 											</c:forEach>
-											
-											</tr>
-											</table>
+
+										</tr>
+									</table>
+									<p align="center" style="font-size: 15px">點擊圖片放大</p>
+									<div class="imgPreview">
+										<img src="#" alt="" id="imgPreview">
+									</div>
 									<br> <br> <br>
 
 									<div class="ra1">
@@ -390,9 +431,15 @@ margin:auto;
 
 									<div class="button-container">
 										<a href="<c:url value='/' />pet/update/${pets.id}">
-										<button type="button">
-											<span>編輯</span>
-										</button>
+											<button type="button">
+												<span>編輯</span>
+											</button>
+										</a>
+										
+										<a href="<c:url value='/' />pet/delete/${pets.id}">
+											<button type="button" onclick="return CheckForm()">
+												<span>刪除</span>
+											</button>
 										</a>
 									</div>
 								</div>
@@ -401,8 +448,8 @@ margin:auto;
 						</div>
 					</c:forEach>
 				</c:forEach>
+				<br>
 			</div>
-
 		</c:otherwise>
 	</c:choose>
 </body>
