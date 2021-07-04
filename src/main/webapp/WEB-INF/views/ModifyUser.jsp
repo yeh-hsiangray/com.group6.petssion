@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>UpdatePet</title>
+<title>編輯個人資訊</title>
 <style type="text/css">
 span.error {
 	color: red;
@@ -247,52 +247,33 @@ margin: auto;
 .b1{
 display: none;
 }
-#del1{
-float: right;
-}
 </style>
 </head>
 <body>
-	<div class="container">
+<div class="container">
 		<div class="card"></div>
 		<div class="card">
-			<h1 class="title">寵物檔案:${pet.name}</h1>
-			<form:form method="POST" modelAttribute="pet"
+			<h1 class="title">個人檔案</h1>
+			<form:form method="POST" modelAttribute="user"
 				enctype="multipart/form-data">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
 					</div>
 				<table class="t1">
+<%-- 			<c:forEach begin="0" end="21" step="3" varStatus="loop"> --%>
+<%-- 			<c:out value="${loop.count}"/> --%>
+<%-- 			<c:if test="${loop.count % 4 == 0}" > --%>
 				<tr>
-				<c:forEach var='petImg' items='${petImgIdMap[pet.id]}' varStatus="loop">
 				
+				<c:forEach var='userImg' items='${userImgIdMap[user.id]}' varStatus="userStatus">
 					<td>
-						<c:if test="${empty petImg}" >
-							<label>
-							<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-							<img id="preview_petImage${loop.count}" src="<c:url value='/' />img/plus.png" width="200px"/>
-							</label>
-						</c:if>
-						
-						<c:if test="${not empty petImg}">
-							
-							<a href="<c:url value='/' />pet/delPicture/${petImg}-${pet.id}">
-											<img  src="<c:url value='/' />img/x.png" width="23px" id="del1">
-										</a>
-							
-							<label>
-							<form:input id="fileInput" type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
-							<img id="preview_petImage${loop.count}" src="<c:url value='/' />pet/picture/${petImg}" width="200px"/>
-							</label>
-						</c:if>
+						<img id="preview_userImage" src="<c:url value='/' />user/picture/${userImg}" width="200px" />
 					</td>
-<!-- 					在4格後新增tr換列 -->
-					<c:if test="${loop.count % 4 == 0}" >
-					<tr></tr>
-					</c:if>
-					
 				</c:forEach>
+				
 				</tr>
+<%-- 			</c:if> --%>
+<%-- 			</c:forEach> --%>
 				</table>
 				<br>
 				<br>
@@ -322,20 +303,6 @@ float: right;
 					  }
 
 					}
-				
-// 				  var btn = document.getElementById("del1");
-// 				     var file = document.getElementById("fileInput");
-// 				 btn.onclick = function() {
-// 				         // for IE, Opera, Safari, Chrome
-// 				         if (file.outerHTML) {
-// 				             file.outerHTML = file.outerHTML
-
-				 
-
-// 				} else { // FF(包括3.5)
-// 				             file.value = "";
-// 				         }
-// 				    }
 				</script>
 <!-- 			=========================================================== -->
 
@@ -354,41 +321,78 @@ float: right;
 				</div>
 
 				<div class="input-container">
-					<form:input path='age' type="#{type}" id="#{label}"
+					<form:input path='birthday' type="#{type}" id="#{label}"
 						autocomplete="off" required="required" />
-					<form:errors path="age" cssClass="error" />
-					<label for="#{label}">年齡:</label>
+					<form:errors path="birthday" cssClass="error" />
+					<label for="#{label}">生日:</label>
 					<div class="bar"></div>
 				</div>
+				
+				<div class="input-container">
+					<form:input path='address' type="#{type}" id="#{label}"
+						autocomplete="off" required="required" />
+					<form:errors path="address" cssClass="error" />
+ 					<label for="#{label}">住址:</label>
+					<div class="bar"></div>
+				</div>
+				
+				<div class="input-container">
+					<form:input path='constellation' type="#{type}" id="#{label}"
+						autocomplete="off" required="required" />
+					<form:errors path="constellation" cssClass="error" />
+ 					<label for="#{label}">星座:</label>
+					<div class="bar"></div>
+				</div>
+				
+				<div class="input-container">
+					<form:input path='height' type="#{type}" id="#{label}"
+						autocomplete="off" required="required" />
+					<form:errors path="height" cssClass="error" />
+					<label for="#{label}">身高:</label>
+					<div class="bar"></div>
+				</div>
+				
+				<div class="input-container">
+					<form:input path='weight' type="#{type}" id="#{label}"
+						autocomplete="off" required="required" />
+					<form:errors path="weight" cssClass="error" />
+					<label for="#{label}">體重:</label>
+					<div class="bar"></div>
+				</div>
+				
+				<div class="input-container">
+					<form:input path='mobilephone' type="#{type}" id="#{label}"
+						autocomplete="off" required="required" />
+					<form:errors path="mobilephone" cssClass="error" />
+					<label for="#{label}">行動電話:</label>
+					<div class="bar"></div>
+				</div>
+				
 				<div class="ra1">
-					<label for="#{label}">種類:</label>
-					<form:select path="type.id" name="s1"
+					<label for="#{label}">工作:</label>
+					<form:select path="job" name="s1"
 						OnChange="Buildkey(this.selectedIndex);">
 						<form:option label="請挑選" value="-1" />
-						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
+						<form:options items="${jobList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:select path="kind.id" name="s2">
-						<form:option label="請挑選" value="-1" />
-						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
-					</form:select>
-					<form:errors path="type" cssClass="error" />
-					<form:errors path="kind" cssClass="error" />
+					<form:errors path="job" cssClass="error" />
 				</div>
-
+				
+   				<div class="ra1">
+    					<label for="#{label}">興趣:</label>
+  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" itemValue="id" />
+ 				<form:errors path="hobby" cssClass="error" />
+ 									<div class="bar"></div>
+ 				</div>
+				
 				<div class="ra1">
-					<label for="#{label}">喜愛食物:</label>
-					<form:radiobuttons path="food.id" items="${foodList}"
-						itemLabel="name" itemValue="id" />
-					<form:errors path="food" cssClass="error" />
-					<!-- 					<div class="bar"></div> -->
-				</div>
-
-				<div class="ra1">
-					<label for="#{label}">個性:</label>
-					<form:radiobuttons path="personality.id" items="${personalityList}"
-						itemLabel="name" itemValue="id" />
-					<form:errors path="personality" cssClass="error" />
-					<!-- 					<div class="bar"></div> -->
+				<label for="#{label}">自我介紹(小提示:內容愈有趣愈能增加配對機率唷!!):</label>
+				<br>
+					<form:textarea style="resize:none;width:360px;height:150px;" path='selfintroduction' type="#{textarea}" id="#{label}"
+						autocomplete="off" />
+					<form:errors path="selfintroduction" cssClass="error" />
+					
+<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="button-container">

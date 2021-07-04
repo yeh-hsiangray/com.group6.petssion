@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
@@ -71,11 +72,11 @@ public class PetController {
 //		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		System.out.println(SessionUserId);
 		List<Pet> pets = petService.findAllPetByUserId(1);
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		
 		for(Pet pet: pets) {
 			Integer petId = pet.getId();
-			List<String> petImgIdList = petImgService.findPetImgIdByPetId(petId);
+			List<Integer> petImgIdList = petImgService.findPetImgIdByPetId(petId);
 			map.put(petId, petImgIdList);
 		}
 		
@@ -144,7 +145,7 @@ public class PetController {
 //				}
 //			}
 //		}
-
+//		pet.setUserId(SessionUserId);
 //		----------------------------------
 		List<MultipartFile> pictures = pet.getImg();
 		
@@ -161,6 +162,7 @@ public class PetController {
 						petImg.setPetImage(blob);
 						petImg.setPet(pet);
 						System.out.println(blob);
+						
 						List<PetImg> petImgSet = new ArrayList<PetImg>();
 						petImgSet.add(petImg);
 						pet.setPetImg(petImgSet);
@@ -170,9 +172,6 @@ public class PetController {
 							petService.savePet(pet);
 							petImgService.savePetImg(petImg);
 							
-//							List<String> imgIdList=petImgService.findPetImgIdByPetId(pet.getId());
-//							petImg.setImgIdList(imgIdList);
-//							System.out.println(imgIdList);
 						} catch (Exception e) {
 							e.printStackTrace();
 							return "pet/InsertPet";
@@ -195,12 +194,18 @@ public class PetController {
 //		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		System.out.println(SessionUserId);
 		
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pet = petService.get(id);
-			Integer petId = pet.getId();
-			System.out.println(petId);
-			List<String> petImgIdList = petImgService.findPetImgIdByPetId(petId);
-			map.put(petId, petImgIdList);
+		Integer petId = pet.getId();
+		System.out.println(petId);
+		List<Integer> petImgIdList = petImgService.findPetImgIdByPetId(petId);
+//		當原有使用者圖不足8張 塞null補足8張
+		while (petImgIdList.size() < 8) {
+			petImgIdList.add(null);
+		}
+		map.put(petId, petImgIdList);
+		
+		
 		
 		model.addAttribute("petImgIdMap",map);
 		model.addAttribute("pet",pet);
@@ -260,49 +265,58 @@ public class PetController {
 //				}
 //			}
 //		}
-
-//		----------------------------------
-//		List<MultipartFile> pictures = pet.getImg();
-//
-//		if (pictures != null && pictures.size() > 0) {
-//			for (MultipartFile picture : pictures) {
-//				PetImg petImg = new PetImg();
-//				String fileName = picture.getOriginalFilename();
-//				if (picture != null && !picture.isEmpty()) {
-//					try {
-//						byte[] b = picture.getBytes();
-//
-//						Blob blob = new SerialBlob(b);
-//						petImg.setFileName(fileName);
-//						petImg.setPetImage(blob);
-//						petImg.setPet(pet);
-//						System.out.println(blob);
-//						List<PetImg> petImgSet = new ArrayList<PetImg>();
-//						petImgSet.add(petImg);
-//						pet.setPetImg(petImgSet);
-//
-//						try {
-//							petService.updatePet(pet);
-//							petImgService.updatePetImg(petImg);
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//							return "pet/InsertPet";
-//						}
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-//					}
-//				}
+		
+		
+//		List<Integer> petImgIdList = petImgService.findPetImgIdByPetId(pet.getId());
+//		System.out.println("#"+petImgIdList);
+//		for(Integer petImgId:petImgIdList) {
+//			System.out.println("#1"+petImgId);
+//			try {
+//				petImgService.delete(petImgId);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				System.out.println("刪除有錯");
+//				return "pet/UpdatePet";
 //			}
 //		}
-//		-------------------------------------------------
-		try {
-			petService.updatePet(pet);
-//			petImgService.updatePetImg(petImg);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "pet/InsertPet";
+		
+		
+		
+//		----------------------------------
+		List<MultipartFile> pictures = pet.getImg();
+
+		if (pictures != null && pictures.size() > 0) {
+			for (MultipartFile picture : pictures) {
+				PetImg petImg = new PetImg();
+				String fileName = picture.getOriginalFilename();
+				if (picture != null && !picture.isEmpty()) {
+					try {
+						byte[] b = picture.getBytes();
+
+						Blob blob = new SerialBlob(b);
+						petImg.setFileName(fileName);
+						petImg.setPetImage(blob);
+						petImg.setPet(pet);
+						System.out.println(blob);
+						List<PetImg> petImgSet = new ArrayList<PetImg>();
+						petImgSet.add(petImg);
+						pet.setPetImg(petImgSet);
+
+						try {
+							petService.updatePet(pet);
+							petImgService.updatePetImg(petImg);
+						} catch (Exception e) {
+							e.printStackTrace();
+							return "pet/UpdatePet";
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+					}
+				}
+			}
 		}
+//		-------------------------------------------------
 		return "redirect:/pet/showUserPets";
 	}
 
@@ -352,6 +366,18 @@ public class PetController {
 		System.out.println(re);
 		return re;
 	}
+	
+	@GetMapping("/delPicture/{id}-{petId}")
+	public String delPicture(@PathVariable("id") Integer id,@PathVariable("petId") Integer petId) {
+		petImgService.delete(id);
+		
+		Pet pet = petService.get(petId);
+		Integer pId = pet.getId();
+		System.out.println(pId);
+		
+		return "redirect:/pet/update/"+pId;
+	}
+	
 
 	public byte[] blobToByteArray(Blob blob) {
 		byte[] result = null;

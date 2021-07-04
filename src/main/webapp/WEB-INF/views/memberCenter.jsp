@@ -415,7 +415,7 @@ margin:auto;
 									</div>
 									
 									<div class="button-container">
-										<a href="<c:url value='/' />updateMember/${users.id}">
+										<a href="<c:url value='/' />user/update/${users.id}">
 										<button type="button">
 											<span>編輯</span>
 										</button>

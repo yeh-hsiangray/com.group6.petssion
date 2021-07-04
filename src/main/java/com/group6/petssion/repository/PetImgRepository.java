@@ -7,5 +7,5 @@ import com.group6.petssion.bean.PetImg;
 
 @Repository
 public interface PetImgRepository extends JpaRepository<PetImg, Integer>{
-	
+    
 }
