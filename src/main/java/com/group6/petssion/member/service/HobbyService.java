@@ -7,6 +7,6 @@ import com.group6.petssion.bean.Hobby;
 public interface HobbyService {
 
 	public List<Hobby> getAllHobby();
-	public Hobby getHobby(Integer id);
-	void save(Hobby hobby);
+	public List<Hobby> getHobby(Integer id);
+	void save(List <Hobby> hobby);
 }

@@ -260,20 +260,37 @@ display: none;
 					<label for="#{label}">圖片上傳:</label>
 					</div>
 				<table class="t1">
-<%-- 			<c:forEach begin="0" end="21" step="3" varStatus="loop"> --%>
-<%-- 			<c:out value="${loop.count}"/> --%>
-<%-- 			<c:if test="${loop.count % 4 == 0}" > --%>
 				<tr>
 				
-				<c:forEach var='userImg' items='${userImgIdMap[user.id]}' varStatus="userStatus">
+				<c:forEach var='userImg' items='${userImgIdMap[user.id]}' varStatus="loop">
+					
 					<td>
-						<img id="preview_userImage" src="<c:url value='/' />user/picture/${userImg}" width="200px" />
+						<c:if test="${empty userImg}" >
+							<label>
+							<form:input type="file" path="img" targetID="preview_userImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<img id="preview_userImage${loop.count}" src="<c:url value='/' />img/plus.png" width="200px"/>
+							</label>
+						</c:if>
+						
+						<c:if test="${not empty userImg}">
+							
+							<a href="<c:url value='/' />user/delPicture/${userImg}-${user.id}">
+											<img  src="<c:url value='/' />img/x.png" width="23px" id="del1">
+										</a>
+							
+							<label>
+							<form:input id="fileInput" type="file" path="img" targetID="preview_userImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<img id="preview_userImage${loop.count}" src="<c:url value='/' />user/picture/${userImg}" width="200px"/>
+							</label>
+						</c:if>
 					</td>
+					
+					<c:if test="${loop.count % 4 == 0}" >
+					<tr></tr>
+					</c:if>
+					
 				</c:forEach>
-				
 				</tr>
-<%-- 			</c:if> --%>
-<%-- 			</c:forEach> --%>
 				</table>
 				<br>
 				<br>

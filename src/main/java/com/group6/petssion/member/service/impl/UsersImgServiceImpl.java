@@ -57,7 +57,7 @@ public class UsersImgServiceImpl implements UsersImgService {
 	
 	
 	@Override
-	public List<String> findUserImgByUserId(int userId) {
+	public List<Integer> findUserImgByUserId(int userId) {
 		return usersImgDao2.findUserImgByUserId(userId);
 	}
 }
