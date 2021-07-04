@@ -11,6 +11,5 @@ public interface PetImgService {
 	void updatePetImg(PetImg petImg);
 	List<PetImg> finAllPetImg();
 	List<Integer> findPetImgIdByPetId(int petId);
-//	List<String> delPetImgByPetImgId(int imgId);
-//	void delPetImgByPetImgId(int imgId);
+	public boolean isPetImgExist(Integer id);
 }

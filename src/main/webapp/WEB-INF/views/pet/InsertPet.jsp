@@ -250,6 +250,17 @@ display: none;
 </style>
 </head>
 <body>
+	<div style="text-align: center">
+				<h1>新增寵物</h1>
+			</div>
+	<div align='center' style="font-size: 20px">
+		<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;<a href="<c:url value='/' />">回首頁</a>
+	</div>
+	<br>
+	<hr
+		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
+	<br>
+
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
@@ -318,32 +329,32 @@ display: none;
 
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" name="input1"/>
+						required="required" autocomplete="off" maxlength="12"/>
 					<form:errors path="name" cssClass="error" />
 					<label for="#{label}">名字:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">性別:</label>
-					<form:radiobuttons path="gender" items="${genderMap}" name="input2"/>
+					<form:radiobuttons path="gender" items="${genderMap}"/>
 					<form:errors path="gender" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="input-container">
 					<form:input path='age' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" name="input3"/>
+						autocomplete="off" required="required" maxlength="2"/>
 					<form:errors path="age" cssClass="error" />
 					<label for="#{label}">年齡:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">種類:</label>
-					<form:select path="type.id" name="input4">
+					<form:select path="type.id">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:select path="kind.id" name="input5">
+					<form:select path="kind.id">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
 					</form:select>
@@ -354,7 +365,7 @@ display: none;
 				<div class="ra1">
 					<label for="#{label}">喜愛食物:</label>
 					<form:radiobuttons path="food.id" items="${foodList}"
-						itemLabel="name" itemValue="id" name="input6"/>
+						itemLabel="name" itemValue="id"/>
 					<form:errors path="food" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
@@ -362,7 +373,7 @@ display: none;
 				<div class="ra1">
 					<label for="#{label}">個性:</label>
 					<form:radiobuttons path="personality.id" items="${personalityList}"
-						itemLabel="name" itemValue="id" name="input7"/>
+						itemLabel="name" itemValue="id"/>
 					<form:errors path="personality" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>

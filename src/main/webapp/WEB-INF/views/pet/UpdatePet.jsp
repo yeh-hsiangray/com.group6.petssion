@@ -247,18 +247,29 @@ margin: auto;
 .b1{
 display: none;
 }
-#del1{
+#x1{
 float: right;
 }
 </style>
 </head>
 <body>
+	<div style="text-align: center">
+				<h1>寵物更新</h1>
+			</div>
+	<div align='center' style="font-size: 20px">
+		<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;<a href="<c:url value='/' />">回首頁</a>
+	</div>
+	<br>
+	<hr
+		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
+	<br>
+
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
 			<h1 class="title">寵物檔案:${pet.name}</h1>
 			<form:form method="POST" modelAttribute="pet"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onSubmit="return CheckForm();" name="form1">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
 					</div>
@@ -277,13 +288,16 @@ float: right;
 						<c:if test="${not empty petImg}">
 							
 							<a href="<c:url value='/' />pet/delPicture/${petImg}-${pet.id}">
-											<img  src="<c:url value='/' />img/x.png" width="23px" id="del1">
+											<img  src="<c:url value='/' />img/x.png" width="23px" id="x1">
 										</a>
 							
 							<label>
-							<form:input id="fileInput" type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<form:input id="fileInput" type="file" path="img" targetID="preview_petImage${loop.count}" 
+							targetID1="del${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
 							<img id="preview_petImage${loop.count}" src="<c:url value='/' />pet/picture/${petImg}" width="200px"/>
 							</label>
+							
+							<input id="del${loop.count}" name="delImgId" type="hidden"  value='${petImg}' />
 						</c:if>
 					</td>
 <!-- 					在4格後新增tr換列 -->
@@ -302,9 +316,10 @@ float: right;
 <!-- 				=========================================================== -->
 				<script type="text/javascript">
 				function readURL(input){
+						
 					  if(input.files && input.files[0]){
-
 					    var imageTagID = input.getAttribute("targetID");
+					    var imageTagID1 = input.getAttribute("targetID1");
 
 					    var reader = new FileReader();
 
@@ -318,24 +333,24 @@ float: right;
 					    }
 
 					    reader.readAsDataURL(input.files[0]);
-
+					    
+						var delId=document.getElementById(imageTagID1);
+					    let str ="d";
+					    let str1=delId.value;
+					    console.log(str)
+					    console.log(str1);
+						delId.value=str+str1;
+					    console.log(delId.value);
 					  }
 
 					}
 				
-// 				  var btn = document.getElementById("del1");
-// 				     var file = document.getElementById("fileInput");
-// 				 btn.onclick = function() {
-// 				         // for IE, Opera, Safari, Chrome
-// 				         if (file.outerHTML) {
-// 				             file.outerHTML = file.outerHTML
-
-				 
-
-// 				} else { // FF(包括3.5)
-// 				             file.value = "";
-// 				         }
-// 				    }
+				function CheckForm(){
+				      if(confirm("確認更新寵物資料嗎？")==true)   
+				        return true;
+				      else  
+				        return false;
+				    }
 				</script>
 <!-- 			=========================================================== -->
 
