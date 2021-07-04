@@ -66,11 +66,11 @@ public class UsersController {
 	public String list(Model model, HttpServletRequest request) {
 
 		List<Users> users = userService.findAllUserByUserId(1);
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		
 		for(Users user: users) {
 			Integer userId = user.getId();
-			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
 			map.put(userId, userImgIdList);
 		}
 		
@@ -155,6 +155,7 @@ public class UsersController {
 						try {
 							userService.saveUser(user);
 							usersImgService.saveUsersImg(usersImg);
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 							return "updateMember";
@@ -173,11 +174,14 @@ public class UsersController {
 	@GetMapping(value = "/update/{id}")
 	public String showDataForm(@PathVariable("id") Integer id, Model model) {
 		
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Users users = userService.get(id);
 			Integer userId = users.getId();
 			System.out.println(userId);
-			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			while (userImgIdList.size() < 8) {
+				userImgIdList.add(null);
+			}
 			map.put(userId, userImgIdList);
 		
 			model.addAttribute("userImgIdMap",map);
@@ -210,14 +214,40 @@ public class UsersController {
 
 		Users user = new Users();
 		BeanUtils.copyProperties(usersDto, user);
+		
+		List<MultipartFile> pictures = user.getImg();
 
+		if (pictures != null && pictures.size() > 0) {
+			for (MultipartFile picture : pictures) {
+				UsersImg usersImg = new UsersImg();
+				String fileName = picture.getOriginalFilename();
+				if (picture != null && !picture.isEmpty()) {
+					try {
+						byte[] b = picture.getBytes();
+						
+						Blob blob = new SerialBlob(b);
+						usersImg.setFileName(fileName);
+						usersImg.setUsersImage(blob);
+						usersImg.setUsers(user);
+						System.out.println(blob);
+						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
+						usersImgSet.add(usersImg);
+						user.setUsersImg(usersImgSet);
 
-//		-------------------------------------------------
 		try {
 			userService.updateUser(user);
+			usersImgService.updateUsersImg(usersImg);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "/updateMember";
+			return "/ModifyUser";
+		}
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+					}
+				}
+			}
 		}
 		return "redirect:/memberCenter";
 	}
@@ -243,6 +273,16 @@ public class UsersController {
 		System.out.println(jobList);
 	}
 	
+	@GetMapping("/delPicture/{id}-{userId}")
+	public String delPicture(@PathVariable("id") Integer id,@PathVariable("userId") Integer userId) {
+		usersImgService.delete(id);
+		
+		Users user = userService.get(userId);
+		Integer uId = user.getId();
+		System.out.println(uId);
+		
+		return "redirect:/user/update/"+uId;
+	}
 	
 	@GetMapping("/picture/{id}")
 	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {

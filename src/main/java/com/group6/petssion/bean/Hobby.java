@@ -1,5 +1,6 @@
 package com.group6.petssion.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,7 +24,7 @@ public class Hobby {
 	 * {@JoinColumn(name="hobby_id", referencedColumnName="id")})
 	 */
 	@ManyToMany(targetEntity = Users.class, mappedBy = "hobby", cascade = CascadeType.ALL)
-	private List<Users> users;
+	private List<Users> users = new ArrayList<>();
 
 	public Hobby() {
 	}

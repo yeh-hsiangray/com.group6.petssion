@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
 		Job job = jobService.getJob(user.getJob().getId());
 		user.setJob(job);
 
-		Hobby hobby = hobbyService.getHobby(user.getHobby().getId());
+		List<Hobby> hobby = hobbyService.getHobby(user.getId());
 		user.setHobby(hobby);	
 
 		
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 		Job job = jobService.getJob(user.getJob().getId());
 		user.setJob(job);
 
-		Hobby hobby = hobbyService.getHobby(user.getHobby().getId());
+		List <Hobby> hobby = hobbyService.getHobby(user.getId());
 		user.setHobby(hobby);
 
 		userDao2.updateUser(user);
