@@ -11,11 +11,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>All Friendly Environment</title>
+<%@include file="commons/frontend_imports.jsp"%>
 <script>
 	window.onload = function() {
 		let role = '${userRole}'
-
 		checkRole()
 		flashMsg()
 
@@ -40,7 +41,7 @@
 			let msg = document.getElementById("msg")
 			var millisecondsToWait = 1200;
 			setTimeout(function() {
-				msg.innerHTML=""
+				msg.innerHTML = ""
 			}, millisecondsToWait);
 		}
 	}
@@ -50,9 +51,32 @@
 
 </head>
 <body>
+
+	<!--header -->
+	<%@include file="commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">${tag}</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span
+							class="lnr lnr-arrow-right"></span><a
+							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span
+							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+	
 	<!-- Start contact-page Area -->
 	<section class="contact-page-area">
-		<div class="row">
+		 <!-- <div class="row"> -->
 			<div class="framefriendly">
 				<div class="content">
 					<P id="msg" align="center"
@@ -113,9 +137,13 @@
 				</div>
 
 			</div>
-		</div>
+		<!-- </div> -->
 	</section>
 	<!-- End contact-page Area -->
+	
+	
+	<!--footer -->
+	<%@include file="commons/frontend_footer.jsp"%>
 
 </body>
 </html>

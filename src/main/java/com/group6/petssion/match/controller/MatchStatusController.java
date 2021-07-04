@@ -26,8 +26,12 @@ public class MatchStatusController {
 	@Autowired
 	private MatchStatusService matchStatusService;
 	
-
 	
+
+	/**
+	 *  @興趣id抓使用者
+	 * 
+	 */
 	@GetMapping("/selectHobby/getUsers")
 	public @ResponseBody Hobby getHobby(@RequestParam Integer id, 
 			HttpServletResponse response) {
@@ -35,33 +39,61 @@ public class MatchStatusController {
 		Optional<Hobby> optional =  matchStatusService.getUsersById(id);
 		if (optional.isPresent()) {
 			hobby = optional.get();
-			
+			System.out.println(id);
 		} else {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 		return hobby;
 	}
 	
+	
+	/**
+	 *  @興趣下拉選單
+	 */
 	@GetMapping("/_05/allHobbys")
 	public ResponseEntity<List<Hobby>>  allHobbys()  {
 		List<Hobby> list =  matchStatusService.getHobby();
+		
 		ResponseEntity<List<Hobby>> re = new ResponseEntity<>(list, HttpStatus.OK);
 		return re;
 	}
 	
 
-	@PostMapping("/save")
-	public @ResponseBody MatchStatus setMatchStatusByUserB(
-			@RequestParam int user_A,
-			@RequestParam int user_B,
-			@RequestParam int status) {
 	
-		MatchStatus match=new MatchStatus();
-		match.setUser_A(user_A);
-		match.setUser_B(user_B);
-		match.setStatus(status);
+	/**
+	 *  @return 
+	 * @Lovebutton寫入
+	 *  @配對狀態資料表 
+	 */	
+//	@PostMapping("/save")
+//	public MatchStatus setMatchStatusByUserB(
+//		   @RequestParam (required=false)String user_A,
+//		   @RequestParam  (required=false)String user_B,
+//		   @RequestParam  (required=false)String status) {
+//		Map<String, String> map = new HashMap<>();
+//
+//		
+//		map.put("user_A",user_A);
+//		map.put("user_B",user_B);
+//		map.put("status",status);
+// 		ResponseEntity<Map<String, String>> re = new ResponseEntity<>(map, HttpStatus.OK);
+// 		System.out.println(re);
+//		return matchStatusService.save(re);
+//	}
+	
+	@PostMapping("/save")
+	public void setMatchStatusByUserB(
+			@RequestParam (required=false) Integer user_A,
+			@RequestParam  (required=false) Integer user_B,
+			@RequestParam  (required=false) Integer status) {
 		
-		return matchStatusService.save(match);
+		MatchStatus matchstatus = new MatchStatus();
+	
+		matchstatus.setUser_A(user_A);
+		matchstatus.setUser_B(user_B);
+		matchstatus.setStatus(status);
+		
+		 matchStatusService.save(matchstatus);		
 		
 	}
 	

@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,28 +80,6 @@ public class UsersController {
 		return "/memberCenter";
 	}
 	
-	
-	
-	
-	/**
-	 * 會員資訊
-	 * @param model
-	 * @param request
-	 * @return
-	 */
-	
-//	@GetMapping("/memberCenter")
-//	 public String list(Model model, HttpServletRequest request) {
-//
-//
-//	  model.addAttribute("user", userService.findUserById(1));
-//	  return "/memberCenter";
-//	  
-//	 }
-//	
-	
-	
-	
 	/**
 	 * 進入編輯個人資料
 	 * @param model
@@ -116,15 +93,6 @@ public class UsersController {
 		
 		return "/updateMember";
 	}
-	
-	/**
-	 * 進入個人資訊
-	 * @return
-	 */
-//	@GetMapping("/memberCenter")
-//	public String memberCenter() {
-//		return "memberCenter";
-//	}
 	
 	/**
 	 * 更新個人資訊
@@ -174,9 +142,10 @@ public class UsersController {
 					try {
 						byte[] b = picture.getBytes();
 						
-						Blob blob = new SerialBlob(b);
+//						Blob blob = new SerialBlob(b);
 						usersImg.setFileName(fileName);
-						usersImg.setUsersImage(blob);
+						usersImg.setUsersImage(b);
+//						usersImg.setUsersImage(blob);
 						usersImg.setUsers(user);
 						System.out.println(blob);
 						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
@@ -201,7 +170,57 @@ public class UsersController {
 		return "redirect:/user/memberCenter";
 	}
 	
+	@GetMapping(value = "/update/{id}")
+	public String showDataForm(@PathVariable("id") Integer id, Model model) {
+		
+		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Users users = userService.get(id);
+			Integer userId = users.getId();
+			System.out.println(userId);
+			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			map.put(userId, userImgIdList);
+		
+			model.addAttribute("userImgIdMap",map);
+			model.addAttribute("user", users);
+		return "/ModifyUser";
+	}
 	
+	@PostMapping("/update/{id}")
+	public String modify(@ModelAttribute("user") @Valid UsersDto usersDto,
+			BindingResult result,
+			Model model,
+			@PathVariable Integer id
+			) {
+
+		if (usersDto.getJob().getId() == -1) {
+			result.rejectValue("job", "", "必須挑選工作的選項");
+		}
+		if (usersDto.getHobby().getId() == -1) {
+			result.rejectValue("hobby", "", "必須挑選興趣的選項");
+		}
+
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				System.out.println("有錯誤：" + error);
+			}
+			return "/ModifyUser";
+		}
+
+
+		Users user = new Users();
+		BeanUtils.copyProperties(usersDto, user);
+
+
+//		-------------------------------------------------
+		try {
+			userService.updateUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "/updateMember";
+		}
+		return "redirect:/memberCenter";
+	}
 	
 	
 	
@@ -244,15 +263,43 @@ public class UsersController {
 				mediaType = MediaType.valueOf(context.getMimeType(filename));
 				headers.setContentType(mediaType);
 			}
-			Blob blob = userImg.getUsersImage();
+			byte[] blob = userImg.getUsersImage();
 			if (blob != null) {
-				body = blobToByteArray(blob);
+				body =blob;
 			}
 			
 		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 		System.out.println(re);
 		return re;
 	}
+//	@GetMapping("/picture/{id}")
+//	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
+//		byte[] body = null;
+//		ResponseEntity<byte[]> re = null;
+//		MediaType mediaType = null;
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//		
+//		List<UsersImg> usersImgs = usersImgService.findUserImgByUserId(id);
+//		
+//		for (UsersImg userImg : usersImgs) {
+//			if (usersImgs == null) {
+//				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
+//			}
+//			String filename = userImg.getFileName();
+//			if (filename != null) {
+//				mediaType = MediaType.valueOf(context.getMimeType(filename));
+//				headers.setContentType(mediaType);
+//			}
+//			Blob blob = userImg.getUsersImage();
+//			if (blob != null) {
+//				body = blobToByteArray(blob);
+//			}
+//		}
+//		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
+//		System.out.println(re);
+//		return re;
+//	}
 
 	public byte[] blobToByteArray(Blob blob) {
 		byte[] result = null;
@@ -267,16 +314,19 @@ public class UsersController {
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	/**
-	 * 新增資料
-	 * 
-	 * @param user
-	 */
-	@PostMapping("/create")
-	public void add(@RequestBody Users user) {
-		userService.saveUser(user);
+//		public byte[] blobToByteArray(Blob blob) {
+//			byte[] result = null;
+//			try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+//				byte[] b = new byte[819200];
+//				int len = 0;
+//				while ((len = is.read(b)) != -1) {
+//					baos.write(b, 0, len);
+//				}
+//				result = baos.toByteArray();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return result;
 	}
 	
 	
@@ -288,30 +338,6 @@ public class UsersController {
 //	@DeleteMapping("/delete/{id}")
 //	public void delete(@PathVariable("id") Integer id) {
 //		userService.deleteById(id);
-//	}
-//	
-//	
-//	/**
-//	 * Updated
-//	 * @param putuser
-//	 * @param id
-//	 * @return
-//	 */
-//	@PutMapping("/update/{id}")
-//	public ResponseEntity<?> update(@RequestBody Users putuser, @PathVariable Integer id) {
-//		try {
-//			Users users = userService.findUserById(id);
-//			users.setName(putuser.getName());
-//			users.setGender(putuser.getGender());
-//			users.setBirthday(putuser.getBirthday());
-//			users.setAddress(putuser.getAddress());
-//			
-//			
-//			userService.saveUser(users);
-//			return new ResponseEntity<>(HttpStatus.OK);
-//		} catch (NoSuchElementException e) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
 //	}
 //	
 //	/**

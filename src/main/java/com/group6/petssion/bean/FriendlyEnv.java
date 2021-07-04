@@ -65,7 +65,6 @@ public class FriendlyEnv implements Serializable, Comparable<FriendlyEnv>{
 		return envId;
 	}
 
-
 	public void setEnvId(int envId) {
 		this.envId = envId;
 	}

@@ -39,7 +39,7 @@
 				for (var i = 0; i < hobbyJson.length; i++) {
 					console.log(hobbyJson[i])
 					// 每一個興趣與主鍵值放入一個陣列
-					var hobby = [ hobbyJson[i].name, hobbyJson[i].hobbyId ];
+					var hobby = [ hobbyJson[i].name, hobbyJson[i].id ];
 					// 在將此陣列放入(push)陣列companyData中
 					
 					companyData.push(hobby);
@@ -54,7 +54,7 @@
 				}
 			}
 		}
-		xhr.open("GET", "<c:url value='/match/_05/allHobbys' />", true);
+		xhr.open("GET", "<c:url value='/match/_05/allHobbys'/>", true);
 		xhr.send();
 		
 		
@@ -68,7 +68,7 @@
 			}
 // 			單個option的屬性 (obj.options[obj.selecedIndex]是指定的某個<option>標籤,是一個—)
 			//使用者挑選的書籍之主鍵值是存放在selectElement.options[selectElement.selectedIndex].value中
-			var hobbyId = selectElement.options[ selectElement.selectedIndex ].value;
+			var id = selectElement.options[ selectElement.selectedIndex ].value;
 			// 定義open方法
 			xhr2.open("GET", "<c:url value='/match/selectHobby/getUsers' />" + "?id=" + id, true);
 			// 送出請求
@@ -80,21 +80,24 @@
 		
 		function loveSubmit(id){
 			console.log(id);
+			var love=document.getElementById('love_Btn').value = '1';
+			var 
 			xhr3.onreadystatechange = function() {
 				if (xhr2.readyState == 4 && xhr2.status == 200) {
 					
+					
+			console.log("------love="+love+"&--------love_Btn="+id);
+					
+				}	
+			}		
 			xhr3.open("POST","<c:url value='/match/save' />",true);
 			xhr3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr3.send("love"+1 + "&user_B" + id );
-					
-				}
-			}
+			xhr3.send("user_B=" + id+"&status="+love);
+							
 			
 		}
 		
-			
-		  
-		
+					
 		
 		function displayUsers(responseText){
 			var dataJson = JSON.parse(responseText);
@@ -103,25 +106,39 @@
 		     for(var i=0; i < dataJson.users.length; i++){
 		    	 		     			
 				console.log(dataJson[i])
-				var content="<input class='n"+i+" nav' name='nav' type='radio'>";			
-			        content += "<section class='s"+i+"'><div class='con'>";
-         
-				content += "<p>姓名:" + dataJson.users[i].name + "</p>" +            
-				           "<p>性別:" + dataJson.users[i].gender + "</p>" +
-				           "<p>星座:" + dataJson.users[i].constellation + "</p>" +
-				           "<p>自我介紹:" + dataJson.users[i].selfintroduction + "</p>" +
-				           "<p>照片:<img  width='40' height='48' src='" + dataJson.users[i].usersImg + "'></p>"+			           
-				           "<p><button  type='button'  name='love_Btn'  id='submit_Btn' onClick='loveSubmit("+"\'"+dataJson.users[i].name+"\'"+")'>"+
-				           "<img  src='../img/heart.png'></button>"+
-				           "<button  type='button'  name='hate_Btn'  id='submit_Btn' onClick='hateSubmit()'>"+
-				           "<img  src='../img/cross.png'></button></p>";
+				var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
+			                "<section class='s"+i+"'><table>"+
+			                "<tr>"+
+			                       "<td>姓名:</td>"+
+			                       "<td>" + dataJson.users[i].name + "</td>" +               
+				                   "<td rowspan='4'>照片:</td>"+
+				                   "<td rowspan='4'><img  width='40' height='48' src='../img/profile.png'></td>"+
+				            "</tr>" +
+				            "<tr>"+
+				                   "<td > 性別:</td>"+ 
+				                   "<td >" + dataJson.users[i].gender + "</td>"+
+				            "</tr>" +
+				            "<tr>"+
+				                   "<td>星座:</td>"+
+				                   "<td>" + dataJson.users[i].constellation + "</td>"+
+				            "</tr>"+
+				            "<tr>"+
+				                   "<td>自我介紹:</td>"+
+				                   "<td>" + dataJson.users[i].selfintroduction + "</td>"+
+				            "</tr>"+
+				           "<tr>"+				                 				                  
+				            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson.users[i].id+")'>"+
+				                    "<img  src='../img/heart.png'></button>"+
+				                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit()'>"+
+				                     "<img  src='../img/cross.png'></button></td>"+
+				            "</tr>";
 		     }
-			content +="</div></section>";
+			content +="</table></section>";
 			showuser.innerHTML = content; 	
 			
 		}	
 		
-		
+// 		"+"\'"+dataJson.users[i].id+"\'"+"
 	</script>
 
 </body>

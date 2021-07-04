@@ -14,11 +14,11 @@ import com.group6.petssion.member.service.UsersImgService;
 import com.group6.petssion.repository.UsersImgRepository;
 
 @Service
-@Transactional
+@Transactional(rollbackFor=Exception.class)
 public class UsersImgServiceImpl implements UsersImgService {
 	
 	@Autowired
-	UsersImgRepository usersImgDao;
+	UsersImgRepository usersImgDao;	
 	
 	@Autowired
 	UsersImgDaoImpl usersImgDao2;

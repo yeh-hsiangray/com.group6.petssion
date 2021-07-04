@@ -6,23 +6,30 @@ html, body {
   background-color: #ddd;
 }
 
-section p{
-	text-align: left;
-	margin-left:20px;
-	
-}
-.con {
-  vertical-align: text-top;
- 
-  }
+/* section p { */
+/* 	text-align: left; */
+/* 	margin-left:20px; */
+/* 	-webkit-box-flex: middle; */
+/*       -ms-flex: middle; */
+/*           flex: middle; */
+/*    font-size:0.5em; */
+/* } */
+table {
+        width:100%;
+        }
+        
+table,td { 
+        border-collapse:collapse;
+        
+        }
+
+
 button img{
 height:80px;
 width:80px;
 
 }
-section #child {
-    margin: 0 auto;
-}
+
 button {
             margin:80px;
             background-color: Transparent;
@@ -45,8 +52,7 @@ button {
   outline: 0;
 }
 
-section {
-	
+section {	
   -webkit-box-shadow: 0 0 0 .2em #999;
           box-shadow: 0 0 0 .2em #999;
   font-family: sans-serif;
