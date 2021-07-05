@@ -258,12 +258,12 @@ display: none;
 </style>
 
 <script type="text/javascript">  
-function confirmDel(param)
-{
-         if(window.confirm("您确定送出更新？")){
-   document.location="DeleteNew?id="+param
-}
- }  
+// function confirmDel(param)
+// {
+//          if(window.confirm("您確定送出更新？")){
+//    document.location="DeleteNew?id="+param
+// }
+//  }  
 </script>
 </head>
 <body>
@@ -442,20 +442,22 @@ function confirmDel(param)
 				
 				<div class="ra1">
 					<label for="#{label}">工作:</label>
-					<form:select path="job" name="s1"
-						OnChange="Buildkey(this.selectedIndex);">
+					<form:select path="job.id" name="s1"
+						>
 						<form:option label="請挑選" value="-1" />
-						<form:options items="${jobList}" itemLabel='name' itemValue='id' />
+						<form:options items="${jobList}" itemLabel='name' />
 					</form:select>
 					<form:errors path="job" cssClass="error" />
 				</div>
 				
    				<div class="ra1">
     					<label for="#{label}">興趣:</label>
-  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" itemValue="id" />
+  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" />
  				<form:errors path="hobby" cssClass="error" />
  									<div class="bar"></div>
  				</div>
+ 				
+ 				
 				
 				<div class="ra1">
 				<label for="#{label}">自我介紹(小提示:內容愈有趣愈能增加配對機率唷!!):</label>

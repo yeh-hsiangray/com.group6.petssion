@@ -11,4 +11,5 @@ public interface UsersImgService {
 	void updateUsersImg(UsersImg usersImg);
 	List<UsersImg> finAllUsersImg();
 	List<Integer> findUserImgByUserId(int userId);
+	public boolean isUserImgExist(Integer id);
 }

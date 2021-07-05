@@ -3,11 +3,12 @@ package com.group6.petssion.member.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group6.petssion.bean.PetImg;
 import com.group6.petssion.bean.UsersImg;
 import com.group6.petssion.member.dao.impl.UsersImgDaoImpl;
 import com.group6.petssion.member.service.UsersImgService;
@@ -59,5 +60,18 @@ public class UsersImgServiceImpl implements UsersImgService {
 	@Override
 	public List<Integer> findUserImgByUserId(int userId) {
 		return usersImgDao2.findUserImgByUserId(userId);
+	}
+	
+	public boolean isUserImgExist(Integer id) {
+		boolean exist = false;
+		try {
+		Optional<UsersImg> optional = usersImgDao.findById(id);
+		if (optional.isPresent()) {
+			exist=true;
+		}
+		}catch(NoResultException e) {
+			;
+		}
+		return exist;
 	}
 }

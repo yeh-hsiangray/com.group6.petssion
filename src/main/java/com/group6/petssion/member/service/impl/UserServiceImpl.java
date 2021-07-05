@@ -35,12 +35,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Users saveUser(Users user) {
 		Job job = jobService.getJob(user.getJob().getId());
+		System.out.println(user.getHobby());
 		user.setJob(job);
+//		List<Hobby> hobby = hobbyService.getHobby(user.getHobby().getId());
+//		user.setHobby(hobby);	
 
-		List<Hobby> hobby = hobbyService.getHobby(user.getId());
-		user.setHobby(hobby);	
-
-		
 		return userDao.save(user);
 	}
 
