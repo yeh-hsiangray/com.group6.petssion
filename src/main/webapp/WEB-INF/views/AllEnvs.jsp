@@ -80,7 +80,7 @@
 			<div class="framefriendly">
 				<div class="content">
 					<P id="msg" align="center"
-						style="color: red; font-size: 20px; font-weight: bold; margin-top: 10px; background-color: white; opacity: 0.5; width: 500px;">${SUCCESS}</P>
+						style="color: red; font-size: 20px; font-weight: bold; margin-top: 150px; background-color: white; opacity: 0.8; width: 500px; z-index: 999">${SUCCESS}</P>
 					<br>
 					<table border="1">
 						<tr>
