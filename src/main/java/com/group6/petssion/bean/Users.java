@@ -23,7 +23,6 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Users")
@@ -37,7 +36,7 @@ public class Users implements Serializable {
 	private String name;
 	private String gender;
 	
-	@DateTimeFormat
+//	@DateTimeFormat
 	private Date birthday;
 	private String address;
 	private String constellation;
