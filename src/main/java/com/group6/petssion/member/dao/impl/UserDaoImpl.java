@@ -70,8 +70,8 @@ public class UserDaoImpl {
 		entityManager.detach(job);
 	}
 	
-	public void detachHobby(Hobby hobby) {
-		entityManager.detach(hobby);
+	public void detachHobby(List<Hobby> list) {
+		entityManager.detach(list);
 	}
 	
 }

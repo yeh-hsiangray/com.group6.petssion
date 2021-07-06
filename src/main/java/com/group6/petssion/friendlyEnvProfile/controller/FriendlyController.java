@@ -61,9 +61,11 @@ public class FriendlyController {
 		ModelAndView mv = new ModelAndView("envDetail");
 		FriendlyEnv friendlyEnv = service.get(Integer.valueOf(envId));
 		InputStream is = null;
-		if (friendlyEnv.getImage() != null) {
+		if (friendlyEnv.getImage() != null && !friendlyEnv.getFileName().isEmpty() && friendlyEnv.getFileName().trim().length()>0) {
+			System.out.println("We are getting the set photo");
 			is = new ByteArrayInputStream(friendlyEnv.getImage());
 		} else {
+			System.out.println("We are getting the default photo");
 			is = getDefaultPhoto();
 		}
 
@@ -96,6 +98,7 @@ public class FriendlyController {
 
 		friendlyEnvU.setTelephone(friendlyEnv.getTelephone());
 		friendlyEnvU.setAddress(friendlyEnv.getAddress());
+		System.out.println("address==> " + friendlyEnv.getAddress());
 
 		String envTypeL = "";
 		String envTypeR = "";
@@ -112,6 +115,7 @@ public class FriendlyController {
 		mv.addObject("cityTC", cityTC);
 		mv.addObject("cityHZ", cityHZ);
 		mv.addObject("photo", base64Image);
+		mv.addObject("address", friendlyEnv.getAddress().trim());
 
 		return mv;
 	}
@@ -241,6 +245,7 @@ public class FriendlyController {
 	public InputStream getDefaultPhoto() {
 		String fileName = "NoImage.jpg";
 		InputStream is = servletContext.getResourceAsStream("/images/" + fileName);
+		System.out.println("REALPATH====> "+ servletContext.getRealPath(fileName));
 		return is;
 	}
 

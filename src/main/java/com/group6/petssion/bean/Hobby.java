@@ -5,9 +5,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Hobby")
@@ -22,8 +25,11 @@ public class Hobby {
 	 * referencedColumnName="id")}, inverseJoinColumns=
 	 * {@JoinColumn(name="hobby_id", referencedColumnName="id")})
 	 */
-	@ManyToMany(targetEntity = Users.class, mappedBy = "hobby", cascade = CascadeType.ALL)
+
+	@ManyToMany(targetEntity = Users.class, mappedBy = "hobby", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<Users> users;
+
 
 	public Hobby() {
 	}

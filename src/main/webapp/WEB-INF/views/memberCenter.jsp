@@ -310,6 +310,20 @@ margin:auto;
 					.removeClass('active');
 		});
 	});
+	
+	$(function() {
+
+		$('.img').on('click', function() {
+
+			var src = $(this).attr('src');
+			$('.imgPreview img').attr('src', src);
+			$('.imgPreview').show()
+		});
+		$('.imgPreview').on('click', function() {
+
+			$('.imgPreview').hide()
+		});
+	})
 </script>
 </head>
 <body>
@@ -332,14 +346,6 @@ margin:auto;
 
 			<div id="tab-demo">
 
-<!-- 				<ul class="tab-title"> -->
-<%-- 					<c:forEach var='users' items='${user}' varStatus="userStatus"> --%>
-<%-- 						<c:forEach var='i' begin="${userStatus.begin}" end="${userStatus.end}"> --%>
-<%-- 							<li value="${i}"><a href="#tab0${userStatus.index}">${users.name}</a></li> --%>
-<%-- 						</c:forEach> --%>
-<%-- 					</c:forEach> --%>
-<!-- 				</ul> -->
-
 				<c:forEach var='users' items='${user}' varStatus="userStatus">
 					<c:forEach var='i' begin="${userStatus.begin}"
 						end="${userStatus.end}">
@@ -352,13 +358,21 @@ margin:auto;
 									<h1 class="title">個人檔案:${users.name}</h1>
 									<table class="t1">
 										<tr>
-											<c:forEach var='userImg' items='${userImgIdMap[users.id]}' varStatus="userStatus">
-												<td>
-													<img id="preview_userImage" src='picture/${userImg}' width="200px" />
-												</td>
+											<c:forEach var='userImg' items='${userImgIdMap[users.id]}'
+												varStatus="userStatus">
+												<td><img id="preview_userImage" src='picture/${userImg}'
+													width="200px" class="img" /></td>
+												<c:if test="${userStatus.count % 4 == 0}">
+													<tr></tr>
+												</c:if>
 											</c:forEach>
+											
 											</tr>
 									</table>
+									<p align="center" style="font-size: 15px">點擊圖片放大</p>
+									<div class="imgPreview">
+										<img src="#" alt="" id="imgPreview">
+										</div>
 									<br> <br> <br>
 
 									<div class="ra1">
@@ -406,9 +420,26 @@ margin:auto;
 									
 									<div class="ra1">
 										<label for="#{label}">興趣:</label>
-										${users.hobby}
-									</div>
+<%-- 										<c:forEach items="${user}" var="users" varStatus="userStatus"> --%>
+<%-- 										${users.hobby[0].name}, --%>
+<%-- 										${users.hobby[1].name}, --%>
+<%-- 										${users.hobby[2].name}, --%>
+<%-- 										${users.hobby[3].name}, --%>
+<%-- 										${users.hobby[4].name}, --%>
+<%-- 										${users.hobby[5].name} --%>
+<%-- 										${users.hobby[6].name} --%>
+<%-- 										${users.hobby[7].name} --%>
+<%-- 										${users.hobby[8].name} --%>
+<%-- 										${users.hobby[9].name} --%>
+<%-- 										</c:forEach> --%>
+										
+											<c:forEach items="${users.hobby}" var="hobby" >
+										${hobby.name}
 									
+										</c:forEach>
+										
+									</div>
+									<br> <br> <br>
 									<div class="ra1">
 										<label for="#{label}">自我介紹:</label>
 										${users.selfintroduction}

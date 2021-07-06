@@ -39,8 +39,8 @@
 					let myImage = document.getElementById("myimage");
 					let newImgFig = document.getElementById("newImgFig");
 					myImage.src = fr.result;
-					myImage.style.width = "200px";
-					myImage.style.height = "150px";
+					myImage.style.width = "150px";
+					myImage.style.height = "120px";
 					newImgFig.hidden = false;
 					newImgFig.style.marginLeft = "10px";
 				}
@@ -80,7 +80,7 @@
 
 		<div class="row">
 			<div class="framefriendly black">
-				<div class="content">
+				<div class="content" style="width: 450px; height: 300pxs">
 					<br>
 					<form:form method="post" id="addNewEnv" class="black"
 						modelAttribute="friendlyEnvU" enctype="multipart/form-data">
@@ -111,16 +111,21 @@
 							<form:input class="roleAdmin" id="chosenFile"
 								path="friendlyEnvImage" type="file" />
 							<form:errors path="friendlyEnvImage" cssClass="error" />
-							<div class="d-flex">
-								<figure>
-									<img src="data:image/jpg;base64,${photo}" width="200"
-										height="150" />
-									<figcaption class="roleAdmin">原始圖檔</figcaption>
-								</figure>
-								<figure id="newImgFig" hidden="true">
-									<img id="myimage">
-									<figcaption>更新圖檔</figcaption>
-								</figure>
+							<div class="imageDisplay">
+								<div>
+									<figure>
+										<img src="data:image/jpg;base64,${photo}" width="150"
+											height="120" />
+										<figcaption class="roleAdmin">原始圖檔</figcaption>
+									</figure>
+								</div>
+								<div>
+									<figure id="newImgFig" hidden="true">
+										<img id="myimage">
+										<figcaption>更新圖檔</figcaption>
+									</figure>
+								</div>
+
 							</div>
 							<div class="roleAdmin">
 								<input type="submit" value="確定修改" />
@@ -151,8 +156,8 @@
 
 				<div>
 					<iframe width="650" height="380"
-						style="border: 2px solid teal; border-radius: 15px; margin: 15px 15px 0px 100px"
-						src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD4kryss150V0AlcYltoIxQ251pM5Q6Cao&q=${envDetail.address}">
+						style="border: 2px solid teal; border-radius: 15px; margin: 15px 15px 0px 30px"
+						src="https://www.google.com/maps/embed/v1/place?key=&q=${address}">
 					</iframe>
 				</div>
 			</div>

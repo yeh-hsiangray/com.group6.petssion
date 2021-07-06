@@ -24,11 +24,11 @@ public class HobbyServiceImpl implements HobbyService{
 	}
 	
 	@Override
-	public Hobby getHobby(Integer id) {
+	public List<Hobby> getHobby(Integer id) {
 		Optional<Hobby> optional = hobbyRepository.findById(id);
-		Hobby hobby = null;
+		List<Hobby> hobby = null;
 		if (optional.isPresent()) {
-			hobby = optional.get();
+			hobby = (List<Hobby>) optional.get();
 		} else {
 			throw new RuntimeException("Hobby(id=" + id + ")不存在");
 		}
@@ -36,7 +36,7 @@ public class HobbyServiceImpl implements HobbyService{
 	}
 
 	@Override
-	public void save(Hobby hobby) {
+	public void save(List <Hobby> hobby) {
 		hobbyRepository.save(hobby);
 	}
 }

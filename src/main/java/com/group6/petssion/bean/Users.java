@@ -3,11 +3,13 @@ package com.group6.petssion.bean;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,11 +21,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Users")
@@ -37,7 +37,7 @@ public class Users implements Serializable {
 	private String name;
 	private String gender;
 	
-	@DateTimeFormat
+//	@DateTimeFormat
 	private Date birthday;
 	private String address;
 	private String constellation;
@@ -57,9 +57,11 @@ public class Users implements Serializable {
 	
 	private Integer Blockade;
 	
-	@ManyToMany(targetEntity = Hobby.class,cascade = CascadeType.ALL )
+
+	@ManyToMany(targetEntity = Hobby.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
 	 private List<Hobby> hobby;
+
 	
 	//對應account類
 	@OneToOne(mappedBy = "users")
@@ -76,6 +78,17 @@ public class Users implements Serializable {
 	
 	@Transient
 	List<MultipartFile> img;
+
+	@Transient
+	String base64Img;
+	
+	public String getBase64Img() {
+		return base64Img;
+	}
+
+	public void setBase64Img(String base64Img) {
+		this.base64Img = base64Img;
+	}
 
 	public Users() {
 

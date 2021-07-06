@@ -24,6 +24,13 @@ body {
 	color: black !important;
 }
 
+.imageDisplay{
+	display: flex;
+	justify-content: center;
+	text-align:center;
+	color:midnightBlue;
+	font-size: 16px;
+}
 .black {
 	font-size: 18px;
 }

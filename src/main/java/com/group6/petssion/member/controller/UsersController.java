@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group6.petssion.bean.Hobby;
@@ -65,12 +67,19 @@ public class UsersController {
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
+<<<<<<< HEAD
 		List<Users> users = userService.findUserByUserId(1);
 		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+=======
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		List<Users> users = userService.findAllUserByUserId(SessionUserId);
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+>>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
 		
 		for(Users user: users) {
 			Integer userId = user.getId();
-			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
 			map.put(userId, userImgIdList);
 		}
 		
@@ -87,7 +96,7 @@ public class UsersController {
 	 */
 	
 	@GetMapping("/updateMember")
-	public String updateMember(Model model) {
+	public String updateMember(Model model,HttpServletRequest request) {
 		Users user = new Users();
 		model.addAttribute("user", user);
 		
@@ -103,30 +112,31 @@ public class UsersController {
 	 * @return
 	 */
 	@PostMapping(value = "/updateMember")
-	public String add(@ModelAttribute("user") @Valid UsersDto usersDto, BindingResult result, Model model,
+	public String add(@ModelAttribute("user") Users usersDto, BindingResult result, Model model,
 			HttpServletRequest request) {
-		if (usersDto.getJob().getId() == -1) {
-			result.rejectValue("job", "", "必須挑選工作的選項");
-		}
-		if (usersDto.getHobby().getId() == -1) {
-			result.rejectValue("hobby", "", "必須挑選興趣的選項");
-		}
-
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError error : list) {
-				System.out.println("有錯誤：" + error);
-			}
-
-			return "updateMember";
-		}
+//		if (usersDto.getJob().getId() == -1) {
+//			result.rejectValue("job", "", "必須挑選工作的選項");
+//		}
+//		if (usersDto.getHobby().getId() == -1) {
+//			result.rejectValue("hobby", "", "必須挑選興趣的選項");
+//		}
+//
+//		if (result.hasErrors()) {
+//			List<ObjectError> list = result.getAllErrors();
+//			for (ObjectError error : list) {
+//				System.out.println("有錯誤：" + error);
+//			}
+//
+//			return "updateMember";
+//		}
 
 //		HttpSession session=request.getSession();
 //		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		System.out.println(SessionUserId);
-
-		Users user = new Users();
-		BeanUtils.copyProperties(usersDto, user);
+		System.out.println(usersDto.getName());
+		System.out.println(new Users().getId());
+		Users user = usersDto;
+//		BeanUtils.copyProperties(usersDto, user);
 		
 		user.setManager(2);
 		user.setRegdate(LocalDate.now());
@@ -142,19 +152,22 @@ public class UsersController {
 					try {
 						byte[] b = picture.getBytes();
 						
-//						Blob blob = new SerialBlob(b);
+						Blob blob = new SerialBlob(b);
 						usersImg.setFileName(fileName);
-						usersImg.setUsersImage(b);
-//						usersImg.setUsersImage(blob);
+						usersImg.setUsersImage(blob);
 						usersImg.setUsers(user);
 						System.out.println(blob);
+						
 						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
 						usersImgSet.add(usersImg);
 						user.setUsersImg(usersImgSet);
 						
 						try {
+							System.out.println(1);
 							userService.saveUser(user);
+							System.out.println(2);
 							usersImgService.saveUsersImg(usersImg);
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 							return "updateMember";
@@ -173,11 +186,14 @@ public class UsersController {
 	@GetMapping(value = "/update/{id}")
 	public String showDataForm(@PathVariable("id") Integer id, Model model) {
 		
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Users users = userService.get(id);
 			Integer userId = users.getId();
 			System.out.println(userId);
-			List<String> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			while (userImgIdList.size() < 8) {
+				userImgIdList.add(null);
+			}
 			map.put(userId, userImgIdList);
 		
 			model.addAttribute("userImgIdMap",map);
@@ -186,11 +202,9 @@ public class UsersController {
 	}
 	
 	@PostMapping("/update/{id}")
-	public String modify(@ModelAttribute("user") @Valid UsersDto usersDto,
-			BindingResult result,
-			Model model,
-			@PathVariable Integer id
-			) {
+	public String modify(@ModelAttribute("user") @Valid UsersDto usersDto, BindingResult result, Model model,
+			@PathVariable Integer id, @RequestParam("delImgId") List<String> delId)
+	{
 
 		if (usersDto.getJob().getId() == -1) {
 			result.rejectValue("job", "", "必須挑選工作的選項");
@@ -206,22 +220,74 @@ public class UsersController {
 			}
 			return "/ModifyUser";
 		}
-
-
+		
 		Users user = new Users();
 		BeanUtils.copyProperties(usersDto, user);
+		
 
+		if (delId != null) {
+			for (String dId : delId) {
+				if (dId.startsWith("d")) {
+					String s = dId.replace("d", "");
+					Integer i = Integer.parseInt(s);
+					if (usersImgService.isUserImgExist(i)) {
+						usersImgService.delete(i);
+						System.out.println("更新原有圖del#" + i);
+					}
+				}else {
+					System.out.println("無更新原有圖片");
+				}
+			}
+		}
+		
+		
+		
+		List<MultipartFile> pictures = user.getImg();
 
-//		-------------------------------------------------
+		if (pictures != null && pictures.size() > 0) {
+			for (MultipartFile picture : pictures) {
+				UsersImg usersImg = new UsersImg();
+				String fileName = picture.getOriginalFilename();
+				if (picture != null && !picture.isEmpty()) {
+					try {
+						byte[] b = picture.getBytes();
+						
+						Blob blob = new SerialBlob(b);
+						usersImg.setFileName(fileName);
+						usersImg.setUsersImage(blob);
+						usersImg.setUsers(user);
+						System.out.println(blob);
+						List<UsersImg> usersImgSet = new ArrayList<UsersImg>();
+						usersImgSet.add(usersImg);
+						user.setUsersImg(usersImgSet);
+
 		try {
 			userService.updateUser(user);
+			usersImgService.updateUsersImg(usersImg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "/updateMember";
+			return "/ModifyUser";
+		}
+					} catch (Exception e) {
+						e.printStackTrace();
+						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+					}
+				}
+			}
 		}
 		return "redirect:/memberCenter";
 	}
 	
+	@RequestMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Integer id) {
+		
+		List <Integer> list = usersImgService.findUserImgByUserId(id);
+				for(Integer userImgId:list) {
+					usersImgService.delete(userImgId);
+				}
+				userService.deleteUser(id);
+				return "redirect:/memberCenter";
+	}
 	
 	
 	/**
@@ -239,10 +305,7 @@ public class UsersController {
 		model.addAttribute("hobbyList", hobbyList);
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("genderMap", genderMap);
-		System.out.println(hobbyList);
-		System.out.println(jobList);
 	}
-	
 	
 	@GetMapping("/picture/{id}")
 	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
@@ -263,43 +326,26 @@ public class UsersController {
 				mediaType = MediaType.valueOf(context.getMimeType(filename));
 				headers.setContentType(mediaType);
 			}
-			byte[] blob = userImg.getUsersImage();
+			Blob blob = userImg.getUsersImage();
 			if (blob != null) {
-				body =blob;
+				body = blobToByteArray(blob);
 			}
 			
 		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
 		System.out.println(re);
 		return re;
 	}
-//	@GetMapping("/picture/{id}")
-//	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
-//		byte[] body = null;
-//		ResponseEntity<byte[]> re = null;
-//		MediaType mediaType = null;
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
-//		
-//		List<UsersImg> usersImgs = usersImgService.findUserImgByUserId(id);
-//		
-//		for (UsersImg userImg : usersImgs) {
-//			if (usersImgs == null) {
-//				return new ResponseEntity<byte[]>(HttpStatus.NOT_FOUND);
-//			}
-//			String filename = userImg.getFileName();
-//			if (filename != null) {
-//				mediaType = MediaType.valueOf(context.getMimeType(filename));
-//				headers.setContentType(mediaType);
-//			}
-//			Blob blob = userImg.getUsersImage();
-//			if (blob != null) {
-//				body = blobToByteArray(blob);
-//			}
-//		}
-//		re = new ResponseEntity<byte[]>(body, headers, HttpStatus.OK);
-//		System.out.println(re);
-//		return re;
-//	}
+	
+	@GetMapping("/delPicture/{id}-{userId}")
+	public String delPicture(@PathVariable("id") Integer id,@PathVariable("userId") Integer userId) {
+		usersImgService.delete(id);
+		
+		Users user = userService.get(userId);
+		Integer uId = user.getId();
+		System.out.println(uId);
+		
+		return "redirect:/user/update/"+uId;
+	}
 
 	public byte[] blobToByteArray(Blob blob) {
 		byte[] result = null;
@@ -314,20 +360,8 @@ public class UsersController {
 			e.printStackTrace();
 		}
 		return result;
-//		public byte[] blobToByteArray(Blob blob) {
-//			byte[] result = null;
-//			try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
-//				byte[] b = new byte[819200];
-//				int len = 0;
-//				while ((len = is.read(b)) != -1) {
-//					baos.write(b, 0, len);
-//				}
-//				result = baos.toByteArray();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//			return result;
 	}
+}
 	
 	
 //	/**
@@ -359,5 +393,3 @@ public class UsersController {
 //	public List<Users> listUserAll() {
 //		return userService.listUserAll();
 //	}
-
-}

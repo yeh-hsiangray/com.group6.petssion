@@ -250,30 +250,57 @@ display: none;
 </style>
 </head>
 <body>
-<div class="container">
+<div style="text-align: center">
+				<h1>會員更新</h1>
+			</div>
+			
+			<hr
+		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
+	<br>
+	
+	<div class="container">
 		<div class="card"></div>
 		<div class="card">
 			<h1 class="title">個人檔案</h1>
 			<form:form method="POST" modelAttribute="user"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onSubmit="return CheckForm();" name="form1">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
 					</div>
 				<table class="t1">
-<%-- 			<c:forEach begin="0" end="21" step="3" varStatus="loop"> --%>
-<%-- 			<c:out value="${loop.count}"/> --%>
-<%-- 			<c:if test="${loop.count % 4 == 0}" > --%>
 				<tr>
 				
-				<c:forEach var='userImg' items='${userImgIdMap[user.id]}' varStatus="userStatus">
+				<c:forEach var='userImg' items='${userImgIdMap[user.id]}' varStatus="loop">
+					
 					<td>
-						<img id="preview_userImage" src="<c:url value='/' />user/picture/${userImg}" width="200px" />
+						<c:if test="${empty userImg}" >
+							<label>
+							<form:input type="file" path="img" targetID="preview_userImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<img id="preview_userImage${loop.count}" src="<c:url value='/' />img/plus.png" width="200px"/>
+							</label>
+						</c:if>
+						
+						<c:if test="${not empty userImg}">
+							
+							<a href="<c:url value='/' />user/delPicture/${userImg}-${user.id}">
+											<img  src="<c:url value='/' />img/x.png" width="23px" id="x1">
+										</a>
+							
+							<label>
+							<form:input id="fileInput" type="file" path="img" targetID="preview_userImage${loop.count}" targetID1="del${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+							<img id="preview_userImage${loop.count}" src="<c:url value='/' />user/picture/${userImg}" width="200px"/>
+							</label>
+							
+							<input id="del${loop.count}" name="delImgId" type="hidden"  value='${userImg}' />
+						</c:if>
 					</td>
+					
+					<c:if test="${loop.count % 4 == 0}" >
+					<tr></tr>
+					</c:if>
+					
 				</c:forEach>
-				
 				</tr>
-<%-- 			</c:if> --%>
-<%-- 			</c:forEach> --%>
 				</table>
 				<br>
 				<br>
@@ -283,9 +310,10 @@ display: none;
 <!-- 				=========================================================== -->
 				<script type="text/javascript">
 				function readURL(input){
-					  if(input.files && input.files[0]){
-
+					
+					if(input.files && input.files[0]){
 					    var imageTagID = input.getAttribute("targetID");
+					    var imageTagID1 = input.getAttribute("targetID1");
 
 					    var reader = new FileReader();
 
@@ -299,10 +327,22 @@ display: none;
 					    }
 
 					    reader.readAsDataURL(input.files[0]);
-
+					    
+						var delId=document.getElementById(imageTagID1);
+					    let str ="d";
+					    let str1=delId.value;
+					    console.log(str)
+					    console.log(str1);
+						delId.value=str+str1;
+					    console.log(delId.value);
 					  }
-
-					}
+				}
+				function CheckForm(){
+				      if(confirm("確認更新個人資料嗎？")==true)   
+				        return true;
+				      else  
+				        return false;
+				    }
 				</script>
 <!-- 			=========================================================== -->
 
