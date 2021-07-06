@@ -3,10 +3,13 @@ package com.group6.petssion.petprofile.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.PetImg;
 import com.group6.petssion.petprofile.dao.impl.PetImgDaoImpl;
 import com.group6.petssion.petprofile.service.PetImgService;
@@ -56,5 +59,16 @@ public class PetImgServiceImpl implements PetImgService {
 	public List<Integer> findPetImgIdByPetId(int petId) {
 		return petImgDao2.findPetImgIdByPetId(petId);
 	}
-	
+	public boolean isPetImgExist(Integer id) {
+		boolean exist = false;
+		try {
+		Optional<PetImg> optional = petImgDao.findById(id);
+		if (optional.isPresent()) {
+			exist=true;
+		}
+		}catch(NoResultException e) {
+			;
+		}
+		return exist;
+	}
 }

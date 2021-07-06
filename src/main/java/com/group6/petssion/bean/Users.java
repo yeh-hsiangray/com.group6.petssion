@@ -3,6 +3,7 @@ package com.group6.petssion.bean;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,7 +37,7 @@ public class Users implements Serializable {
 	private String name;
 	private String gender;
 	
-	@DateTimeFormat
+//	@DateTimeFormat
 	private Date birthday;
 	private String address;
 	private String constellation;
@@ -57,9 +57,11 @@ public class Users implements Serializable {
 	
 	private Integer Blockade;
 	
+
 	@ManyToMany(targetEntity = Hobby.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
 	 private List<Hobby> hobby;
+
 	
 	//對應account類
 	@OneToOne(mappedBy = "users")

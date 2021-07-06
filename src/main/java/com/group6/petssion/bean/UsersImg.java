@@ -1,7 +1,7 @@
 package com.group6.petssion.bean;
 
 
-import java.io.Serializable;
+
 import java.sql.Blob;
 import java.util.List;
 
@@ -15,18 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "UsersImg")
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class UsersImg implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class UsersImg {
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String fileName;
+
 
 	
 	
@@ -34,12 +31,13 @@ public class UsersImg implements Serializable {
 	private Blob usersImage;
 	
 
+	
+
 	@Column(name = "fk_Users_id")
 	@Transient
 	private Integer usersId;
 	@ManyToOne
 	@JoinColumn(name = "fk_Users_id")
-	@JsonIgnore
 	private Users users;
 	
 	@Transient
@@ -77,7 +75,10 @@ public class UsersImg implements Serializable {
 	}
 
 	public Blob getUsersImage() {
+
 		return usersImage ;
+
+
 	}
 
 	public void setUsersImage(Blob usersImage) {

@@ -10,6 +10,6 @@ public interface PetImgService {
 	PetImg get(Integer id);
 	void updatePetImg(PetImg petImg);
 	List<PetImg> finAllPetImg();
-	List<String> findPetImgIdByPetId(int petId);
-//	public List<PetImg> findPetImgByPetId(int petId);
+	List<Integer> findPetImgIdByPetId(int petId);
+	public boolean isPetImgExist(Integer id);
 }

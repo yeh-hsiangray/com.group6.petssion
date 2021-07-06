@@ -25,9 +25,11 @@ public class Hobby {
 	 * referencedColumnName="id")}, inverseJoinColumns=
 	 * {@JoinColumn(name="hobby_id", referencedColumnName="id")})
 	 */
+
 	@ManyToMany(targetEntity = Users.class, mappedBy = "hobby", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Users> users;
+
 
 	public Hobby() {
 	}
