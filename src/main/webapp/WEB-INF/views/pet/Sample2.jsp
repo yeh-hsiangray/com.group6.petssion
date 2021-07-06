@@ -1,14 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html; charset=UTF-8"
 	deferredSyntaxAllowedAsLiteral="true"%>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
 <head>
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Author Meta -->
+<meta name="author" content="">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
 <meta charset="UTF-8">
-<title>UpdatePet</title>
+<!-- Site Title -->
+<title>></title>
+
+<!--imports-->
+<%@include file="../commons/frontend_imports.jsp"%>
 <style type="text/css">
 span.error {
 	color: red;
@@ -218,18 +234,15 @@ body {
 	opacity: 1;
 	transform: scale(10);
 }
-
 input[type="file"] {
-	display: none;
+    display: none;
 }
 
-.t1 img {
-	/*      opacity:0 */
-	
-}
-
-.a1 {
-	top: 0;
+ .t1 img{ 
+/*      opacity:0 */
+ } 
+.a1{
+top: 0;
 	left: 0;
 	color: #757575;
 	font-size: 16px;
@@ -237,36 +250,64 @@ input[type="file"] {
 	line-height: 60px;
 	margin: 0 60px 0;
 }
+.t1 td{
+border: 2px solid #ccc;
+width: 200px;
+height: 200px;
+padding: o;
 
-.t1 td {
-	border: 2px solid #ccc;
-	width: 200px;
-	height: 200px;
-	padding: o;
 }
-
-.t1 {
-	margin: auto;
+.t1{
+margin: auto;
 }
-
-.b1 {
-	display: none;
-}
-
-#x1 {
-	float: right;
+.b1{
+display: none;
 }
 </style>
 </head>
 <body>
-	<div style="text-align: center">
-		<h1>寵物更新</h1>
-	</div>
-	<div align='center' style="font-size: 20px">
-		<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;<a
-			href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;<a
-			href="<c:url value='/' />">回首頁</a>
-	</div>
+
+	<!--header -->
+	<%@include file="../commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">${tag}</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span
+							class="lnr lnr-arrow-right"></span><a
+							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span
+							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- content -->
+	<section class="post-content-area single-post-area" style="background-color:#fff281;">
+		<div class="container">
+
+			<div class="row">
+<!-- 				<div class="col-lg-8 posts-list"> -->
+<!-- 					<div class="single-post row"> -->
+<!-- 					<div class="col-lg-12"> -->
+<!-- 						======================================= -->
+						<!--內容輸入在這-->
+						<div  style="text-align: center !impo; display: inline-block;">
+				<h1 style="text-align: center">新增寵物</h1>
+				<br>
+				<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;<a href="<c:url value='/' />">回首頁</a>
+			</div>
+<!-- 			<br> -->
+<!-- 	<div align='center' style="font-size: 20px"> -->
+		
+<!-- 	</div> -->
 	<br>
 	<hr
 		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
@@ -275,128 +316,99 @@ input[type="file"] {
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
-			<h1 class="title">寵物檔案:${pet.name}</h1>
+			<h1 class="title">寵物檔案</h1>
 			<form:form method="POST" modelAttribute="pet"
-				enctype="multipart/form-data" onSubmit="return CheckForm();"
-				name="form1">
+				enctype="multipart/form-data" onSubmit="return CheckForm();">
 				<div class="a1">
 					<label for="#{label}">圖片上傳:</label>
-				</div>
+					</div>
 				<table class="t1">
-					<tr>
-						<c:forEach var='petImg' items='${petImgIdMap[pet.id]}'
-							varStatus="loop">
-
-							<td><c:if test="${empty petImg}">
-									<label> <form:input type="file" path="img"
-											targetID="preview_petImage${loop.count}"
-											accept="image/gif, image/jpeg, image/png"
-											onchange="readURL(this)" /> <img
-										id="preview_petImage${loop.count}"
-										src="<c:url value='/' />img/plus.png" width="200px" />
-									</label>
-								</c:if> <c:if test="${not empty petImg}">
-
-									<a href="<c:url value='/' />pet/delPicture/${petImg}-${pet.id}">
-										<img src="<c:url value='/' />img/x.png" width="23px" id="x1">
-									</a>
-
-									<label> <form:input id="fileInput" type="file"
-											path="img" targetID="preview_petImage${loop.count}"
-											targetID1="del${loop.count}"
-											accept="image/gif, image/jpeg, image/png"
-											onchange="readURL(this)" /> <img
-										id="preview_petImage${loop.count}"
-										src="<c:url value='/' />pet/picture/${petImg}" width="200px" />
-									</label>
-
-									<input id="del${loop.count}" name="delImgId" type="hidden"
-										value='${petImg}' />
-								</c:if></td>
-							<!-- 					在4格後新增tr換列 -->
-							<c:if test="${loop.count % 4 == 0}">
-								<tr></tr>
-							</c:if>
-
-						</c:forEach>
-					</tr>
+				<tr>
+				<c:forEach begin="0" end="21" step="3" varStatus="loop">
+			
+				<td>
+					<label>
+					<form:input type="file" path="img" targetID="preview_petImage${loop.count}" accept="image/gif, image/jpeg, image/png" onchange="readURL(this)"/>
+					<img id="preview_petImage${loop.count}" src="<c:url value='/' />img/plus.png" width="200px"/>
+					</label>
+				</td>
+				
+				<c:if test="${loop.count % 4 == 0}" >
+				<tr></tr>
+				</c:if>
+				
+			</c:forEach>
+				</tr>
 				</table>
+				<form:errors path="img" cssClass="error" />
 				<br>
 				<br>
 				<br>
 				<br>
 				<br>
-				<!-- 				=========================================================== -->
+<!-- 				=========================================================== -->
 				<script type="text/javascript">
-					function readURL(input) {
+				function readURL(input){
+					  if(input.files && input.files[0]){
 
-						if (input.files && input.files[0]) {
-							var imageTagID = input.getAttribute("targetID");
-							var imageTagID1 = input.getAttribute("targetID1");
+					    var imageTagID = input.getAttribute("targetID");
 
-							var reader = new FileReader();
+					    var reader = new FileReader();
 
-							reader.onload = function(e) {
+					    reader.onload = function (e) {
 
-								var img = document.getElementById(imageTagID);
+					       var img = document.getElementById(imageTagID);
 
-								img.setAttribute("src", e.target.result)
-								img.style.opacity = 1
+					       img.setAttribute("src", e.target.result)
+					       img.style.opacity=1
 
-							}
+					    }
 
-							reader.readAsDataURL(input.files[0]);
+					    reader.readAsDataURL(input.files[0]);
 
-							var delId = document.getElementById(imageTagID1);
-							let str = "d";
-							let str1 = delId.value;
-							console.log(str1);
-							delId.value = str + str1;
-							console.log(delId.value);
-						}
+					  }
 
 					}
-
-					function CheckForm() {
-						if (confirm("確認更新寵物資料嗎？") == true)
-							return true;
-						else
-							return false;
-					}
+				
+				function CheckForm(){
+				      if(confirm("確認輸入寵物資料嗎？")==true)   
+				        return true;
+				      else  
+				        return false;
+				    }
 				</script>
-				<!-- 			=========================================================== -->
+<!-- 			=========================================================== -->
 
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
+						required="required" autocomplete="off" maxlength="12"/>
 					<form:errors path="name" cssClass="error" />
 					<label for="#{label}">名字:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">性別:</label>
-					<form:radiobuttons path="gender" items="${genderMap}" />
+					<form:radiobuttons path="gender" items="${genderMap}"/>
 					<form:errors path="gender" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="input-container">
 					<form:input path='age' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
+						autocomplete="off" required="required" maxlength="2"/>
 					<form:errors path="age" cssClass="error" />
 					<label for="#{label}">年齡:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">種類:</label>
-					<form:select path="type.id" name="s1"
-						OnChange="Buildkey(this.selectedIndex);">
+					<form:select path="type.id">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:select path="kind.id" name="s2">
+					<form:select path="kind.id">
 						<form:option label="請挑選" value="-1" />
-						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
+						<form:options items="${kindList}" itemLabel="name" itemValue="id"/>
 					</form:select>
 					<form:errors path="type" cssClass="error" />
 					<form:errors path="kind" cssClass="error" />
@@ -405,7 +417,7 @@ input[type="file"] {
 				<div class="ra1">
 					<label for="#{label}">喜愛食物:</label>
 					<form:radiobuttons path="food.id" items="${foodList}"
-						itemLabel="name" itemValue="id" />
+						itemLabel="name" itemValue="id"/>
 					<form:errors path="food" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
@@ -413,19 +425,28 @@ input[type="file"] {
 				<div class="ra1">
 					<label for="#{label}">個性:</label>
 					<form:radiobuttons path="personality.id" items="${personalityList}"
-						itemLabel="name" itemValue="id" />
+						itemLabel="name" itemValue="id"/>
 					<form:errors path="personality" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
-
 				<div class="button-container">
 					<button type="submit">
 						<span>確認</span>
 					</button>
-					<!-- 					<input type='submit'> -->
 				</div>
 			</form:form>
 		</div>
 	</div>
+<!-- 					============================================================= -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- content -->
+
+	<!--footer -->
+	<%@include file="../commons/frontend_footer.jsp"%>
 </body>
+
 </html>

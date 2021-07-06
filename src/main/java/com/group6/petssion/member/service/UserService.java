@@ -34,8 +34,8 @@ public interface UserService {
 //	}
 //	
 	
-	
-	List<Users> findAllUserByUserId(int userId);
+	public List<Users> findUserByUserId(int userId);
+//	List<Users> findAllUserByUserId(int userId);
 
 	Users saveUser(Users user);
 

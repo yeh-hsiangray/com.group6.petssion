@@ -65,7 +65,7 @@ public class UsersController {
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
-		List<Users> users = userService.findAllUserByUserId(1);
+		List<Users> users = userService.findUserByUserId(1);
 		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
 		
 		for(Users user: users) {
