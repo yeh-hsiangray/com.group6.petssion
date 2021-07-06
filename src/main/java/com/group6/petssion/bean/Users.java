@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "Users")
@@ -57,7 +57,7 @@ public class Users implements Serializable {
 	
 	private Integer Blockade;
 	
-	@ManyToMany(targetEntity = Hobby.class,cascade = CascadeType.ALL )
+	@ManyToMany(targetEntity = Hobby.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
 	 private List<Hobby> hobby;
 	
@@ -76,6 +76,17 @@ public class Users implements Serializable {
 	
 	@Transient
 	List<MultipartFile> img;
+
+	@Transient
+	String base64Img;
+	
+	public String getBase64Img() {
+		return base64Img;
+	}
+
+	public void setBase64Img(String base64Img) {
+		this.base64Img = base64Img;
+	}
 
 	public Users() {
 

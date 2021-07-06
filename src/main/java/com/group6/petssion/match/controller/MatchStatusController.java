@@ -1,9 +1,10 @@
 package com.group6.petssion.match.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
+import com.group6.petssion.bean.Users;
 import com.group6.petssion.match.service.MatchStatusService;
 
 @RestController
@@ -26,24 +28,16 @@ public class MatchStatusController {
 	@Autowired
 	private MatchStatusService matchStatusService;
 	
-	
 
 	/**
 	 *  @興趣id抓使用者
 	 * 
 	 */
 	@GetMapping("/selectHobby/getUsers")
-	public @ResponseBody Hobby getHobby(@RequestParam Integer id, 
+	public @ResponseBody List<Users> getUser(@RequestParam Integer id, 
 			HttpServletResponse response) {
-		Hobby hobby = null;
-		Optional<Hobby> optional =  matchStatusService.getUsersById(id);
-		if (optional.isPresent()) {
-			hobby = optional.get();
-			System.out.println(id);
-		} else {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		}
-		return hobby;
+		List<Users> userList =  matchStatusService.getUsersByHobbyId(id);
+		return userList;
 	}
 	
 	
@@ -51,53 +45,52 @@ public class MatchStatusController {
 	 *  @興趣下拉選單
 	 */
 	@GetMapping("/_05/allHobbys")
-	public ResponseEntity<List<Hobby>>  allHobbys()  {
+	public @ResponseBody List<Hobby>  allHobbys()  {
 		List<Hobby> list =  matchStatusService.getHobby();
 		
-		ResponseEntity<List<Hobby>> re = new ResponseEntity<>(list, HttpStatus.OK);
-		return re;
+//		List<Hobby> re = new ResponseEntity<>(list, HttpStatus.OK);
+		return  matchStatusService.getHobby();
 	}
 	
 
 	
 	/**
-	 *  @return 
-	 * @Lovebutton寫入
-	 *  @配對狀態資料表 
+	 *  
+	 * @button寫入配對狀態資料表
+	 *  
 	 */	
-//	@PostMapping("/save")
-//	public MatchStatus setMatchStatusByUserB(
-//		   @RequestParam (required=false)String user_A,
-//		   @RequestParam  (required=false)String user_B,
-//		   @RequestParam  (required=false)String status) {
-//		Map<String, String> map = new HashMap<>();
-//
-//		
-//		map.put("user_A",user_A);
-//		map.put("user_B",user_B);
-//		map.put("status",status);
-// 		ResponseEntity<Map<String, String>> re = new ResponseEntity<>(map, HttpStatus.OK);
-// 		System.out.println(re);
-//		return matchStatusService.save(re);
-//	}
-	
 	@PostMapping("/save")
 	public void setMatchStatusByUserB(
-			@RequestParam (required=false) Integer user_A,
-			@RequestParam  (required=false) Integer user_B,
-			@RequestParam  (required=false) Integer status) {
+			@RequestParam  (required=false) Integer userB,
+			@RequestParam  (required=false) Integer status,
+			HttpServletRequest request) {
 		
 		MatchStatus matchstatus = new MatchStatus();
 	
-		matchstatus.setUser_A(user_A);
-		matchstatus.setUser_B(user_B);
+		matchstatus.setUserB(userB);
 		matchstatus.setStatus(status);
+		/*springboot session @Autowrited [值不是無中生有 自動傳入]*/
+//		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+//		HttpSession session = request.getSession();
+//		Integer userId =(Integer) session.getAttribute("userId");
+//		Integer userId=22;
+//		Enumeration<String> names = session.getAttributeNames();
+//        while (names.hasMoreElements()) {
+//            String name = names.nextElement();
+//            
+//            System.out.print(name);
+//        }        
+//		HttpSession session=request.getSession();
+//		  int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		Integer SessionUserId=22;
+		matchstatus.setUserA(SessionUserId);
 		
-		 matchStatusService.save(matchstatus);		
+		System.out.println(SessionUserId);
+		matchStatusService.save(matchstatus);		
 		
 	}
 	
-	
+
 	
 	//@GetMapping("/match/{id}")
 //    public Hobby getHobby(@PathVariable int id) {

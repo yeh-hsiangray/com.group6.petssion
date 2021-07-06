@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.PetImg;
 @Repository
 public class PetImgDaoImpl {
@@ -22,9 +23,9 @@ public class PetImgDaoImpl {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Integer> findPetImgIdByPetId(int petId) {
+	public List<Pet> findPetImgIdByPetId(int petId) {
 		String hql = "select p.id from PetImg p where p.pet.id=:id";
-		List<Integer> list = new ArrayList<>();
+		List<Pet> list = new ArrayList<>();
 		try {
 			list = (List<Integer>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
 			System.out.println(hql);

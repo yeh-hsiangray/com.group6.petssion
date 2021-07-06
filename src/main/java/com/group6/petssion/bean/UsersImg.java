@@ -1,12 +1,9 @@
 package com.group6.petssion.bean;
 
-<<<<<<< HEAD
+
 import java.io.Serializable;
-import java.sql.Timestamp;
-=======
 import java.sql.Blob;
 import java.util.List;
->>>>>>> 8feb77d625335d90da9c6f43d53937d3ee2ed21a
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -31,14 +27,13 @@ public class UsersImg implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String fileName;
-<<<<<<< HEAD
+
 	
-	@Lob
-	private byte[] usersImage;
-=======
+	
+
 	private Blob usersImage;
 	
->>>>>>> 8feb77d625335d90da9c6f43d53937d3ee2ed21a
+
 	@Column(name = "fk_Users_id")
 	@Transient
 	private Integer usersId;
@@ -53,13 +48,9 @@ public class UsersImg implements Serializable {
 	public UsersImg() {
 	}
 
-<<<<<<< HEAD
-	public UsersImg(Integer id, Timestamp admissionTime, String fileName, byte[] usersImage, Integer usersId,
-			Users users) {
-=======
 	public UsersImg(Integer id, String fileName, Blob usersImage, Integer usersId, Users users,
 			List<String> imgIdList) {
->>>>>>> 8feb77d625335d90da9c6f43d53937d3ee2ed21a
+
 		super();
 		this.id = id;
 		this.fileName = fileName;
@@ -85,11 +76,11 @@ public class UsersImg implements Serializable {
 		this.fileName = fileName;
 	}
 
-	public byte[] getUsersImage() {
+	public Blob getUsersImage() {
 		return usersImage ;
 	}
 
-	public void setUsersImage(byte[] usersImage) {
+	public void setUsersImage(Blob usersImage) {
 		this.usersImage = usersImage;
 	}
 
