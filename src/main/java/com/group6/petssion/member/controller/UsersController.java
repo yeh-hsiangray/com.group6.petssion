@@ -67,15 +67,10 @@ public class UsersController {
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
-<<<<<<< HEAD
 		List<Users> users = userService.findUserByUserId(1);
-		Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
-=======
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		HttpSession session=request.getSession();
 		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-		List<Users> users = userService.findAllUserByUserId(SessionUserId);
-		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
->>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
 		
 		for(Users user: users) {
 			Integer userId = user.getId();

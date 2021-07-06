@@ -1,12 +1,9 @@
 package com.group6.petssion.bean;
 
-<<<<<<< HEAD
 import java.io.Serializable;
 import java.sql.Timestamp;
-=======
 
 
->>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
 import java.sql.Blob;
 import java.util.List;
 
@@ -28,23 +25,10 @@ public class UsersImg {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String fileName;
-<<<<<<< HEAD
 	
-	@Lob
-	private Blob usersImage;
-	
-=======
-
-
-	
-	
-
 	private Blob usersImage;
 	
 
-	
-
->>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
 	@Column(name = "fk_Users_id")
 	@Transient
 	private Integer usersId;
@@ -58,15 +42,10 @@ public class UsersImg {
 	public UsersImg() {
 	}
 
-<<<<<<< HEAD
 	
 	public UsersImg(Integer id, String fileName, Blob usersImage, Integer usersId, Users users,
 			List<String> imgIdList) {
-=======
-	public UsersImg(Integer id, String fileName, Blob usersImage, Integer usersId, Users users,
-			List<String> imgIdList) {
 
->>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
 		super();
 		this.id = id;
 		this.fileName = fileName;
@@ -93,10 +72,7 @@ public class UsersImg {
 	}
 
 	public Blob getUsersImage() {
-<<<<<<< HEAD
-=======
 
->>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
 		return usersImage ;
 
 

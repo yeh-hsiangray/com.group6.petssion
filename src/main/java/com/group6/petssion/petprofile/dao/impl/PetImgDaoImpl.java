@@ -23,9 +23,9 @@ public class PetImgDaoImpl {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Pet> findPetImgIdByPetId(int petId) {
+	public List<Integer> findPetImgIdByPetId(int petId) {
 		String hql = "select p.id from PetImg p where p.pet.id=:id";
-		List<Pet> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<>();
 		try {
 			list = (List<Integer>) entityManager.createQuery(hql).setParameter("id", petId).getResultList();
 			System.out.println(hql);

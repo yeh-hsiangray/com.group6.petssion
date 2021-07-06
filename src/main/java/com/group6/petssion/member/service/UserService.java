@@ -6,7 +6,6 @@ import com.group6.petssion.bean.Users;
 
 public interface UserService {
 	
-<<<<<<< HEAD
 //	@Autowired
 //	private UsersRepository usersRepository;
 //	
@@ -33,9 +32,7 @@ public interface UserService {
 	
 	public List<Users> findUserByUserId(int userId);
 //	List<Users> findAllUserByUserId(int userId);
-=======
-	List<Users> findAllUserByUserId(int userId);
->>>>>>> 760e4147b8ea8b356b01bec1aabd2e371a3a5e60
+
 
 	Users saveUser(Users user);
 
