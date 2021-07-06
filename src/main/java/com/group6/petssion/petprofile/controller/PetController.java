@@ -38,6 +38,9 @@ import com.group6.petssion.bean.Personality;
 import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.PetImg;
 import com.group6.petssion.bean.Type;
+import com.group6.petssion.bean.Users;
+import com.group6.petssion.member.service.UserService;
+import com.group6.petssion.member.service.UsersImgService;
 import com.group6.petssion.petprofile.service.FoodService;
 import com.group6.petssion.petprofile.service.KindService;
 import com.group6.petssion.petprofile.service.PersonalityService;
@@ -49,7 +52,8 @@ import com.group6.petssion.petprofile.validate.PetDto;
 @Controller
 @RequestMapping("/pet")
 public class PetController {
-
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private PetService petService;
 	@Autowired
@@ -99,7 +103,8 @@ public class PetController {
 		Pet pet = new Pet();
 		model.addAttribute("pet", pet);
 
-		return "pet/InsertPet";
+//		return "pet/InsertPet";
+		return "pet/Sample2";
 	}
 
 	@PostMapping(value = "/pet_form")
@@ -152,6 +157,12 @@ public class PetController {
 //				}
 //			}
 //		}
+		List<Users> list= userService.findUserByUserId(1);
+		System.out.println(list);
+		for(Users user:list) {
+			pet.setUser(user);
+			pet.setUserId(user.getId());
+		}
 //		---------------------圖片處理--------------------------
 		List<MultipartFile> pictures = pet.getImg();
 
@@ -172,11 +183,12 @@ public class PetController {
 						List<PetImg> petImgSet = new ArrayList<PetImg>();
 						petImgSet.add(petImg);
 						pet.setPetImg(petImgSet);
-
+						
+//						
+						
 						try {
 							petService.savePet(pet);
 							petImgService.savePetImg(petImg);
-
 						} catch (Exception e) {
 							e.printStackTrace();
 							return "pet/InsertPet";
@@ -266,6 +278,12 @@ public class PetController {
 //				}
 //			}
 //		}
+		List<Users> list= userService.findUserByUserId(1);
+		System.out.println(list);
+		for(Users user:list) {
+			pet.setUser(user);
+			pet.setUserId(user.getId());
+		}
 //------------------------------原有圖片處理--------------------------
 //		當使用者更新原有圖片時 回傳原有圖id刪除 才不會重複
 		if (delId != null) {
@@ -282,6 +300,7 @@ public class PetController {
 				}
 			}
 		} 
+		petService.updatePet(pet);
 //-----------------------------新增圖片處理-----------------------------------
 		List<MultipartFile> pictures = pet.getImg();
 
@@ -303,7 +322,7 @@ public class PetController {
 						pet.setPetImg(petImgSet);
 
 						try {
-							petService.updatePet(pet);
+//						petService.updatePet(pet);
 							petImgService.updatePetImg(petImg);
 						} catch (Exception e) {
 							e.printStackTrace();

@@ -88,14 +88,18 @@ public class UserServiceImpl implements UserService{
 		return userDao2.isUsersExist(user);
 	}
 
-	@Override
-	public List<Users> findAllUserByUserId(int userId) {
-		return userDao2.findAllUserByUserId(userId);
-	}
+//	@Override
+//	public List<Users> findAllUserByUserId(int userId) {
+//		return userDao2.findAllUserByUserId(userId);
+//	}
 
 	@Override
 	public List<Users> getAllUserNameByUserId(int userId) {
 		return userDao2.getAllUserNameByUserId(userId);
+	}
+
+	public List<Users> findUserByUserId(int userId) {
+	return userDao2.findUserByUserId(userId);
 	}
 	
 	

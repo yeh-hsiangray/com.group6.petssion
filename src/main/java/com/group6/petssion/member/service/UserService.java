@@ -6,7 +6,33 @@ import com.group6.petssion.bean.Users;
 
 public interface UserService {
 	
-	List<Users> findAllUserByUserId(int userId);
+//	@Autowired
+//	private UsersRepository usersRepository;
+//	
+//	public List<Users> listUserAll() {
+//		return usersRepository.findAll();
+//	}
+//	
+//	public void saveUser(Users users) {
+//		usersRepository.save(users);
+//	}
+//	
+//	public Users findUserById(Integer id) {
+//		return usersRepository.findById(id).get();
+//	}
+//
+//	public Users findByname(String name) {
+//		return usersRepository.findByname(name);
+//	}
+//	
+//	public void deleteById(Integer id) {
+//		usersRepository.deleteById(id);
+//	}
+//	
+	
+	public List<Users> findUserByUserId(int userId);
+//	List<Users> findAllUserByUserId(int userId);
+
 
 	Users saveUser(Users user);
 

@@ -25,11 +25,12 @@ public class UserDaoImpl {
 		entityManager.merge(user);
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 //	@Override
-	public List<Users> findAllUserByUserId(int userId) {
+	@SuppressWarnings("unchecked")
+	public List<Users> findUserByUserId(int userId) {
 		String hql = "from Users p where p.id=:id";
-		List<Users> list = new ArrayList<>();
+		List<Users> list = new ArrayList<Users>();
 		try {
 			list = (List<Users>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();
 			System.out.println(hql);
