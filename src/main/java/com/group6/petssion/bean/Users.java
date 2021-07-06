@@ -80,14 +80,14 @@ public class Users implements Serializable {
 	List<MultipartFile> img;
 
 	@Transient
-	String base64Img;
+	String base64UserImg;
 	
-	public String getBase64Img() {
-		return base64Img;
+	public String getbase64UserImg() {
+		return base64UserImg;
 	}
 
-	public void setBase64Img(String base64Img) {
-		this.base64Img = base64Img;
+	public void setbase64UserImg(String base64UserImg) {
+		this.base64UserImg = base64UserImg;
 	}
 
 	public Users() {
