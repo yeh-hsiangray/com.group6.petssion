@@ -18,6 +18,8 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Pet")
 public class Pet implements Serializable {
@@ -62,11 +64,22 @@ public class Pet implements Serializable {
 	private Integer userId;
 	@ManyToOne
 	@JoinColumn(name = "fk_user_id")
+	@JsonIgnore
 	private Users user;
 	@Transient
 	private List<MultipartFile> img;
 	@Transient
-	private List<Integer> delImgId;
+	private List<Integer> delImgId;	
+	public String getBase64PetImg() {
+		return base64PetImg;
+	}
+
+	public void setBase64PetImg(String base64PetImg) {
+		this.base64PetImg = base64PetImg;
+	}
+
+	@Transient
+	String base64PetImg;
 
 	public Pet() {
 	}

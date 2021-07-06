@@ -65,8 +65,14 @@
 		selectElement.onchange = function(){
 			xhr2.onreadystatechange = function() {
 				if (xhr2.readyState == 4 && xhr2.status == 200) {
-// 					if(null){}
-					displayUsers(xhr2.responseText);
+//  					if(XMLHttpRequest==null){
+//  						lastData();
+//  						return
+//  					}else{
+ 						
+//  					}
+                 console.log(xhr2.responseText);
+ 					displayUsers(xhr2.responseText);
 				}
 			}
 // 			單個option的屬性 (obj.options[obj.selecedIndex]是指定的某個<option>標籤,是一個—)
@@ -81,7 +87,7 @@
 
 		function loveSubmit(id){
 		
-			console.log(id);
+// 			console.log(id);
 			var love=document.getElementById('love_Btn').value = '1'; //喜歡狀態
 			xhr3.onreadystatechange = function() {
 				if (xhr3.readyState == 4 && xhr3.status == 200) {
@@ -92,35 +98,46 @@
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
 	                "<section class='s"+i+"'><table>"+
 	                "<tr>"+
-	                       "<td>姓名:</td>"+
+	                       "<td>會員姓名:</td>"+
 	                       "<td>" + dataJson[i].name + "</td>" +               
-		                   "<td rowspan='4'>照片:</td>"+
-		                   "<td rowspan='4'><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64Img + "'></td>"+
+	                       "<td>寵物姓名:</td>"+
+	                       "<td>" + dataJson[i].pet[i].name + "</td>" +               
+		                   
 		            "</tr>" +
 		            "<tr>"+
-		                   "<td > 性別:</td>"+ 
+		                   "<td > 會員性別:</td>"+ 
 		                   "<td >" + dataJson[i].gender + "</td>"+
+		                   "<td > 寵物種類:</td>"+ 
+		                   "<td >" + dataJson[i].pet[i].type.name + "</td>"+
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td>星座:</td>"+
 		                   "<td>" + dataJson[i].constellation + "</td>"+
+		                   "<td>寵物性別:</td>"+
+		                   "<td>" + dataJson[i].pet[i].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
-		                   "<td>自我介紹:</td>"+
+		                   "<td>會員自我介紹:</td>"+
 		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+		                   "<td>寵物個性:</td>"+
+		                   "<td>" + dataJson[i].pet[i].personality.name + "</td>"+
 		            "</tr>"+
-		           "<tr>"+				                 				                  
+		            "<tr>"+
+		                    "<td>會員照片:</td>"+
+	                        "<td><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+		                    "<td >寵物照片:</td>"+
+	                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].pet[i].base64PetImg + "'></td>"+
+	               "</tr>"+
+	                "<tr>"+				                 				                  
 		            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
 		                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
 		                     "<img  src='../img/cross.png'></button></td>"+
 		            "</tr>";
      
-	content +="</table></section>";
-	showuser.innerHTML = content; 	
-	i++;		
-
-// 			console.log("------love="+love+"&--------love_Btn="+id);
+	                 content +="</table></section>";
+	                 showuser.innerHTML = content; 	
+	                  i++;		
 				
 				}	
 			}		
@@ -132,7 +149,7 @@
 		
 		
 		function hateSubmit(id){
-			console.log(id);
+// 			console.log(id);
 			var hate=document.getElementById('hate_Btn').value = '2'; //不喜歡狀態					
 			xhr4.onreadystatechange = function() {
 				if (xhr4.readyState == 4 && xhr4.status == 200) {
@@ -143,23 +160,35 @@
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
 	                "<section class='s"+i+"'><table>"+
 	                "<tr>"+
-	                       "<td>姓名:</td>"+
-	                       "<td>" + dataJson[i].name + "</td>" +               
-		                   "<td rowspan='4'>照片:</td>"+
-		                   "<td rowspan='4'><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64Img + "'></td>"+
+	                       "<td>會員姓名:</td>"+
+	                       "<td>" + dataJson[i].name + "</td>" +  
+	                       "<td>寵物姓名:</td>"+
+	                       "<td>" + dataJson[i].pet[i].name + "</td>" +  	                       
 		            "</tr>" +
 		            "<tr>"+
-		                   "<td > 性別:</td>"+ 
+		                   "<td >會員性別:</td>"+ 
 		                   "<td >" + dataJson[i].gender + "</td>"+
+		                   "<td >寵物類型:</td>"+ 
+		                   "<td >" + dataJson[i].pet[i].type.name + "</td>"+
 		            "</tr>" +
 		            "<tr>"+
-		                   "<td>星座:</td>"+
+		                   "<td>會員星座:</td>"+
 		                   "<td>" + dataJson[i].constellation + "</td>"+
+		                   "<td >寵物性別:</td>"+ 
+		                   "<td >" + dataJson[i].pet[i].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
-		                   "<td>自我介紹:</td>"+
+		                   "<td>會員自我介紹:</td>"+
 		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+		                   "<td>寵物個性:</td>"+
+		                   "<td>" + dataJson[i].pet[i].personality.name + "</td>"+
 		            "</tr>"+
+		            "<tr>"+
+		                    "<td >會員照片:</td>"+
+	                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+		                    "<td >寵物照片:</td>"+
+	                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].pet[i].base64PetImg + "'></td>"+
+	                "</tr>"+
 		           "<tr>";		
 		        	content +="<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
@@ -168,9 +197,9 @@
 		            "</tr>";
 		          
 			
-	content +="</table></section>";
-	showuser.innerHTML = content; 	
-					i++;
+	                 content +="</table></section>";
+	                 showuser.innerHTML = content; 	
+					 i++;
 							
 			console.log("------hate="+hate+"&--------hate_Btn="+id);
 					
@@ -186,43 +215,64 @@
 	function lastData(){
 		 if(i>=dataJson.length){
       	   content = "已無配對相同興趣者"
+      	   alert("已無配對相同興趣者");
       	showuser.innerHTML = content;
 }
 	}
 		
 		function displayUsers(responseText){
 			 dataJson = JSON.parse(responseText);
+			 if(dataJson.length==0){
+				 content = "目前無此相同興趣者"
+			      	   alert("目前無此相同興趣者,請挑選另一興趣");
+			      	showuser.innerHTML = content;
+				return
+			}
+				
+//			}
 // 			console.log(dataJson)
 			 //取值 [{key:value},{key:value}] =mapData[0]["Users"],  json[2].key
 // 		     for(var i=0; i < dataJson.length; i++){
 		    	 i=0;		     			
-				console.log("-----------"+dataJson[i].base64Img)
+				console.log("-----------"+dataJson[i].base64UserImg)
 				var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
 			                "<section class='s"+i+"'><table>"+
 			                "<tr>"+
-			                       "<td>姓名:</td>"+
-			                       "<td>" + dataJson[i].name + "</td>" +               
-				                   "<td rowspan='4'>照片:</td>"+
-				                   "<td rowspan='4'><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64Img + "'></td>"+
-				            "</tr>" +
-				            "<tr>"+
-				                   "<td > 性別:</td>"+ 
-				                   "<td >" + dataJson[i].gender + "</td>"+
-				            "</tr>" +
-				            "<tr>"+
-				                   "<td>星座:</td>"+
-				                   "<td>" + dataJson[i].constellation + "</td>"+
-				            "</tr>"+
-				            "<tr>"+
-				                   "<td>自我介紹:</td>"+
-				                   "<td>" + dataJson[i].selfintroduction + "</td>"+
-				            "</tr>"+
-				           "<tr>"+				                 				                  
-				            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
-				                    "<img  src='../img/heart.png'></button>"+
-				                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
-				                     "<img  src='../img/cross.png'></button></td>"+
-				            "</tr>";
+		                       "<td>會員姓名:</td>"+
+		                       "<td>" + dataJson[i].name + "</td>" +  
+		                       "<td>寵物姓名:</td>"+
+		                       "<td>" + dataJson[i].pet[i].name + "</td>" +  	                       
+			            "</tr>" +
+			            "<tr>"+
+			                   "<td >會員性別:</td>"+ 
+			                   "<td >" + dataJson[i].gender + "</td>"+
+			                   "<td >寵物類型:</td>"+ 
+			                   "<td >" + dataJson[i].pet[i].type.name + "</td>"+
+			            "</tr>" +
+			            "<tr>"+
+			                   "<td>會員星座:</td>"+
+			                   "<td>" + dataJson[i].constellation + "</td>"+
+			                   "<td >寵物性別:</td>"+ 
+			                   "<td >" + dataJson[i].pet[i].gender + "</td>"+
+			            "</tr>"+
+			            "<tr>"+
+			                   "<td>會員自我介紹:</td>"+
+			                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+			                   "<td>寵物個性:</td>"+
+			                   "<td>" + dataJson[i].pet[i].personality.name + "</td>"+
+			            "</tr>"+
+			            "<tr>"+
+			                    "<td >會員照片:</td>"+
+		                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+			                    "<td >寵物照片:</td>"+
+		                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].pet[i].base64PetImg + "'></td>"+
+		                "</tr>"+
+			           "<tr>";		
+			        	content +="<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
+			                    "<img  src='../img/heart.png'></button>"+
+			                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
+			                     "<img  src='../img/cross.png'></button></td>"+
+			            "</tr>";
 // 		     }
 			content +="</table></section>";
 			showuser.innerHTML = content; 	
