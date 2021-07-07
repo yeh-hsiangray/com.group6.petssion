@@ -65,12 +65,7 @@
 		selectElement.onchange = function(){
 			xhr2.onreadystatechange = function() {
 				if (xhr2.readyState == 4 && xhr2.status == 200) {
-//  					if(XMLHttpRequest==null){
-//  						lastData();
-//  						return
-//  					}else{
- 						
-//  					}
+  					
                  console.log(xhr2.responseText);
  					displayUsers(xhr2.responseText);
 				}
@@ -154,7 +149,7 @@
 			xhr4.onreadystatechange = function() {
 				if (xhr4.readyState == 4 && xhr4.status == 200) {
 	            if(i>=dataJson.length){ 
-	            	lastData() ;
+	            	lastData();
 	            	return 
 	            	}
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
@@ -162,32 +157,32 @@
 	                "<tr>"+
 	                       "<td>會員姓名:</td>"+
 	                       "<td>" + dataJson[i].name + "</td>" +  
-	                       "<td>寵物姓名:</td>"+
-	                       "<td>" + dataJson[i].pet[i].name + "</td>" +  	                       
+// 	                       "<td>寵物姓名:</td>"+
+// 	                       "<td>" + dataJson[i].pet[i].name + "</td>" +  	                       
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td >會員性別:</td>"+ 
 		                   "<td >" + dataJson[i].gender + "</td>"+
-		                   "<td >寵物類型:</td>"+ 
-		                   "<td >" + dataJson[i].pet[i].type.name + "</td>"+
+// 		                   "<td >寵物類型:</td>"+ 
+// 		                   "<td >" + dataJson[i].pet[i].type.name + "</td>"+
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td>會員星座:</td>"+
 		                   "<td>" + dataJson[i].constellation + "</td>"+
-		                   "<td >寵物性別:</td>"+ 
-		                   "<td >" + dataJson[i].pet[i].gender + "</td>"+
+// 		                   "<td >寵物性別:</td>"+ 
+// 		                   "<td >" + dataJson[i].pet[i].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                   "<td>會員自我介紹:</td>"+
 		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
-		                   "<td>寵物個性:</td>"+
-		                   "<td>" + dataJson[i].pet[i].personality.name + "</td>"+
+// 		                   "<td>寵物個性:</td>"+
+// 		                   "<td>" + dataJson[i].pet[i].personality.name + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td >會員照片:</td>"+
 	                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
-		                    "<td >寵物照片:</td>"+
-	                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].pet[i].base64PetImg + "'></td>"+
+// 		                    "<td >寵物照片:</td>"+
+// 	                        "<td ><img  width='40' height='48' src='data:image/jpeg;base64," + dataJson[i].pet[i].base64PetImg + "'></td>"+
 	                "</tr>"+
 		           "<tr>";		
 		        	content +="<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
@@ -199,7 +194,7 @@
 			
 	                 content +="</table></section>";
 	                 showuser.innerHTML = content; 	
-					 i++;
+					 i+=1;
 							
 			console.log("------hate="+hate+"&--------hate_Btn="+id);
 					
@@ -211,7 +206,7 @@
 									
 		}
 		
-					
+						
 	function lastData(){
 		 if(i>=dataJson.length){
       	   content = "已無配對相同興趣者"

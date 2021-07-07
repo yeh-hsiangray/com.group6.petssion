@@ -18,8 +18,8 @@ public interface MatchStatusService {
 	MatchStatus save(MatchStatus matchstatus);
      
      
- 
-	
+   
+	List<String> getStatusByUsersId(Integer id);
 		
 	
 	

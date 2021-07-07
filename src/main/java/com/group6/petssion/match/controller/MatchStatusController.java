@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +18,7 @@ import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.match.service.MatchStatusService;
+import com.group6.petssion.member.service.UserService;
 
 @RestController
 @RequestMapping("/match")
@@ -28,15 +27,25 @@ public class MatchStatusController {
 	@Autowired
 	private MatchStatusService matchStatusService;
 	
+	@Autowired
+	private UserService userService;
+	
 
 	/**
-	 *  @興趣id抓使用者
-	 * 
+	 * @興趣id抓使用者
+	 * @排除登入者之資料
 	 */
 	@GetMapping("/selectHobby/getUsers")
-	public @ResponseBody List<Users> getUser(@RequestParam Integer id, 
-			HttpServletResponse response) {
+	public @ResponseBody List<Users> getUserWithoutSignInId(@RequestParam Integer id, 			
+			HttpServletResponse response,HttpServletRequest request) {
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		int SessionUserId =22;
 		List<Users> userList =  matchStatusService.getUsersByHobbyId(id);
+		Users user=userService.get(SessionUserId);
+//		System.out.println(user);
+		userList.remove(user);
+	
 		return userList;
 	}
 	
@@ -82,7 +91,7 @@ public class MatchStatusController {
 //        }        
 //		HttpSession session=request.getSession();
 //		  int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-		Integer SessionUserId=22;
+		Integer SessionUserId=2;
 		matchstatus.setUserA(SessionUserId);
 		
 		System.out.println(SessionUserId);
@@ -90,6 +99,14 @@ public class MatchStatusController {
 		
 	}
 	
+	/**	  
+	 * @使用者登入時收到交友通知
+	 *  
+	 */	
+	@GetMapping("/signInNotify")
+	public @ResponseBody List<String> getMatchStatus(@RequestParam Integer userAid){			
+		return matchStatusService.getStatusByUsersId(userAid);			
+	}
 
 	
 	//@GetMapping("/match/{id}")

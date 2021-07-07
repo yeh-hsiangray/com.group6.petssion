@@ -281,5 +281,5 @@ public class Users implements Serializable {
 	public void setImg(List<MultipartFile> img) {
 		this.img = img;
 	}
-	
+
 }
