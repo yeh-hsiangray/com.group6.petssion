@@ -30,11 +30,11 @@
 	<%@include file="../../commons/backend_header.jsp"%>
 
 	<!-- sidebar start -->
-	<%@include file="../../commons/backend_blog_sidebar.jsp"%>
+	<%@include file="../../commons/backend_sidebar.jsp"%>
 	<!-- sidebar end -->
 
 	<!-- content -->
-
+ 
 	<!-- content -->
 
 	<!--footer -->

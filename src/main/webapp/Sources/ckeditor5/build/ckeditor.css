@@ -1,0 +1,214 @@
+/* CKEditor 編輯區塊 */
+.ck-editor__editable_inline {
+	/* 設定最低高度 */
+	min-height: 450px;
+}
+
+#edit-header {
+	/* 設定最低高度 */
+	min-height: 50px;
+}
+
+.rightEnd {
+	position: absolute;
+	right: 100px;
+}
+.btn-preview-1{
+	background-color: #007bff; 
+	border-color:#007bff;
+}
+
+.btn-preview-2{
+	font-size: 26px; 
+	background-color: #007bff; 
+	border-color:#007bff;
+}
+.btn-submit-1{
+	background-color: #dc3545; 
+	border-color:#dc3545;
+}
+.btn-submit-2{
+	font-size: 26px; 
+	background-color: #dc3545; 
+	border-color:#dc3545;
+}
+
+.tb-edit {
+	border: 0px;
+	margin: 6px
+}
+
+.tb-edit tr {
+	border-bottom: solid 15px white;
+}
+
+.tb-edit tr:last-child {
+	border-bottom: none;
+}
+
+.tb-edit th {
+	position: relative;
+	width: 30%;
+	background-color: #7d7d7d;
+	color: white;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.tb-edit th:after {
+	display: block;
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	top: calc(50% - 10px);
+	right: -10px;
+	border-left: 10px solid #7d7d7d;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+
+.tb-edit td-edit-1 {
+	text-align: left;
+	width: 15%;
+	text-align: center;
+	background-color: #eee;
+	padding: 10px 0;
+	font-size: 45px;
+}
+
+.tb-edit td-edit-2 {
+	text-align: left;
+	width: 85%;
+	text-align: center;
+	background-color: #eee;
+	padding: 10px 0;
+}
+
+.tb-edit {
+	margin: 20px auto;
+	align-item: center;
+	width: 95%;
+}
+
+.photo_submit-container:before, .photo_submit-container:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+.photo_submit-container  {
+	font-family: 'Open Sans', sans-serif;
+	color: cadetblue;
+}
+
+/* .wrapper {
+    max-width: 800px;
+    margin: 30px auto;
+} */
+.photo_submit-container {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+}
+.photo_submit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 150px;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+.photo_submit:hover {
+  cursor: pointer;
+  background: #ebebeb;
+}
+.photo_submit:nth-child(1),
+.photo_submit:nth-child(2),
+.photo_submit:nth-child(3){
+  margin-left: 1rem;
+}
+.photo_submit.photo_submit--image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.photo_submit.photo_submit--image:hover {
+  cursor: default;
+}
+.photo_submit-input {
+  display: none;
+}
+.photo_submit-plus {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: cadetblue;
+  pointer-events: none;
+}
+.photo_submit-plus:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-46%, -52%);
+  content: '+';
+  font-size: 36px;
+  color: #fff;
+}
+.photo_submit--image .photo_submit-plus {
+  display: none;
+}
+.photo_submit-uploadLabel {
+  margin-top: 1rem;
+  font-size: 21px;
+  color: cadetblue;
+  letter-spacing: 0.03em;
+  pointer-events: none;
+}
+.photo_submit--image .photo_submit-uploadLabel {
+  display: none;
+}
+.photo_submit-delete {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  background: #f8f8f8;
+  border-radius: 50%;
+  text-indent: -9999px;
+  cursor: pointer;
+}
+.photo_submit-delete:before,
+.photo_submit-delete:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  background-color: cadetblue;
+  content: '';
+}
+.photo_submit-delete:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.photo_submit-delete:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.photo_submit-delete:hover {
+  background: #ccc;
+}
+.photo_submit--image .photo_submit-delete {
+  display: inline-block;
+}

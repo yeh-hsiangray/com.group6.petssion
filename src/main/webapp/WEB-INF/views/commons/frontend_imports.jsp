@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="<c:url value='/Sources/plugins/fontawesome-free/css/all.min.css' />">
 <link rel="stylesheet"
 	href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 	crossorigin="anonymous" />
+	
 <link rel="shortcut icon" href="<c:url value='/Sources/img/fav.png' />">
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -29,7 +33,7 @@
 <link rel="stylesheet"
 	href="<c:url value='/Sources/css/jquery-ui.css' />">
 <link rel="stylesheet" href="<c:url value='/Sources/css/main.css' />">
-<link rel="stylesheet" href="<c:url value='/Sources/css/dropdown.css' />">
+<link rel="stylesheet" href="<c:url value='/Sources/css/selOpt.css' />">
 
 <script src="<c:url value='/Sources/js/vendor/jquery-2.2.4.min.js'/>"></script>
 <script
