@@ -24,7 +24,7 @@ public class UsersImgDaoImpl {
 	
 	@SuppressWarnings("unchecked")
 	public List<Integer> findUserImgByUserId(int userId) {
-		String hql = "select p.id from UsersImg p where p.users.id=:id";
+		String hql = "select u.id from UsersImg u where u.users.id=:id";
 		List<Integer> list = new ArrayList<>();
 		try {
 			list = (List<Integer>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();

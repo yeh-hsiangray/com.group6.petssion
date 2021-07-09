@@ -1,8 +1,5 @@
 package com.group6.petssion.bean;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
 
 import java.sql.Blob;
 import java.util.List;
@@ -25,8 +22,14 @@ public class UsersImg {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String fileName;
+
+
 	
+	
+
 	private Blob usersImage;
+	
+
 	
 
 	@Column(name = "fk_Users_id")
@@ -42,7 +45,6 @@ public class UsersImg {
 	public UsersImg() {
 	}
 
-	
 	public UsersImg(Integer id, String fileName, Blob usersImage, Integer usersId, Users users,
 			List<String> imgIdList) {
 
