@@ -92,19 +92,12 @@ public class PetController {
 	}
 
 	@GetMapping(value = "/pet_form")
-	public String showEmptyForm(Model model,HttpServletRequest request) {
-//		HttpSession session=request.getSession();
-//		int userManager =(int)session.getAttribute("userManager");//抓取userManager
-//		System.out.println(userManager);
-//		if(userManager!=1) {
-//			return "index";
-//		}
+	public String showEmptyForm(Model model) {
 		
 		Pet pet = new Pet();
 		model.addAttribute("pet", pet);
 
-//		return "pet/InsertPet";
-		return "pet/Sample2";
+		return "pet/InsertPet";
 	}
 
 	@PostMapping(value = "/pet_form")
@@ -157,6 +150,7 @@ public class PetController {
 //				}
 //			}
 //		}
+		
 		List<Users> list= userService.findUserByUserId(1);
 		System.out.println(list);
 		for(Users user:list) {
@@ -183,8 +177,6 @@ public class PetController {
 						List<PetImg> petImgSet = new ArrayList<PetImg>();
 						petImgSet.add(petImg);
 						pet.setPetImg(petImgSet);
-						
-//						
 						
 						try {
 							petService.savePet(pet);
@@ -230,8 +222,22 @@ public class PetController {
 
 	@PostMapping("/update/{id}")
 	public String modify(@ModelAttribute("pet") @Valid PetDto petDto, BindingResult result, Model model,
-			@PathVariable Integer id, @RequestParam("delImgId") List<String> delId) {
+			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId) {
+//--------------------驗證有錯時返回頁面圖片------------------------------------------------	
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+		Pet pets = petService.get(id);
+		Integer petId = pets.getId();
+		System.out.println(petId);
+		List<Integer> petImgIdList = petImgService.findPetImgIdByPetId(petId);
+//		因前端有8格 當原有使用者圖不足8張 塞null補足8張
+		while (petImgIdList.size() < 8) {
+			petImgIdList.add(null);
+		}
+		map.put(petId, petImgIdList);
 
+		model.addAttribute("petImgIdMap", map);
+//------------------------驗證內容--------------------------------------------	
+		
 		if (petDto.getType().getId() == -1) {
 			result.rejectValue("type", "", "必須挑選品種欄的選項");
 		}
@@ -258,6 +264,7 @@ public class PetController {
 			for (ObjectError error : list) {
 				System.out.println("有錯誤：" + error);
 			}
+			
 			return "pet/UpdatePet";
 		}
 
@@ -278,6 +285,7 @@ public class PetController {
 //				}
 //			}
 //		}
+//-----------------------儲存外鍵----------------------------------------------
 		List<Users> list= userService.findUserByUserId(1);
 		System.out.println(list);
 		for(Users user:list) {
@@ -299,7 +307,10 @@ public class PetController {
 					System.out.println("無更新原有圖片");
 				}
 			}
-		} 
+		}else if(delId == null) {
+			System.out.println("無圖片");
+		}
+//-----------------------先儲存內容防止無更新圖片時 內容無儲存-----------------------------------------
 		petService.updatePet(pet);
 //-----------------------------新增圖片處理-----------------------------------
 		List<MultipartFile> pictures = pet.getImg();
@@ -335,7 +346,7 @@ public class PetController {
 				}
 			}
 		}
-//		--------------------------------------------------------------
+//------------------------------------------------------------------------
 		return "redirect:/pet/showUserPets";
 	}
 	

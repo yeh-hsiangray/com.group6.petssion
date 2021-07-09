@@ -1,14 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html; charset=UTF-8"
 	deferredSyntaxAllowedAsLiteral="true"%>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
 <head>
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Author Meta -->
+<meta name="author" content="">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
 <meta charset="UTF-8">
+<!-- Site Title -->
 <title>UpdatePet</title>
+
+<!--imports-->
+<%@include file="../commons/frontend_imports.jsp"%>
 <style type="text/css">
 span.error {
 	color: red;
@@ -19,19 +35,19 @@ span.error {
 body {
 	background: #fff281;
 	color: #666666;
-	font-family: "RobotoDraft", "Roboto", sans-serif;
-	font-size: 14px;
+	/* 	font-family: "RobotoDraft", "Roboto", sans-serif; */
+	font-size: 16px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Container */
-.container {
-	position: relative;
-	max-width: 900px;
-	width: 100%;
-	margin: 0 auto 100px;
-}
+/* .container { */
+/* 	position: relative; */
+/* 	max-width: 900px; */
+/* 	width: 100%; */
+/* 	margin: 0 auto 100px; */
+/* } */
 
 .container.active .card:first-child {
 	background: #f2f2f2;
@@ -45,6 +61,7 @@ body {
 
 /* Card */
 .card {
+	width:900px;
 	position: relative;
 	background: #ffffff;
 	border-radius: 5px;
@@ -55,6 +72,7 @@ body {
 }
 
 .card:first-child {
+	width:880px;
 	background: #fafafa;
 	height: 10px;
 	border-radius: 5px 5px 0 0;
@@ -223,6 +241,21 @@ input[type="file"] {
 	display: none;
 }
 
+
+.inlin {
+display: flex;
+justify-content:left;
+align-items:center;
+}
+
+.sl1{
+margin-bottom:8px;
+}
+
+.radio111 {
+	margin-left: 8px;
+}
+
 .t1 img {
 	/*      opacity:0 */
 	
@@ -253,23 +286,54 @@ input[type="file"] {
 	display: none;
 }
 
+.ffood_1 {
+	width: auto;
+	white-space: nowrap;
+	display: inline;
+	font-size: 20pxpx
+}
 #x1 {
 	float: right;
 }
 </style>
 </head>
 <body>
-	<div style="text-align: center">
-		<h1>寵物更新</h1>
-	</div>
-	<div align='center' style="font-size: 20px">
-		<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;<a
-			href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;<a
-			href="<c:url value='/' />">回首頁</a>
-	</div>
+
+	<!--header -->
+	<%@include file="../commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">寵物資料編輯</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- content -->
+	<section class="post-content-area single-post-area"
+		style="background-color: #fff281;">
+		<div class="container" style="width:900px;">
+
+			<div class="row">
+				<!-- 				<div class="col-lg-8 posts-list"> -->
+				<!-- 					<div class="single-post row"> -->
+				<!-- 					<div class="col-lg-12"> -->
+				<!-- 						======================================= -->
+				<!--內容輸入在這-->
 	<br>
-	<hr
-		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
+<!-- 	<hr -->
+<!-- 		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;"> -->
 	<br>
 
 	<div class="container">
@@ -325,7 +389,6 @@ input[type="file"] {
 				<br>
 				<br>
 				<br>
-				<br>
 				<!-- 				=========================================================== -->
 				<script type="text/javascript">
 					function readURL(input) {
@@ -368,36 +431,41 @@ input[type="file"] {
 
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
+						required="required" autocomplete="off" maxlength="12"/>
 					<form:errors path="name" cssClass="error" />
 					<label for="#{label}">名字:</label>
 					<div class="bar"></div>
 				</div>
 				<div class="ra1">
 					<label for="#{label}">性別:</label>
-					<form:radiobuttons path="gender" items="${genderMap}" />
+					<form:radiobuttons path="gender" items="${genderMap}" class="radio111"/>
 					<form:errors path="gender" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
 
 				<div class="input-container">
 					<form:input path='age' type="#{type}" id="#{label}"
-						autocomplete="off" required="required" />
+						autocomplete="off" required="required" maxlength="2"/>
 					<form:errors path="age" cssClass="error" />
 					<label for="#{label}">年齡:</label>
 					<div class="bar"></div>
 				</div>
-				<div class="ra1">
+				<div class="ra1 inlin">
+				<div>
 					<label for="#{label}">種類:</label>
-					<form:select path="type.id" name="s1"
-						OnChange="Buildkey(this.selectedIndex);">
+				</div>&nbsp;&nbsp;
+				<div>
+					<form:select path="type.id" name="s1" class="sl1">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${typeList}" itemLabel='name' itemValue='id' />
 					</form:select>
-					<form:select path="kind.id" name="s2">
+					</div>&nbsp;&nbsp;
+					<div>
+					<form:select path="kind.id" name="s2" class="sl1">
 						<form:option label="請挑選" value="-1" />
 						<form:options items="${kindList}" itemLabel="name" itemValue="id" />
 					</form:select>
+					</div>
 					<form:errors path="type" cssClass="error" />
 					<form:errors path="kind" cssClass="error" />
 				</div>
@@ -405,7 +473,7 @@ input[type="file"] {
 				<div class="ra1">
 					<label for="#{label}">喜愛食物:</label>
 					<form:radiobuttons path="food.id" items="${foodList}"
-						itemLabel="name" itemValue="id" />
+						itemLabel="name" itemValue="id" class="radio111"/>
 					<form:errors path="food" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
@@ -413,7 +481,7 @@ input[type="file"] {
 				<div class="ra1">
 					<label for="#{label}">個性:</label>
 					<form:radiobuttons path="personality.id" items="${personalityList}"
-						itemLabel="name" itemValue="id" />
+						itemLabel="name" itemValue="id" class="radio111"/>
 					<form:errors path="personality" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
@@ -427,5 +495,14 @@ input[type="file"] {
 			</form:form>
 		</div>
 	</div>
+				<!-- 					============================================================= -->
+			</div>
+		</div>
+	</section>
+	<!-- content -->
+
+	<!--footer -->
+	<%@include file="../commons/frontend_footer.jsp"%>
 </body>
+
 </html>

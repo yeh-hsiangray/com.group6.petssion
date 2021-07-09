@@ -101,6 +101,56 @@ public class UserServiceImpl implements UserService{
 	public List<Users> findUserByUserId(int userId) {
 	return userDao2.findUserByUserId(userId);
 	}
+
+	@Override
+	public List<Users> searchUserByName(String searchWord) {
+		return userDao2.searchUserByName(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByGender(String searchWord) {
+		return userDao2.searchUserByGender(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByAddress(String searchWord) {
+		return userDao2.searchUserByAddress(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByMobilephone(String searchWord) {
+		return userDao2.searchUserByMobilephone(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByEmail(String searchWord) {
+		return userDao2.searchUserByEmail(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByBlockade(String searchWord) {
+		return userDao2.searchUserByBlockade(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByBirth(String searchWord) {
+		return userDao2.searchUserByBirth(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByJob(String searchWord) {
+		return userDao2.searchUserByJob(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByHobby(String searchWord) {
+		return userDao2.searchUserByHobby(searchWord);
+	}
+
+	@Override
+	public List<Users> searchUserByRegdate(String searchWord) {
+		return userDao2.searchUserByRegdate(searchWord);
+	}
 	
 	
 }
