@@ -15,6 +15,9 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	 */
 	List<Users> findByNameContains(String name);
 	
-	Users findByNameAndEmail(Users user);
+	Users findByNameAndEmail(String name,String email);
 	
+	Users findByEmail(String email);
+	
+	Users findByGarbled(String garbled);
 }

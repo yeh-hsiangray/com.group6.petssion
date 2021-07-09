@@ -21,7 +21,21 @@
                     actMsg.innerHTML = "請輸入6~8位英文及數字"
                     checked[0] = false
                 }
-                check();
+                if(checked[0]){
+                	checked[0] = false
+                	let data={account:act.value}
+                    fetch("registered/act",{method:"POST",body:JSON.stringify(data),headers:{"Content-Type":"application/json"}}).
+                    then(res => res.json()).then
+                    (function(data){
+                    	console.log("yes")
+                		 if(data==1){
+                			actMsg.innerHTML = "此帳號已被使用"
+                		 }else{
+                			 checked[0] = true
+				             check();
+                		 }
+                    })
+                }
             }
             let psd = document.getElementById("psd");
             psd.onkeyup = psdCheck;
@@ -81,8 +95,20 @@
                 } else {
                     emailMsg.innerHTML = "請輸入正確email格式"
                     checked[4] = false
+                };
+ 				if(checked[4]){
+ 					checked[4] = false
+                	let data={email:email.value};
+                    fetch("registered/email",{method:"POST",body:JSON.stringify(data),headers:{"Content-Type":"application/json"}}).
+                    then(res => res.json()).then
+                    (function(data){
+                		 if(data==1){
+                			emailMsg.innerHTML = "此信箱已被使用";
+                		 }else{checked[4] = true;
+				                check();
+                		 };
+                    })
                 }
-                check();
             }
 
             let mobilephone = document.getElementById("mobilephone");
@@ -102,26 +128,29 @@
             }
             document.getElementById("fast").onclick = function () {
                 act.value = "testqq1"
-                psd.value = "mbxx1234"
-                psdc.value = "mbxx1234"
-                name.value = "王小明"
-                email.value = "test@gmail.com"
-                mobilephone.value = "0988456456"
                 actCheck()
+                psd.value = "mbxx1234"
                 psdCheck()
+                psdc.value = "mbxx1234"
                 psdcCheck()
+                name.value = "王小明"
                 nameCheck()
+                email.value = "test@gmail.com"
                 emailCheck()
+                mobilephone.value = "0988456456"
                 mobilephoneCheck()
             }
 
             function check() {
                 let checkint = 0
                 for (i = 0; i < 6; i++) {
+                	 console.log(checked[i])
+                	 console.log("--------")
                     if (checked[i]) {
                         checkint++;
                     }
                 }
+                console.log(checkint)
                 if (checkint == 6) {
                     document.getElementById("sub").disabled = false;
                 } else {
