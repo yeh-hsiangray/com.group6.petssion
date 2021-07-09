@@ -18,10 +18,7 @@ public interface MatchStatusService {
 	MatchStatus save(MatchStatus matchstatus);
      
      
-     
-	
-	List<Hobby> getUsers() ;
-	
+ 
 	
 		
 	
