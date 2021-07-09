@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -13,22 +15,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
-import com.group6.petssion.bean.Users;
 import com.group6.petssion.bean.UsersImg;
 
 public class UsersDto {
 	
+	private static final String PHOME_REGEXP = "[0-9]{4}[0-9]{3}[0-9]{3}";
+	
 	private Integer id;
 	
-	@NotBlank(message="姓名不能為空")
-	@Length(min=1,max = 12,message="用戶名必須位於1到12之間")
+	
+	private String email;
+	
+	//台灣《姓名條例》規定取名無字數上限，故移除限制字數長度
+	@NotEmpty(message="姓名不能為空")
 	private String name;
-
+	
 	@NotNull(message = "性別不能為空")
 	private String gender;
 	
 	private Date birthday;
 	
+
 	@NotNull(message = "地址不能為空")
 	private String address;
 	
@@ -41,23 +48,23 @@ public class UsersDto {
 	@Range(min=1,max=300,message="請輸入正確體重")
 	private Integer weight;
 	
-	@NotNull(message="手機號碼不能為空")
-//	@Pattern(regexp = "/^09\\d{8}$/" , message = "手機號碼有誤")
+	@NotBlank(message="手機號碼不能為空")
+	@Pattern(regexp=PHOME_REGEXP, message="手機號碼格式錯誤")
 	private String mobilephone;
 	
 	@NotNull
 	private Job job;
 	
 	@NotNull
-	private Hobby hobby;
+	private List <Hobby> hobby;
 	
 	@Length(min=1,max = 100,message="自我介紹字數最多1到100之間")
 	private String selfintroduction;
 	
 	private Set<UsersImg> usersImg;
 	
-	private Integer userId;
-	private Users user;
+//	private Integer userId;
+//	private Users user;
 	
 	List<MultipartFile> img;
 	
@@ -65,17 +72,18 @@ public class UsersDto {
 		
 	}
 
-	public UsersDto(Integer id,
-			@NotBlank(message = "姓名不能為空") @Length(min = 1, max = 12, message = "用戶名必須位於1到12之間") String name,
+	public UsersDto(Integer id, String email, @NotEmpty(message = "姓名不能為空") String name,
 			@NotNull(message = "性別不能為空") String gender, Date birthday, @NotNull(message = "地址不能為空") String address,
 			@Length(min = 3, max = 3, message = "請正確輸入星座") String constellation,
 			@Range(min = 100, max = 250, message = "請輸入正確身高") Integer height,
 			@Range(min = 1, max = 300, message = "請輸入正確體重") Integer weight,
-			@NotNull(message = "手機號碼不能為空") String mobilephone, @NotNull Job job, @NotNull Hobby hobby,
+			@NotBlank(message = "手機號碼不能為空") @Pattern(regexp = "[0-9]{4}[0-9]{3}[0-9]{3}", message = "手機號碼格是錯誤") String mobilephone,
+			@NotNull Job job, @NotNull List<Hobby> hobby,
 			@Length(min = 1, max = 100, message = "自我介紹字數最多1到100之間") String selfintroduction, Set<UsersImg> usersImg,
-			Integer userId, Users user, List<MultipartFile> img) {
+			List<MultipartFile> img) {
 		super();
 		this.id = id;
+		this.email = email;
 		this.name = name;
 		this.gender = gender;
 		this.birthday = birthday;
@@ -88,8 +96,6 @@ public class UsersDto {
 		this.hobby = hobby;
 		this.selfintroduction = selfintroduction;
 		this.usersImg = usersImg;
-		this.userId = userId;
-		this.user = user;
 		this.img = img;
 	}
 
@@ -99,6 +105,14 @@ public class UsersDto {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getName() {
@@ -173,11 +187,11 @@ public class UsersDto {
 		this.job = job;
 	}
 
-	public Hobby getHobby() {
+	public List<Hobby> getHobby() {
 		return hobby;
 	}
 
-	public void setHobby(Hobby hobby) {
+	public void setHobby(List<Hobby> hobby) {
 		this.hobby = hobby;
 	}
 
@@ -197,22 +211,6 @@ public class UsersDto {
 		this.usersImg = usersImg;
 	}
 
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
-	}
-
 	public List<MultipartFile> getImg() {
 		return img;
 	}
@@ -220,6 +218,12 @@ public class UsersDto {
 	public void setImg(List<MultipartFile> img) {
 		this.img = img;
 	}
+
+	public static String getPhomeRegexp() {
+		return PHOME_REGEXP;
+	}
+
+	
 
 	
 	

@@ -11,7 +11,6 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
@@ -49,28 +48,28 @@ import com.group6.petssion.member.validate.UsersDto;
 public class UsersController {
 	
 	@Autowired
-	UsersImgService usersImgService;
+	private UsersImgService usersImgService;
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@Autowired
-	HobbyService hobbyService;
+	private HobbyService hobbyService;
 	
 	@Autowired
-	JobService jobService;
+	private JobService jobService;
 	
 	@Autowired
-	ServletContext context;
+	private ServletContext context;
 
 	
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
-		List<Users> users = userService.findUserByUserId(1);
+		List<Users> users = userService.findUserByUserId(21);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-		HttpSession session=request.getSession();
-		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 		
 		for(Users user: users) {
 			Integer userId = user.getId();
@@ -175,7 +174,7 @@ public class UsersController {
 			}
 		}
 
-		return "redirect:/user/memberCenter";
+		return "redirect:/pet/pet_form";
 	}
 	
 	@GetMapping(value = "/update/{id}")
@@ -185,6 +184,8 @@ public class UsersController {
 		Users users = userService.get(id);
 			Integer userId = users.getId();
 			System.out.println(userId);
+			
+			
 			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
 			while (userImgIdList.size() < 8) {
 				userImgIdList.add(null);
@@ -196,15 +197,37 @@ public class UsersController {
 		return "/ModifyUser";
 	}
 	
+	/**
+	 * 更新使用者資料
+	 * @param usersDto
+	 * @param result
+	 * @param model
+	 * @param id
+	 * @param delId
+	 * @return
+	 */
+	
 	@PostMapping("/update/{id}")
 	public String modify(@ModelAttribute("user") @Valid UsersDto usersDto, BindingResult result, Model model,
-			@PathVariable Integer id, @RequestParam("delImgId") List<String> delId)
+			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId)
 	{
-
+		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+		Users users = userService.get(id);
+			Integer userId = users.getId();
+			System.out.println(userId);
+			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
+			while (userImgIdList.size() < 8) {
+				userImgIdList.add(null);
+			}
+			map.put(userId, userImgIdList);
+		
+			model.addAttribute("userImgIdMap",map);
+			
 		if (usersDto.getJob().getId() == -1) {
+			System.out.println(usersDto.getJob().getId());
 			result.rejectValue("job", "", "必須挑選工作的選項");
 		}
-		if (usersDto.getHobby().getId() == -1) {
+	if (usersDto.getHobby() == null) {
 			result.rejectValue("hobby", "", "必須挑選興趣的選項");
 		}
 
@@ -213,12 +236,17 @@ public class UsersController {
 			for (ObjectError error : list) {
 				System.out.println("有錯誤：" + error);
 			}
-			return "/ModifyUser";
+//			Integer uid = usersDto.getId();
+			
+			return "ModifyUser";
 		}
-		
 		Users user = new Users();
-		BeanUtils.copyProperties(usersDto, user);
 		
+		user.setManager(2);
+		user.setRegdate(LocalDate.now());
+		user.setBlockade(0);
+		
+		BeanUtils.copyProperties(usersDto, user);
 
 		if (delId != null) {
 			for (String dId : delId) {
@@ -234,8 +262,7 @@ public class UsersController {
 				}
 			}
 		}
-		
-		
+		userService.updateUser(user);
 		
 		List<MultipartFile> pictures = user.getImg();
 
@@ -256,13 +283,13 @@ public class UsersController {
 						usersImgSet.add(usersImg);
 						user.setUsersImg(usersImgSet);
 
-		try {
-			userService.updateUser(user);
-			usersImgService.updateUsersImg(usersImg);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "/ModifyUser";
-		}
+						try {
+//						userService.updateUser(user);
+							usersImgService.updateUsersImg(usersImg);
+						} catch (Exception e) {
+							e.printStackTrace();
+							return "/ModifyUser";
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
@@ -270,7 +297,7 @@ public class UsersController {
 				}
 			}
 		}
-		return "redirect:/memberCenter";
+		return "redirect:/user/memberCenter";
 	}
 	
 	@RequestMapping("/delete/{id}")

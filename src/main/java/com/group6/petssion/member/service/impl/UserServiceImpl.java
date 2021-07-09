@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.member.dao.impl.UserDaoImpl;
@@ -35,7 +34,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Users saveUser(Users user) {
 		Job job = jobService.getJob(user.getJob().getId());
-		System.out.println(user.getHobby());
 		user.setJob(job);
 //		List<Hobby> hobby = hobbyService.getHobby(user.getHobby().getId());
 //		user.setHobby(hobby);	
@@ -49,15 +47,11 @@ public class UserServiceImpl implements UserService{
 		
 		userDao2.detachJob(user.getJob());
 		userDao2.detachHobby(user.getHobby());
-		
 		Job job = jobService.getJob(user.getJob().getId());
 		user.setJob(job);
-
-		List <Hobby> hobby = hobbyService.getHobby(user.getId());
-		user.setHobby(hobby);
-
+//		List <Hobby> hobby = hobbyService.getHobby(user.getId());
+//		user.setHobby(hobby);
 		userDao2.updateUser(user);
-		
 		userDao.save(user);
 	}
 

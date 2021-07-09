@@ -30,7 +30,7 @@ public interface UserService {
 //	}
 //	
 	
-	public List<Users> findUserByUserId(int userId);
+	List<Users> findUserByUserId(int userId);
 //	List<Users> findAllUserByUserId(int userId);
 
 

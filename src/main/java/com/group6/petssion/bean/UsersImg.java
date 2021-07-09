@@ -1,9 +1,5 @@
 package com.group6.petssion.bean;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-
-
 import java.sql.Blob;
 import java.util.List;
 
