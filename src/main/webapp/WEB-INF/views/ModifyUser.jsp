@@ -9,6 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>編輯個人資訊</title>
+<link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style type="text/css">
 span.error {
 	color: red;
@@ -247,6 +250,8 @@ margin: auto;
 .b1{
 display: none;
 }
+
+
 </style>
 </head>
 <body>
@@ -343,9 +348,33 @@ display: none;
 				      else  
 				        return false;
 				    }
+				
+				$(function() {
+					$("#datepicker").datepicker({
+						dateFormat: "yy-mm-dd",
+						showOtherMonths: true,
+						maxDate: 0,
+						monthNamesShort: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+						dayNamesMin: ['日','一','二','三','四','五','六'],
+						changeMonth: true,
+					      changeYear: true
+					      
+					    });
+				});
+				
+				
+				
 				</script>
 <!-- 			=========================================================== -->
-
+				
+				<div class="input-container">
+					<form:input path='email' type="#{type}" id="#{label}"
+						required="required" autocomplete="off" />
+					<form:errors path="email" cssClass="error" />
+					<label for="#{label}">電子信箱:</label>
+					<div class="bar"></div>
+				</div>
+				
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"
 						required="required" autocomplete="off" />
@@ -361,20 +390,23 @@ display: none;
 				</div>
 
 				<div class="input-container">
-					<form:input path='birthday' type="#{type}" id="#{label}"
+					<form:input path='birthday' type="#{type}" name="birthday"
+					id="datepicker"
 						autocomplete="off" required="required" />
 					<form:errors path="birthday" cssClass="error" />
 					<label for="#{label}">生日:</label>
 					<div class="bar"></div>
 				</div>
 				
-				<div class="input-container">
-					<form:input path='address' type="#{type}" id="#{label}"
+				<div class="input-container" >
+					<form:input path='address' type="#{type}" id="akacodedog"
 						autocomplete="off" required="required" />
 					<form:errors path="address" cssClass="error" />
  					<label for="#{label}">住址:</label>
 					<div class="bar"></div>
 				</div>
+				
+				<div id="twzipcode"></div>
 				
 				<div class="input-container">
 					<form:input path='constellation' type="#{type}" id="#{label}"
@@ -434,7 +466,14 @@ display: none;
 					
 <!-- 					<div class="bar"></div> -->
 				</div>
-
+				
+				<div class="service-privacy-terms" Align="center">
+					點擊確認即同意Petssion之
+				<a name="memberTerm" class="alink" href="#service">會員條款</a>
+				與
+				<a name="memberTerm" class="alink" href="#privacy">客戶隱私權條款</a>
+				</div>
+				<br>
 				<div class="button-container">
 					<button type="submit">
 						<span>確認</span>

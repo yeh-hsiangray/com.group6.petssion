@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
-import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.Users;
 
 @Repository
@@ -33,7 +32,7 @@ public class UserDaoImpl {
 	@SuppressWarnings("unchecked")
 	public List<Users> findUserByUserId(int userId) {
 		String hql = "from Users p where p.id=:id";
-		List<Users> list = new ArrayList<Users>();
+		List<Users> list = new ArrayList<>();
 		try {
 			list = (List<Users>) entityManager.createQuery(hql).setParameter("id", userId).getResultList();
 			System.out.println(hql);
@@ -74,7 +73,12 @@ public class UserDaoImpl {
 	}
 	
 	public void detachHobby(List<Hobby> list) {
-		entityManager.detach(list);
+		
+		for(Hobby hobby:list) {
+			
+			entityManager.detach(hobby);
+		}
+		
 	}
 	
 	@SuppressWarnings("unchecked")

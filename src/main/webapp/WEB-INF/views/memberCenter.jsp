@@ -22,7 +22,7 @@ body {
 	background: #fff281;
 	color: #666666;
 	font-family: "RobotoDraft", "Roboto", sans-serif;
-	font-size: 16px;
+	font-size: 20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -81,7 +81,6 @@ body {
 	margin: 0 60px 50px;
 }
 
-
 .card .input-container input:focus ~ label {
 	color: #9d9d9d;
 	transform: translate(-12%, -50%) scale(0.9);
@@ -98,7 +97,7 @@ body {
 }
 
 .card .input-container label {
-/* 	position: absolute; */
+	/* 	position: absolute; */
 	top: 0;
 	left: 0;
 	color: #757575;
@@ -209,10 +208,6 @@ body {
 	transform: scale(10);
 }
 
-input[type="file"] {
-	display: none;
-}
-
 .t1 img {
 	
 }
@@ -242,7 +237,6 @@ input[type="file"] {
 	display: none;
 }
 
-
 #tab-demo {
 	width: 400px;
 	height: 200px;
@@ -253,6 +247,7 @@ input[type="file"] {
 	display: block;
 	margin: 0;
 	list-style: none;
+	width: 900PX;
 }
 
 .tab-title {
@@ -263,10 +258,9 @@ input[type="file"] {
 	display: inline-block;
 	vertical-align: top;
 	font-family: '微軟正黑體';
-	font-size:20px;
+	font-size: 20px;
 	margin: 0 -1px -1px 0;
 	border: 1px solid #BCBCBC;
-	height:35px;
 	line-height: 25px;
 	background: #cdcdcd;
 	padding: 4px 25px;
@@ -277,7 +271,7 @@ input[type="file"] {
 #tab-demo>ul>li a {
 	color: #000;
 	text-decoration: none;
-	margin:auto;
+	margin: auto;
 }
 
 #tab-demo>ul>li.active {
@@ -286,17 +280,33 @@ input[type="file"] {
 }
 
 #tab-demo>.tab-inner {
-margin:auto;
+	margin: auto;
 	clear: both;
 	color: #000;
-/* 	border: 1px #BCBCBC solid; */
+	/* 	border: 1px #BCBCBC solid; */
 	width: 900px;
 }
 
-.tab-inner {
+.imgPreview {
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%; /*容器佔滿整個螢幕*/
+	height: 100%;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.imgPreview img {
+	z-index: 100;
+	width: 40%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 </style>
-<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var $li = $('ul.tab-title li');
@@ -360,7 +370,7 @@ margin:auto;
 										<tr>
 											<c:forEach var='userImg' items='${userImgIdMap[users.id]}'
 												varStatus="userStatus">
-												<td><img id="preview_userImage" src='picture/${userImg}'
+												<td><img id="preview_userImage" src="<c:url value='/' />user/picture/${userImg}"
 													width="200px" class="img" /></td>
 												<c:if test="${userStatus.count % 4 == 0}">
 													<tr></tr>
@@ -369,12 +379,17 @@ margin:auto;
 											
 											</tr>
 									</table>
-									<p align="center" style="font-size: 15px">點擊圖片放大</p>
+									<p align="center" style="font-size: 15px">點擊圖片放大</p> 
 									<div class="imgPreview">
 										<img src="#" alt="" id="imgPreview">
 										</div>
 									<br> <br> <br>
-
+									
+									<div class="ra1">
+										<label for="#{label}">電子信箱:</label> ${users.email}
+<!-- 										<div class="bar"></div> -->
+									</div>
+									
 									<div class="ra1">
 										<label for="#{label}">名字:</label> ${users.name}
 <!-- 										<div class="bar"></div> -->
