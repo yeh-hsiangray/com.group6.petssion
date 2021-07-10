@@ -1,6 +1,7 @@
 package com.group6.petssion.match.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
@@ -15,15 +16,18 @@ public interface MatchStatusService {
 	List<Hobby> getHobby();
 	
 	
-	MatchStatus save(MatchStatus matchstatus);
-     
+	MatchStatus save(MatchStatus matchstatus);     
      
    
-	List<String> getStatusByUsersId(Integer id);
+	List<Users> getlikeNotify(Integer id);
 		
+//	Integer getlikeNotifyStatusId(Integer userBid);
 	
+	List<Users> oneSideLove(Integer UserAid);
 	
-	
+	 void saveReplyStatus(MatchStatus matchStatus) ;
+	 
+	 List<Users> eachLike(Integer UserAid);
 	
 	
 }

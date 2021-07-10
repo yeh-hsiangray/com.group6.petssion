@@ -1,20 +1,22 @@
 package com.group6.petssion.match.service.impl;
 
 import java.util.ArrayList;
+
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
-import com.group6.petssion.bean.Pet;
+
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.match.service.MatchStatusService;
 import com.group6.petssion.member.controller.UsersController;
@@ -22,7 +24,6 @@ import com.group6.petssion.petprofile.controller.PetController;
 import com.group6.petssion.repository.HobbyRepository;
 import com.group6.petssion.repository.MatchStatusRepository;
 import com.group6.petssion.repository.UsersRepository;
-
 @Transactional
 @Service
 @EnableTransactionManagement
@@ -32,7 +33,7 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 	private HobbyRepository hobbyRepository;
 
 	@Autowired
-	private MatchStatusRepository matchStatusRepository;
+	MatchStatusRepository matchStatusRepository;
 
 	@Autowired
 	private UsersRepository usersRepository;
@@ -54,7 +55,7 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 		List<Users> userNoStatus = new ArrayList<Users>();
 		for (Users users : userList) {
 //			System.out.println(userList);
-			Optional<MatchStatus> statusOptional = matchStatusRepository.findByUserB(users.getId());
+			List<MatchStatus> statusOptional = matchStatusRepository.findByUserB(users.getId());
 			if (statusOptional.isEmpty()) {
 //				System.out.println(users.getName());
 				/* show使用者圖片 */
@@ -125,47 +126,124 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 	}
 
 	/**
-	 * @使用者登入時收到交友通知
+	 * @Get
+	 * @使用者B欄登入時收到使用A交友通知"1"為喜歡
 	 * 
 	 */
 	@Override
-	public List<String> getStatusByUsersId(Integer UserAid) {
+	public List<Users> getlikeNotify(Integer userBid) {
+		List<MatchStatus> userAStatusList = matchStatusRepository.findByUserB(userBid);
+		List<Users> loveListUserA = new ArrayList<Users>();
+		for (MatchStatus userStatus : userAStatusList) { // 遍歷狀態表的使用者A
+			if (userStatus.getStatus().equals(1)) {
+				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserA());
+				Integer id = userStatus.getId();
+				System.out.println(id);
+				loveListUserA.add(usersOptional.get());
+//				if (usersOptional.get().getUsersImg() != null) {
+//					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+//					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+					usersOptional.get().setUsersImg(null);
+//				}
+//				if (usersOptional.get().getPet().get(0).getPetImg() != null) {
+//					byte[] PetImg = new PetController()
+//							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+//					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+//					usersOptional.get().getPet().get(0).setPetImg(null);
+//				}
+			}
+		}
+		return loveListUserA;
+	}
+//	/*回傳matchStatus的Id*/
+//	@Override
+//	public Integer getlikeNotifyStatusId(Integer userBid) {
+//		List<MatchStatus> userAStatusList = matchStatusRepository.findByUserB(userBid);
+//		Integer id=null;
+//		for (MatchStatus userStatus : userAStatusList) { 
+//			if (userStatus.getStatus().equals(1)) {
+//				 id = userStatus.getId();
+//				System.out.println(id);
+//			}
+//		}
+//		return id;
+//	}
+	
 
-		List<MatchStatus> statusList = matchStatusRepository.findByUserA(UserAid);// 傳入使用者AID 撈出狀態表陣列
-		List<String> userBNameList = new ArrayList<String>();
-		for (MatchStatus status : statusList) { // 遍歷所有狀態表找出Status為1
-			System.out.println("2");
-			Integer love = status.getStatus();
-			System.out.println("3");
-			if (love.equals(1)) { // Status為1 ("喜歡")
-				Integer userBId = status.getUserB();
-				System.out.println("4");
-				Optional<Users> usersOptional = usersRepository.findById(userBId);
-				System.out.println("5");
-				if (usersOptional.isPresent()) {
-					Users userB = usersOptional.get();
-					System.out.println("6");
-					String userBName = userB.getName();
-					userBNameList.add(userBName);
-					System.out.println("7");
-				} else {
-					throw new RuntimeException("User(id=" + userBId + ")不存在");
+	/**
+	 * @使用者A登入時收到使用者B的回覆"3"為互相喜歡
+	 * 
+	 */
+	
+	@Override
+	public List<Users> eachLike(Integer UserAid) {
+		List<MatchStatus> userBStatusList = matchStatusRepository.findByUserA(UserAid);
+		List<Users> loveListUserB = new ArrayList<Users>();
+		for (MatchStatus userStatus : userBStatusList) {
+			if (userStatus.getStatus().equals(3)) {
+				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserB());
+				loveListUserB.add(usersOptional.get());
+//				if (usersOptional.get().getUsersImg() != null) {
+//					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+//					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+//					usersOptional.get().setUsersImg(null);
+				}
+//				if (usersOptional.get().getPet().get(0).getPetImg() != null) {
+//					byte[] PetImg = new PetController()
+//							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+//					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+//					usersOptional.get().getPet().get(0).setPetImg(null);
+//				}
+//			}
+		}
+		return loveListUserB;
+	}
+
+	/**
+	 * @使用者A登入時收到使用者B的回覆"4"為使用者單方不喜歡
+	 * 
+	 */
+	@Override
+	public List<Users> oneSideLove(Integer UserAid) {
+		List<MatchStatus> userBStatusList = matchStatusRepository.findByUserA(UserAid);
+		List<Users> loveListUserB = new ArrayList<Users>();
+		for (MatchStatus userStatus : userBStatusList) {
+			if (userStatus.getStatus().equals(4)) {
+				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserB());
+				loveListUserB.add(usersOptional.get());
+				if (usersOptional.get().getUsersImg() != null) {
+//					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+//					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+					usersOptional.get().setUsersImg(null);
+				}
+				if (usersOptional.get().getPet().get(0).getPetImg() != null) {
+//					byte[] PetImg = new PetController()
+//							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+//					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+					usersOptional.get().getPet().get(0).setPetImg(null);
 				}
 			}
 		}
-		return userBNameList;
+		return loveListUserB;
+	}
+	/**
+	 * @使用者B欄登入時收到使用者A欄的交友通知作回覆"3"為互相喜歡,"4"為使用者單方不喜歡
+	 * 
+	 */
+
+	@Override
+	public void saveReplyStatus(MatchStatus matchStatus) {
+		 
+		Integer status=matchStatus.getStatus();
+		Integer userA=matchStatus.getUserA();
+		Integer userB=matchStatus.getUserB();
+		MatchStatus getUserAAndUserB=matchStatusRepository.findByUserAAndUserB(userA,userB);
+		System.err.println(getUserAAndUserB);
+		getUserAAndUserB.setStatus(status);
+		
 	}
 
-//	@Override
-//	public MatchStatus get(Integer id) {
-//		Optional<Users> optional = userDao.findById(id);
-//		Users user = null;
-//		if (optional.isPresent()) {
-//			user = optional.get();
-//		} else {
-//			throw new RuntimeException("User(id=" + id + ")不存在");
-//		}
-//		return user;
-//	}
+	
+	
 
 }
