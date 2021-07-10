@@ -30,7 +30,7 @@ public interface UserService {
 //	}
 //	
 	
-	public List<Users> findUserByUserId(int userId);
+	List<Users> findUserByUserId(int userId);
 //	List<Users> findAllUserByUserId(int userId);
 
 
@@ -44,7 +44,18 @@ public interface UserService {
 
 	List<Users> findAllUser();
 
-	public boolean isUsersExist(Users user);
+	boolean isUsersExist(Users user);
 	
-	public List<Users> getAllUserNameByUserId(int userId);
+	List<Users> getAllUserNameByUserId(int userId);
+	
+	List<Users> searchUserByName(String searchWord);
+	List<Users> searchUserByGender(String searchWord);
+	List<Users> searchUserByAddress(String searchWord);
+	List<Users> searchUserByMobilephone(String searchWord);
+	List<Users> searchUserByEmail(String searchWord);
+	List<Users> searchUserByBlockade(String searchWord);
+	List<Users> searchUserByBirth(String searchWord);
+	List<Users> searchUserByJob(String searchWord);
+	List<Users> searchUserByHobby(String searchWord);
+	List<Users> searchUserByRegdate(String searchWord);
 }

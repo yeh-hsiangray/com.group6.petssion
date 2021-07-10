@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <body>
 	<div class="wrapper">
 		<!-- Preloader -->
 		<div
 			class="preloader flex-column justify-content-center align-items-center">
-			<img class="animation__shake" src="dist/img/PetssionLogo.png" alt="PetssionLogo" height="200">
+			<img class="animation__shake" src="<c:url value='/Sources/dist/img/PetssionLogo.png' />"
+				alt="PetssionLogo" height="200">
 		</div>
 
 		<!-- Navbar -->
@@ -25,7 +27,7 @@
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Navbar Search -->
-				<li class="nav-item"><a class="nav-link"
+				<!-- <li class="nav-item"><a class="nav-link"
 					data-widget="navbar-search" href="#" role="button"> <i
 						class="fas fa-search"></i>
 				</a>
@@ -45,7 +47,7 @@
 								</div>
 							</div>
 						</form>
-					</div></li>
+					</div></li> -->
 				<li class="nav-item"><a class="nav-link"
 					data-widget="fullscreen" href="#" role="button"> <i
 						class="fas fa-expand-arrows-alt"></i>
@@ -57,3 +59,12 @@
 			</ul>
 		</nav>
 		<!-- /.navbar -->
+		<!-- Control Sidebar -->
+		<aside class="control-sidebar control-sidebar-dark">
+			<!-- Control sidebar content goes here -->
+		</aside>
+		<!-- /.control-sidebar -->
+
+	
+	<!-- AdminLTE for demo purposes -->
+<script src="<c:url value='/Sources/dist/js/demo.js' />"></script>
