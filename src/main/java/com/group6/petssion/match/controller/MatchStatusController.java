@@ -1,5 +1,6 @@
 package com.group6.petssion.match.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -106,11 +107,15 @@ public class MatchStatusController {
 	 * @使用者A欄登入時收到使用者B欄的回覆"3"為互相喜歡,"4"為使用者單方不喜歡
 	 */
 	@GetMapping("/signInNotify")
-	public @ResponseBody List<Users> signInNotify(@RequestParam Integer userAid){			
-//		return matchStatusService.getlikeNotify(userBid);	//userB=22登入 return [] 
-//		return matchStatusService.oneSideLove(userBid);	//userA=22登入 return倪雅嵐
-		return matchStatusService.eachLike(userAid);	//userA=22 登入 return 陳冠士 
-		
+	public @ResponseBody List<Users> signInNotify(@RequestParam Integer userid){			
+		List<Users> getlikeNotify=matchStatusService.getlikeNotify(userid);	//userB=22登入 return [] 
+		List<Users> oneSideLove= matchStatusService.oneSideLove(userid);	//userA=22登入 return倪雅嵐
+		List<Users> eachLike= matchStatusService.eachLike(userid);	//userA=22 登入 return 陳冠士 
+		ArrayList<Users> resultList = new ArrayList<Users>();
+		resultList.addAll(getlikeNotify);
+		resultList.addAll(oneSideLove);
+		resultList.addAll(eachLike);
+		return resultList;
 	}
 
 	
