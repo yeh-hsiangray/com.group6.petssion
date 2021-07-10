@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.bean.account_password;
-import com.group6.petssion.mail.Mail;
 import com.group6.petssion.registered.service.RegisteredService;
 
 @Controller
@@ -19,8 +18,6 @@ import com.group6.petssion.registered.service.RegisteredService;
 public class Registered {
 	@Autowired
 	private RegisteredService rs;
-	@Autowired
-	private Mail mail;
 
 	@GetMapping
 	public String getRegistered() {
@@ -30,7 +27,7 @@ public class Registered {
 	@PostMapping
 	public String postRegistered(account_password aAndP, Users user) {
 		rs.regisered(user, aAndP);
-		return "index";
+		return "redirect:/";
 	}
 
 	@PostMapping("/act")
@@ -49,9 +46,9 @@ public class Registered {
 	public String emailCheck(Users user, Model model) {
 		int status = rs.checkEmail(user);
 		if(status==0) {
-			model.addAttribute("message", "驗證未成功請聯絡管理人員 10秒後返回首頁");
+			model.addAttribute("message", "驗證未成功請聯絡管理人員 3秒後返回首頁");
 		}else {
-			model.addAttribute("message", "驗證成功10秒後回到首頁");			
+			model.addAttribute("message", "驗證成功3秒後回到首頁");			
 		}
 		return "checkResult";
 	}

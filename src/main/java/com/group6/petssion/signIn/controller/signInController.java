@@ -9,11 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group6.petssion.bean.Users;
+import com.group6.petssion.bean.account_password;
 import com.group6.petssion.signIn.service.SignInService;
 
 @Controller
@@ -26,18 +27,27 @@ public class signInController {
 	public String sign(Model model) {
 		return "/signIn";
 	}
+	@GetMapping("/signOut")
+	public String signout(HttpSession session,HttpServletResponse response) {
+		Cookie cookie = new Cookie("youSessionId", session.getId());
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		session.setMaxInactiveInterval(0);
+		return "redirect:index";
+	}
 
 	@PostMapping
 	@ResponseBody
-	public int signIn(@RequestParam String account, @RequestParam String password,HttpSession session,HttpServletResponse response) {
-		Users user = signInService.signIn(account, password);
+	public int signIn(@RequestBody account_password aAndP,HttpSession session,HttpServletResponse response) {
+		Users user = signInService.signIn(aAndP.getAccount(),aAndP.getPassword());
 		if(user!=null) {
 			if(user.getBlockade()!=1) {
+				if(aAndP.getRemember()) {
 				int date = 60 * 60 * 24 * 7;
 				Cookie cookie = new Cookie("youSession", session.getId());
 				cookie.setMaxAge(date);
 				response.addCookie(cookie);
-				session.setMaxInactiveInterval(date);
+				session.setMaxInactiveInterval(date);}
 				session.setAttribute("userId", user.getId());
 				session.setAttribute("userManager", user.getManager());
 				session.setAttribute("userName", user.getName());
@@ -47,5 +57,30 @@ public class signInController {
 			}
 		}
 		return 0;
+	}
+	@GetMapping("/forgotPassword")
+	public String forgotPassword(Model model) {
+		return "/forgotPassword";
+	}
+	@PostMapping("/forgotPassword")
+	@ResponseBody
+	public int postForgotPassword(@RequestBody account_password aAndP) {
+		return signInService.forgotPassword(aAndP);
+	}
+	@GetMapping("/check")
+	public String emailCheck(Users user, Model model) {
+		account_password aAndP = signInService.checkEmail(user);
+		if(aAndP ==null) {
+			model.addAttribute("message", "驗證未成功請聯絡管理人員 3秒後返回首頁");
+			return "checkResult";
+		}else {
+			model.addAttribute("account", aAndP.getAccount());
+			return "/forgotPassword";			
+		}
+	}
+	@PostMapping("/password")
+	public String password(account_password aAndP) {
+		signInService.updatePassword(aAndP);
+		return "redirect:/";
 	}
 }
