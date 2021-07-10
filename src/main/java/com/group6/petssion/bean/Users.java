@@ -47,7 +47,7 @@ public class Users implements Serializable {
 	private String selfintroduction;
 	private String email;
 	private String garbled;
-	private int checkemail;
+	private Integer checkemail;
 	
 	//@Column(name = "manager", nullable = false)
 	private Integer manager;
@@ -66,7 +66,7 @@ public class Users implements Serializable {
 
 	
 	//對應account類
-	@OneToOne(mappedBy = "users")
+	@OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
 	@JsonIgnore
 	private account_password account_password;
 	
