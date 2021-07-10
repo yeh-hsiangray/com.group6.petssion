@@ -102,7 +102,7 @@ public class Users implements Serializable {
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, String garbled,
 			int checkemail, Integer manager, LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
 			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
-			List<MultipartFile> img, String base64Img) {
+			List<MultipartFile> img, String base64UserImg) {
 		super();
 		this.id = id;
 		this.name = name;
