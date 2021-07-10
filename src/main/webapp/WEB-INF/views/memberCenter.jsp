@@ -1,16 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html; charset=UTF-8"
 	deferredSyntaxAllowedAsLiteral="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="zxx" class="no-js">
+
 <head>
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Author Meta -->
+<meta name="author" content="">
+<!-- Meta Description -->
+<meta name="description" content="">
+<!-- Meta Keyword -->
+<meta name="keywords" content="">
+<!-- meta character set -->
 <meta charset="UTF-8">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<!-- Site Title -->
 <title>會員中心</title>
+
+<!--imports-->
+<%@include file="commons/frontend_imports.jsp"%>
 <style type="text/css">
 span.error {
 	color: red;
@@ -21,20 +35,19 @@ span.error {
 body {
 	background: #fff281;
 	color: #666666;
-	font-family: "RobotoDraft", "Roboto", sans-serif;
-	font-size: 16px;
+	/* 	font-family: "RobotoDraft", "Roboto", sans-serif; */
+	font-size: 20px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Container */
-.container {
-	position: relative;
-	max-width: 900px;
-	width: 100%;
-	margin: 0 auto 100px;
-}
-
+/* .container {  */
+/* 	position: relative;  */
+/* 	max-width: 900px; */
+/* 	width: 100%; */
+/* 	margin: 0 auto 100px; */
+/* } */
 .container.active .card:first-child {
 	background: #f2f2f2;
 	margin: 0 15px;
@@ -47,6 +60,7 @@ body {
 
 /* Card */
 .card {
+	width:900px;
 	position: relative;
 	background: #ffffff;
 	border-radius: 5px;
@@ -57,6 +71,7 @@ body {
 }
 
 .card:first-child {
+    width:880px;
 	background: #fafafa;
 	height: 10px;
 	border-radius: 5px 5px 0 0;
@@ -81,6 +96,18 @@ body {
 	margin: 0 60px 50px;
 }
 
+.card .input-container input {
+	outline: none;
+	z-index: 1;
+	position: relative;
+	background: none;
+	width: 100%;
+	height: 60px;
+	border: 0;
+	color: #212121;
+	font-size: 24px;
+	font-weight: 400;
+}
 
 .card .input-container input:focus ~ label {
 	color: #9d9d9d;
@@ -98,7 +125,7 @@ body {
 }
 
 .card .input-container label {
-/* 	position: absolute; */
+	position: absolute;
 	top: 0;
 	left: 0;
 	color: #757575;
@@ -213,7 +240,22 @@ input[type="file"] {
 	display: none;
 }
 
+.inlin {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+.sl1 {
+	margin-bottom: 8px;
+}
+
+.radio111 {
+	margin-left: 8px;
+}
+
 .t1 img {
+	/*      opacity:0 */
 	
 }
 
@@ -242,17 +284,26 @@ input[type="file"] {
 	display: none;
 }
 
+.ffood_1 {
+	width: auto;
+	white-space: nowrap;
+	display: inline;
+	font-size: 20pxpx
+}
 
 #tab-demo {
 	width: 400px;
-	height: 200px;
-	margin-left: 320px;
+	height: 35px;
+	margin-left:28px;
+	margin-bottom:-1px;
+	/* 	margin-left: 320px; */
 }
 
 #tab-demo>ul {
 	display: block;
 	margin: 0;
 	list-style: none;
+	width: 900PX;
 }
 
 .tab-title {
@@ -261,12 +312,11 @@ input[type="file"] {
 
 #tab-demo>ul>li {
 	display: inline-block;
-	vertical-align: top;
+	/* 	vertical-align: top; */
 	font-family: '微軟正黑體';
-	font-size:20px;
+	font-size: 20px;
 	margin: 0 -1px -1px 0;
 	border: 1px solid #BCBCBC;
-	height:35px;
 	line-height: 25px;
 	background: #cdcdcd;
 	padding: 4px 25px;
@@ -277,7 +327,7 @@ input[type="file"] {
 #tab-demo>ul>li a {
 	color: #000;
 	text-decoration: none;
-	margin:auto;
+	margin: auto;
 }
 
 #tab-demo>ul>li.active {
@@ -286,17 +336,33 @@ input[type="file"] {
 }
 
 #tab-demo>.tab-inner {
-margin:auto;
+	margin: auto;
 	clear: both;
 	color: #000;
-/* 	border: 1px #BCBCBC solid; */
+	/* 	border: 1px #BCBCBC solid; */
 	width: 900px;
 }
 
-.tab-inner {
+.imgPreview {
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%; /*容器佔滿整個螢幕*/
+	height: 100%;
+	position: fixed;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.imgPreview img {
+	z-index: 100;
+	width: 40%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 </style>
-<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	$(function() {
 		var $li = $('ul.tab-title li');
@@ -310,7 +376,7 @@ margin:auto;
 					.removeClass('active');
 		});
 	});
-	
+
 	$(function() {
 
 		$('.img').on('click', function() {
@@ -324,57 +390,87 @@ margin:auto;
 			$('.imgPreview').hide()
 		});
 	})
+
+	function CheckForm() {
+		if (confirm("確認刪除寵物資料嗎？") == true)
+			return true;
+		else
+			return false;
+	}
 </script>
 </head>
 <body>
-	<div style="text-align: center">
-				<h1>會員資訊</h1>
-			</div>
-	
-	<div align='center'>
-		<a href="<c:url value='	/petssion/user/updateMember' />">編輯我的帳戶</a> <a href="<c:url value='/pet/showUserPets' />">寵物列表</a>
-	</div>
-	<hr
-		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
 
-	<c:choose>
-		<c:when test="${empty user}">
+	<!--header -->
+	<%@include file="commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">個人資料</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/showUserPets">寵物資料編輯</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- content -->
+	<section class="post-content-area single-post-area"
+		style="background-color: #fff281;">
+		<div class="container" style="width: 900px;">
+			<div class="row">
+				<c:choose>
+					<c:when test="${empty user}">
 			<p align="center">
 				沒有任何資料<br>
-		</c:when>
-		<c:otherwise>
+					</c:when>
+					<c:otherwise>
 
-			<div id="tab-demo">
+						<div id="tab-demo1">
+							<c:forEach var='users' items='${user}' varStatus="userStatus">
+								<c:forEach var='i' begin="${userStatus.begin}"
+									end="${userStatus.end}">
 
-				<c:forEach var='users' items='${user}' varStatus="userStatus">
-					<c:forEach var='i' begin="${userStatus.begin}"
-						end="${userStatus.end}">
+									<div value="${i}" id="tab0${userStatus.index}" class="tab-inner">
+										<!-- 							------------------------------------------------------------- -->
+										<div class="container">
+											<div class="card"></div>
+											<div class="card">
+												<h1 class="title">個人檔案:${users.name}</h1>
+												<table class="t1">
+													<tr>
+														<!-- 		用map的key值去對應到petId 取出對應的圖片id -->
+														<c:forEach var='userImg' items='${userImgIdMap[users.id]}'
+															varStatus="userStatus">
+															<td><img id="preview_userImage" src="<c:url value='/' />user/picture/${userImg}"
+																width="200px" class="img" /></td>
+															<!-- 	在4格後新增tr換列 -->
+															<c:if test="${userStatus.count % 4 == 0}">
+																<tr></tr>
+															</c:if>
+														</c:forEach>
 
-						<div value="${i}" id="tab0${userStatus.index}" class="tab-inner">
-<!-- 							------------------------------------------------------------- -->
-							<div class="container">
-								<div class="card"></div>
-								<div class="card">
-									<h1 class="title">個人檔案:${users.name}</h1>
-									<table class="t1">
-										<tr>
-											<c:forEach var='userImg' items='${userImgIdMap[users.id]}'
-												varStatus="userStatus">
-												<td><img id="preview_userImage" src='picture/${userImg}'
-													width="200px" class="img" /></td>
-												<c:if test="${userStatus.count % 4 == 0}">
-													<tr></tr>
-												</c:if>
-											</c:forEach>
-											
-											</tr>
-									</table>
-									<p align="center" style="font-size: 15px">點擊圖片放大</p>
+													</tr>
+												</table>
+												<p align="center" style="font-size: 15px">點擊圖片放大</p> 
 									<div class="imgPreview">
 										<img src="#" alt="" id="imgPreview">
 										</div>
 									<br> <br> <br>
-
+									
+									<div class="ra1">
+										<label for="#{label}">電子信箱:</label> ${users.email}
+<!-- 										<div class="bar"></div> -->
+									</div>
+									
 									<div class="ra1">
 										<label for="#{label}">名字:</label> ${users.name}
 <!-- 										<div class="bar"></div> -->
@@ -439,7 +535,7 @@ margin:auto;
 										</c:forEach>
 										
 									</div>
-									<br> <br> <br>
+									
 									<div class="ra1">
 										<label for="#{label}">自我介紹:</label>
 										${users.selfintroduction}
@@ -452,16 +548,24 @@ margin:auto;
 										</button>
 										</a>
 									</div>
-								</div>
-							</div>
-							<!-- 					---------------------------- -->
+											</div>
+										</div>
+										<!-- 					---------------------------- -->
+									</div>
+								</c:forEach>
+							</c:forEach>
+							<br>
 						</div>
-
-					</c:forEach>
-				</c:forEach>
+					</c:otherwise>
+				</c:choose>
+				<!-- 					============================================================= -->
 			</div>
+		</div>
+	</section>
+	<!-- content -->
 
-		</c:otherwise>
-	</c:choose>
+	<!--footer -->
+	<%@include file="commons/frontend_footer.jsp"%>
 </body>
+
 </html>

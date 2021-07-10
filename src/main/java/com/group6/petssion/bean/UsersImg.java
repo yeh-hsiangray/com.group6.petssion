@@ -1,7 +1,6 @@
 package com.group6.petssion.bean;
 
 
-
 import java.sql.Blob;
 import java.util.List;
 
