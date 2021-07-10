@@ -32,6 +32,10 @@
 			document.getElementById("envTypes2").checked = true;
 			document.getElementById("phone").value = "04-23208339";
 			document.getElementById("add").value = "台中市南屯區大墩十一街648號";
+			document.getElementById("cityError").innerHTML = "";
+			document.getElementById("nameError").innerHTML = "" ;
+			document.getElementById("phoneError").innerHTML = "" ;	
+			document.getElementById("addressError").innerHTML = "" ;				
 		}
 
 		document.getElementById('chosenFile').onchange = function(evt) {
@@ -92,20 +96,7 @@
 				}	
 			}
 		}
-		
-/* 		document.getElementById("dogType").onchange = function(){
-			if(dogTypeCB.checked || catTypeCB.checked){
-				document.getElementById("animalTypesError").innerHTML = "" ;
-			}
-		}
-		
-		document.getElementById("catType").onchange = function(){
-			if(dogTypeCB.checked || catTypeCB.checked){
-				document.getElementById("animalTypesError").innerHTML = "" ;
-			}
-		} */
-		
-		
+			
 
 		for(var i = 0; i < radioBtns.length; i++){
 			radioBtns[i].onchange = function(){
@@ -118,15 +109,18 @@
 		
 		phoneInput.onblur = function(){
 			if(document.getElementById("phoneError")!=null){
-				if(document.getElementById("phone").value.length>=6 && document.getElementById("phone").value.length<=12){
+				var phoneRegex = /^\d{2,4}-(\d{6,8}|-*\d{3,4}-\d{3,4})$/;
+				if(phoneInput.value.match(phoneRegex)){
 					document.getElementById("phoneError").innerHTML = "" ;	
 				}else{
 					document.getElementById("phoneError").innerHTML = "電話欄位不正確" ;
 				}
 			}else{
-				if(document.getElementById("phone").value.length>=6 && document.getElementById("phone").value.length<=12 ){
+				if(phoneInput.value.match(phoneRegex)){
+					alert("right")
 					document.getElementById("phoneErrorFT").innerHTML = "" ;	
 				}else{
+					alert("wrong")
 					document.getElementById("phoneErrorFT").innerHTML = "電話欄位不正確" ;
 				}
 			}
