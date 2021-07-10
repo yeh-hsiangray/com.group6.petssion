@@ -79,12 +79,13 @@
 	<section class="contact-page-area">
 
 		<div class="row">
+			<br>
 			<div class="framefriendly black">
-				<div class="content" style="width: 450px; height: 300pxs">
+				<div class="content" style="width: 450px; height: 300pxs; margin-left:90px; ">
 					<br>
 					<form:form method="post" id="addNewEnv" class="black"
 						modelAttribute="friendlyEnvU" enctype="multipart/form-data">
-						<fieldset id="readOnly" disabled="disabled">
+						<fieldset id="readOnly" disabled="disabled" style="border-radius: 15px;">
 							<label>所在城市:</label>
 							<form:select id="city" path="city">
 								<option ${cityTP}>台北市</option>
@@ -155,8 +156,8 @@
 				</div>
 
 				<div>
-					<iframe width="650" height="380"
-						style="border: 2px solid teal; border-radius: 15px; margin: 15px 15px 0px 30px"
+					<iframe width="600" height="392"
+						style="border: 2px solid teal; border-radius: 15px; margin: 20px 15px 0px 30px"
 						src="https://www.google.com/maps/embed/v1/place?key=&q=${address}">
 					</iframe>
 				</div>
