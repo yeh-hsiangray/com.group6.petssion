@@ -17,5 +17,14 @@ public class BaseController {
 		return "members";
 	}
 	
+	@GetMapping("match/Notify")
+	public String Notify() {
+		return "match/Notify";
+	}
+	@GetMapping("match/NewFile")
+	public String NewFile() {
+		return "match/NewFile";
+	}
+	
 	
 }
