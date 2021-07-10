@@ -98,33 +98,33 @@
 						</p>
 				</a>
 					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="＃" class="nav-link"> <i
+						<li class="nav-item"><a href="<c:url value='/FriendlyEnvSearch' />" class="nav-link"> <i
 								class="fas fa-thumbtack nav-icon"></i>
-								<p>增刪改查</p>
+								<p>友善環境管理</p>
 						</a></li>
 					</ul></li>
 
 				<!-- 6 -->
-				<li class="nav-item"><a href="#" class="nav-link"> <i
+				<li class="nav-item"><a href="<c:url value='/backend/blog/main'/>" class="nav-link"> <i
 						class="nav-icon fas fa-blog"></i>
 						<p>
 							寵物專欄管理 <i class="right fas fa-angle-left"></i>
 						</p>
 				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a href="＃" class="nav-link"> <i
+				<ul class="nav nav-treeview">
+					<li class="nav-item"><a href="<c:url value='/backend/blog/main'/>" class="nav-link"> <i
+								class="fas fa-edit nav-icon"></i>
+								<p>寵物專欄管理</p>
+						</a></li>
+					<li class="nav-item"><a href="<c:url value='/backend/blog/index'/>" class="nav-link"> <i
 								class="fas fa-edit nav-icon"></i>
 								<p>文章列表</p>
 						</a></li>
-						<li class="nav-item"><a href="＃" class="nav-link"> <i
+						<li class="nav-item"><a href="<c:url value='/backend/blog/recycleBin'/>" class="nav-link"> <i
 								class="fas fa-trash-alt nav-icon"></i>
 								<p>資源回收桶</p>
 						</a></li>
-						<li class="nav-item"><a href="＃" class="nav-link"> <i
-								class="fas fa-edit nav-icon"></i>
-								<p>文章備份</p>
-						</a></li>
-					</ul></li>
+					</ul>
 				<!-- 7 -->
 				<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="nav-icon fas fa-tools"></i>

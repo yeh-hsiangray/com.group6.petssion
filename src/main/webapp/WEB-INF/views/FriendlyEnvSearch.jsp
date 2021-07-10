@@ -19,6 +19,13 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
+<style>
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+</style>
 <script>
 	window.onload = function() {
 		let role = '${userRole}'
