@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.group6.petssion.bean.FriendlyEnv;
 import com.group6.petssion.friendlyEnvProfile.service.FriendlyEnvService;
+import com.group6.petssion.friendlyEnvProfile.validate.FriendlyEnvValidator;
 
 @Controller
 @SessionAttributes({ "userRole"})
@@ -155,6 +157,16 @@ public class FriendlyController {
 	@PostMapping("/AddNewFriendlyEnv")
 	public String addNewFriendlyEnvP(@ModelAttribute("friendlyEnv") FriendlyEnv friendlyEnv, BindingResult result,
 			Model model, RedirectAttributes redirectAttributes) {
+		new FriendlyEnvValidator().validate(friendlyEnv, result);
+		if (result.hasErrors()) {
+			System.out.println("======================> BindingRulst has Error");
+			List<ObjectError> list = result.getAllErrors();
+			for(ObjectError error : list) {
+				System.out.println("有錯誤：" + error);
+			}
+			System.out.println("======================");
+			return "/addNewFriendlyEnv";
+		}
 
 		System.out.println("User Role===> " + model.getAttribute("userRole"));
 		if (model.getAttribute("userRole").equals("admin")) {
@@ -178,14 +190,6 @@ public class FriendlyController {
 		}
 
 		return "redirect:/GetAllEnvs";
-
-//		BookValidator  validator = new BookValidator();
-//		validator.validate(bean, result);
-//		if (result.hasErrors()) {
-//			SystemUtils2018.showErrors(result);
-//			return "_20_productMaintain/BookInsert";
-//		}
-
 	}
 
 	@PostMapping("/GetOrUpdateOneEnv")
