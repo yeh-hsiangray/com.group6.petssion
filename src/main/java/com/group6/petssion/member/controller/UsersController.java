@@ -66,7 +66,7 @@ public class UsersController {
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
-		List<Users> users = userService.findUserByUserId(21);
+		List<Users> users = userService.findUserByUserId(2);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 //		HttpSession session=request.getSession();
 //		int SessionUserId =(int)session.getAttribute("userId");//抓取userId

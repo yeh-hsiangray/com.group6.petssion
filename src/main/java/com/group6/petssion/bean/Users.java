@@ -95,12 +95,9 @@ public class Users implements Serializable {
 
 	}
 
-
-	
-
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
-			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, String garbled,
-			Integer checkemail, Integer manager, LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
+			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, Integer manager,
+			LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
 			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
 			List<MultipartFile> img, String base64UserImg) {
 		super();
@@ -115,8 +112,6 @@ public class Users implements Serializable {
 		this.mobilephone = mobilephone;
 		this.selfintroduction = selfintroduction;
 		this.email = email;
-		this.garbled = garbled;
-		this.checkemail = checkemail;
 		this.manager = manager;
 		this.regdate = regdate;
 		this.job = job;

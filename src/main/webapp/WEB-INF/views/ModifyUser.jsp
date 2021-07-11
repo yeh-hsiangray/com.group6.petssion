@@ -9,15 +9,17 @@
 <html lang="zxx" class="no-js">
 
 <head>
+<!-- Favicon-->
+<link rel="shortcut icon" href="../images/favicon1.ico">
 <!-- Mobile Specific Meta -->
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Author Meta -->
 <meta name="author" content="">
 <!-- Meta Description -->
-<meta name="description" content="">
+<meta name="description" content="Petssion會員編輯">
 <!-- Meta Keyword -->
-<meta name="keywords" content="">
+<meta name="keywords" content="Pets, Dating">
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
@@ -168,11 +170,11 @@ body {
 }
 
 .card .input-container .bar:before {
-	left: 50%;
+ 	left: 50%;
 }
 
 .card .input-container .bar:after {
-	right: 50%;
+ 	right: 50%;
 }
 
 .card .button-container {
@@ -315,7 +317,7 @@ margin-bottom:8px;
 					<p class="text-white link-nav">
 						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<%-- 						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp; --%>
+						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 				</div>
 			</div>
@@ -444,8 +446,7 @@ margin-bottom:8px;
 <!-- 			=========================================================== -->
 				
 				<div class="input-container">
-					<form:input path='email' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
+					<form:input path='email' type="#{type}" id="#{label}"  readonly="true"/>
 					<form:errors path="email" cssClass="error" />
 					<label for="#{label}">電子信箱:</label>
 					<div class="bar"></div>
@@ -481,8 +482,6 @@ margin-bottom:8px;
  					<label for="#{label}">住址:</label>
 					<div class="bar"></div>
 				</div>
-				
-				<div id="twzipcode"></div>
 				
 				<div class="input-container">
 					<form:input path='constellation' type="#{type}" id="#{label}"
@@ -554,7 +553,6 @@ margin-bottom:8px;
 					<button type="submit">
 						<span>確認</span>
 					</button>
-					<!-- 					<input type='submit'> -->
 				</div>
 			</form:form>
 		</div>
