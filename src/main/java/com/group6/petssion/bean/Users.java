@@ -46,7 +46,7 @@ public class Users implements Serializable {
 	private String selfintroduction;
 	private String email;
 	private String garbled;
-	private int checkemail;
+	private Integer checkemail;
 	
 	//@Column(name = "manager", nullable = false)
 	private Integer manager;
@@ -65,7 +65,7 @@ public class Users implements Serializable {
 
 	
 	//對應account類
-	@OneToOne(mappedBy = "users")
+	@OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
 	@JsonIgnore
 	private account_password account_password;
 	
@@ -93,39 +93,6 @@ public class Users implements Serializable {
 
 	public Users() {
 
-	}
-
-	
-
-	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
-			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, String garbled,
-			int checkemail, Integer manager, LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
-			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
-			List<MultipartFile> img, String base64UserImg) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.birthday = birthday;
-		this.address = address;
-		this.constellation = constellation;
-		this.height = height;
-		this.weight = weight;
-		this.mobilephone = mobilephone;
-		this.selfintroduction = selfintroduction;
-		this.email = email;
-		this.garbled = garbled;
-		this.checkemail = checkemail;
-		this.manager = manager;
-		this.regdate = regdate;
-		this.job = job;
-		Blockade = blockade;
-		this.hobby = hobby;
-		this.account_password = account_password;
-		this.pet = pet;
-		this.usersImg = usersImg;
-		this.img = img;
-		this.base64UserImg = base64UserImg;
 	}
 
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
@@ -317,6 +284,8 @@ public class Users implements Serializable {
 		this.img = img;
 	}
 
+
+
 	public String getGarbled() {
 		return garbled;
 	}
@@ -325,11 +294,11 @@ public class Users implements Serializable {
 		this.garbled = garbled;
 	}
 
-	public int getCheckemail() {
+	public Integer getCheckemail() {
 		return checkemail;
 	}
 
-	public void setCheckemail(int checkemail) {
+	public void setCheckemail(Integer checkemail) {
 		this.checkemail = checkemail;
 	}
 	

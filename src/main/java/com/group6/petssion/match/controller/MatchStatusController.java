@@ -1,5 +1,6 @@
 package com.group6.petssion.match.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,10 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +20,7 @@ import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.MatchStatus;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.match.service.MatchStatusService;
+import com.group6.petssion.member.service.UserService;
 
 @RestController
 @RequestMapping("/match")
@@ -28,15 +29,26 @@ public class MatchStatusController {
 	@Autowired
 	private MatchStatusService matchStatusService;
 	
+	@Autowired
+	private UserService userService;
+	
+	
 
 	/**
-	 *  @興趣id抓使用者
-	 * 
+	 * @興趣id抓使用者
+	 * @排除登入者之資料
 	 */
 	@GetMapping("/selectHobby/getUsers")
-	public @ResponseBody List<Users> getUser(@RequestParam Integer id, 
-			HttpServletResponse response) {
+	public @ResponseBody List<Users> getUserWithoutSignInId(@RequestParam Integer id, 			
+			HttpServletResponse response,HttpServletRequest request) {
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		int SessionUserId =2;
 		List<Users> userList =  matchStatusService.getUsersByHobbyId(id);
+		Users user=userService.get(SessionUserId);
+//		System.out.println(user);
+		userList.remove(user);
+	
 		return userList;
 	}
 	
@@ -81,16 +93,50 @@ public class MatchStatusController {
 //            System.out.print(name);
 //        }        
 //		HttpSession session=request.getSession();
-//		  int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-		Integer SessionUserId=22;
-		matchstatus.setUserA(SessionUserId);
+//		  int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+		Integer sessionUserId=2;
+		matchstatus.setUserA(sessionUserId);
 		
-		System.out.println(SessionUserId);
+		System.out.println(sessionUserId);
 		matchStatusService.save(matchstatus);		
 		
 	}
 	
+	/**@Get
+	 * @使用者B欄登入時收到使用A交友通知"1"為喜歡
+	 * @使用者A欄登入時收到使用者B欄的回覆"3"為互相喜歡,"4"為使用者單方不喜歡
+	 */
+	@GetMapping("/signInNotify")
+	public @ResponseBody List<Users> signInNotify(@RequestParam Integer userid){			
+		List<Users> getlikeNotify=matchStatusService.getlikeNotify(userid);	//userB=22登入 return [] 
+		List<Users> oneSideLove= matchStatusService.oneSideLove(userid);	//userA=22登入 return倪雅嵐
+		List<Users> eachLike= matchStatusService.eachLike(userid);	//userA=22 登入 return 陳冠士 
+		ArrayList<Users> resultList = new ArrayList<Users>();
+		resultList.addAll(getlikeNotify);
+		resultList.addAll(oneSideLove);
+		resultList.addAll(eachLike);
+		return resultList;
+	}
 
+	
+	/**
+	 * @更新回覆狀態 
+	 * @使用者B欄登入時收到使用者A欄的交友通知作回覆"3"為互相喜歡,"4"為使用者單方不喜歡
+	 */
+	@PostMapping("/updateMatchStatus")
+	  public void updateMatchStatus(
+			  @RequestBody MatchStatus matchStatus,HttpServletRequest request) {
+		
+		HttpSession session=request.getSession();
+	    int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+	   
+//		Integer SessionUserId=22;
+		matchStatus.setUserB(sessionUserId);
+		matchStatusService.saveReplyStatus(matchStatus);
+		   
+	  }
+
+	
 	
 	//@GetMapping("/match/{id}")
 //    public Hobby getHobby(@PathVariable int id) {
@@ -123,12 +169,6 @@ public class MatchStatusController {
 //        
 //        }else return null;
 //    }
+
 	
-//	@GetMapping(value = "/selectHobby/allHobbys", produces = { "application/json; charset=UTF-8" })
-//	public @ResponseBody List<Hobby> getAllHobbys() {
-//		List<Hobby> hobbys = matchStatusService.getAllHobby();
-//
-//		return hobbys;
-//	}
-//	
 }
