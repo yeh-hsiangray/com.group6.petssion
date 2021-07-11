@@ -94,7 +94,7 @@
 	<!-- End banner Area -->
 
 	<!-- content -->
-	<section class="post-content-area">
+	<section class="post-content-area" style="background-color:rgb(243, 224, 115); height: 82vh">
 		<div class="container">
 			<div class="row">
 				<div class="framefriendly">
