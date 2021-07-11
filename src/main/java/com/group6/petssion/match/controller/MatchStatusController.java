@@ -91,9 +91,9 @@ public class MatchStatusController {
 //            
 //            System.out.print(name);
 //        }        
-		HttpSession session=request.getSession();
-		  int sessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		Integer sessionUserId=2;
+//		HttpSession session=request.getSession();
+//		  int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+		Integer sessionUserId=2;
 		matchstatus.setUserA(sessionUserId);
 		
 		System.out.println(sessionUserId);
