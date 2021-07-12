@@ -21,7 +21,6 @@ body {
 	justify-content: center;
 	background-color: rgb(243, 224, 115) !important;
 	width: 100vw !important; 
-	height:70vh;
 	color: black !important;
 }
 
@@ -50,9 +49,4 @@ body {
 	top: 2px;
 	left: 50%;
 	margin-left: -250px;
-}
-
-.error{
-	color:red;
-	font-size: 12px;
 }

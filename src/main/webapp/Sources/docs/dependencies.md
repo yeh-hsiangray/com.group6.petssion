@@ -52,7 +52,7 @@ AdminLTE makes use of the following plugins. For documentation, updates or licen
       <li><a href="https://github.com/bantikyan/icheck-bootstrap#readme" rel="noopener" target="_blank">iCheck Bootstrap</a></li>
       <li><a href="https://github.com/RobinHerbots/Inputmask/" rel="noopener" target="_blank">Inputmask</a></li>
       <li><a href="http://ionden.com/a/plugins/ion.rangeSlider/" rel="noopener" target="_blank">Ion.RangeSlider</a></li>
-      <li><a href="https://select2.org/" rel="noopener" target="_blank">select2</a></li>
+      <li><a href="https://select2.org/" rel="noopener" target="_blank">Select2</a></li>
       <li><a href="https://tempusdominus.github.io/bootstrap-4/" rel="noopener" target="_blank">Tempus Dominus</a></li>
       <li><a href="https://github.com/istvan-ujjmeszaros/bootstrap-duallistbox#readme" rel="noopener" target="_blank">Bootstrap4 Duallistbox</a></li>
       <li><a href="https://github.com/Johann-S/bs-custom-file-input#readme" rel="noopener" target="_blank">bs-custom-file-input</a></li>

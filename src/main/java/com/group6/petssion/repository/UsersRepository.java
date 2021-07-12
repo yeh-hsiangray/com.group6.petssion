@@ -19,5 +19,5 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	
 	Users findByEmail(String email);
 	
-	Users findByGarbledAndEmail(String garbled,String email);
+	Users findByGarbled(String garbled);
 }

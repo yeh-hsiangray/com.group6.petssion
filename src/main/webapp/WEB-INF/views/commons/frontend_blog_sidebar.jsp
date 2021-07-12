@@ -6,69 +6,49 @@
 <html>
 <div class="col-lg-4 sidebar-widgets">
 	<div class="widget-wrap">
-
 		<!-- SEARCH -->
 		<div class="single-sidebar-widget popular-post-widget">
 			<h4 class="popular-title">搜尋</h4>
 			<div class="single-sidebar-widget search-widget">
-				<form class="search-form"
-					action="<c:url value='/frontend/blog/list/search'/>"
-					id="searchForm">
-					<select name="type" class="selOpt" id="searchOption">
-						<option value="id">文章編號</option>
-						<option value="title" selected="selected">文章標題</option>
-						<option value="author">文章作者</option>
-						<option value="tag">分類標籤</option>
-						<option value="createDate">發文日期</option>
-					</select> <input placeholder="" name="search" type="text"
+				<div class="dropdown" id="opSelected">
+					<button class="dropbtn">進階搜尋</button>
+					<div class="dropdown-content">
+						<a href="#" value="1"> 文章編號 </a> 
+						<a href="#" value="2"> 文章作者 </a>
+						<a href="#" value="3"> 文章標題 </a> 
+						<a href="#" value="4"> 分類標籤 </a>
+					</div>
+				</div>
+				<form class="search-form" action="" id="searchForm">
+					<input placeholder="" name="Article_Id" type="text"
 						onfocus="this.placeholder = ''"
 						onblur="this.placeholder = '搜尋文章標題'">
 					<button type="submit">
 						<i class="fa fa-search"></i>
 					</button>
 				</form>
+				<script>
+				$(#opSelected).click(fucntion(){
+					var val=$(this).val();
+					var
+				})
+				
+				$(#searchForm).submit(fucntion(event){
+					console.log("submit!")
+				})
+				</script>
+			
+			</div>
+		</div>
 
-			</div>
-		</div>
-		<!-- AD -->
-		<div class="single-sidebar-widget popular-post-widget">
-			<h4 class="popular-title">廣告位</h4>
-			<div class="carousel-inner" style="width: 90%">
-				<div class="carousel-item active">
-					<img src="<c:url value='/Sources/img/blog/ads-banner.jpeg' />"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img src="<c:url value='/Sources/img/blog/ads-banner.jpeg' />"
-						class="d-block w-100" alt="...">
-				</div>
-				<div class="carousel-item">
-					<img src="<c:url value='/Sources/img/blog/ads-banner.jpeg' />"
-						class="d-block w-100" alt="...">
-				</div>
-			</div>
-			<a class="carousel-control-prev" href="#carouselExampleIndicators"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
-		</div>
-		<%-- <a href="#">
-			<img class="img-fluid" src="<c:url value='/Sources/img/blog/ads-banner.jpeg' />" alt=""></a>
-		</div> --%>
 		<!-- LASTEST -->
 		<div class="single-sidebar-widget popular-post-widget">
 			<h4 class="popular-title">最新貼文</h4>
 			<div class="popular-post-list">
-				<c:forEach items="${latestArticles}" begin="0" end="5" var="item">
+				<c:forEach items="${latestArticles}" begin="0" end="2" var="item">
 					<div class="single-post-list d-flex flex-row align-items-center">
 						<div class="thumb">
-							<!-- 							<img class="img-fluid" src="#" alt="">
- -->
+							<img class="img-fluid" src="先不要放" alt="">
 						</div>
 						<div class="details">
 							<a href="<c:url value='/frontend/blog/article/${item.id}'/>">
@@ -87,7 +67,7 @@
 		<div class="single-sidebar-widget popular-post-widget">
 			<h4 class="popular-title">熱門貼文</h4>
 			<div class="popular-post-list">
-				<c:forEach items="${hotArticle}" begin="0" end="3" var="item">
+				<c:forEach items="${latestArticles}" begin="0" end="2" var="item">
 					<div class="single-post-list d-flex flex-row align-items-center">
 						<div class="details">
 							<a href="<c:url value='/frontend/blog/article/${item.id}'/>">
@@ -146,5 +126,3 @@
 		</div>
 	</div>
 </div>
-
-<script src="<c:url value='/Sources/js/vendor/bootstrap.min.js'/>"></script>

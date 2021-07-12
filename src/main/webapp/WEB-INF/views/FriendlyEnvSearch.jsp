@@ -19,13 +19,6 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<style>
-.banner-area {
-	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
-		!important;
-	background-size: cover !important;
-}
-</style>
 <script>
 	window.onload = function() {
 		let role = '${userRole}'
@@ -101,7 +94,7 @@
 	<!-- End banner Area -->
 
 	<!-- content -->
-	<section class="post-content-area">
+	<section class="post-content-area" style="background-color:rgb(243, 224, 115); height: 82vh">
 		<div class="container">
 			<div class="row">
 				<div class="framefriendly">

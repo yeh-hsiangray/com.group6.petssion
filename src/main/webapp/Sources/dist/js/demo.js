@@ -5,7 +5,6 @@
  * This file is for demo purposes only.
  */
 
-
 /* eslint-disable camelcase */
 
 (function ($) {
@@ -301,7 +300,7 @@
   // var $no_expand_sidebar_container = $('<div />', { class: 'mb-4' }).append($no_expand_sidebar_checkbox).append('<span>Disable Hover/Focus Auto-Expand</span>')
   // $container.append($no_expand_sidebar_container)
 
-  $container.append('<h6>頁尾設定</h6>')
+  $container.append('<h6>頁尾控制選項</h6>')
   var $footer_fixed_checkbox = $('<input />', {
     type: 'checkbox',
     value: 1,
@@ -314,9 +313,8 @@
       $('body').removeClass('layout-footer-fixed')
     }
   })
-  var $footer_fixed_container = $('<div />', { class: 'mb-4' }).append($footer_fixed_checkbox).append('<span>鎖定</span>')
+  var $footer_fixed_container = $('<div />', { class: 'mb-4' }).append($footer_fixed_checkbox).append('<span>鎖定頁尾</span>')
   $container.append($footer_fixed_container)
-  $footer_fixed_checkbox.trigger('cllick');
 
   $container.append('<h6>文字縮小</h6>')
 
