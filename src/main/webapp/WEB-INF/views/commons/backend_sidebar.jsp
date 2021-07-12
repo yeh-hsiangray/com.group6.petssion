@@ -105,7 +105,7 @@
 					</ul></li>
 
 				<!-- 6 -->
-				<li class="nav-item"><a href="<c:url value='/backend/blog/main'/>" class="nav-link"> <i
+				<li class="nav-item"><a href="<c:url value='/backend/blog/home'/>" class="nav-link"> <i
 						class="nav-icon fas fa-blog"></i>
 						<p>
 							寵物專欄管理 <i class="right fas fa-angle-left"></i>
