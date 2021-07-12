@@ -8,15 +8,24 @@
     <title></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
-    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
-    <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-  </head>
+    <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
+<link rel=stylesheet href="../css/notify.css">
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+</head>
   <body>
     <div class="card mb-3 card hole" style="max-width: 540px;">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
-			<li><a href="#home" data-toggle="tab">個人資訊</a></li>
+			<li class='active'><a href="#home" data-toggle="tab">個人資訊</a></li>
 			<li><a href="#board" data-toggle="tab">寵物檔案</a></li>
 <!-- 			<li><a href="#download" data-toggle="tab">下載區</a></li> -->
 		</ul>
