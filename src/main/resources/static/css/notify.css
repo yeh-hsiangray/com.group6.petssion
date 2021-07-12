@@ -1,0 +1,18 @@
+:root {
+  text-align: center;
+}
+
+.card {
+	position:fixed; top:25%; left:25%;
+}
+.agree{
+	float: right;
+}
+.refuse{
+	float: left;
+}
+
+.hole{
+	width:545px;
+	
+}

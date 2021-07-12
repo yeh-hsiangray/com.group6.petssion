@@ -1,6 +1,7 @@
 package com.group6.petssion.bean;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,59 +12,61 @@ public class MatchStatus {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
+	@Column(name="user_A")
+	private Integer userA;
+	@Column(name="user_B")
+	private Integer userB;
 	
-	private int user_A;
-	
-	private int user_B;
-	
-	private int status;
+	private Integer status;
 	
 	public MatchStatus() {
 		
 	}
 
-	public MatchStatus(int id, int user_A, int user_B, int status) {
+	public MatchStatus(Integer id, Integer userA, Integer userB, Integer status) {
 		super();
 		this.id = id;
-		this.user_A = user_A;
-		this.user_B = user_B;
+		this.userA = userA;
+		this.userB = userB;
 		this.status = status;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getUser_A() {
-		return user_A;
+	public Integer getUserA() {
+		return userA;
 	}
 
-	public void setUser_A(int user_A) {
-		this.user_A = user_A;
+	public void setUserA(Integer userA) {
+		this.userA = userA;
 	}
 
-	public int getUser_B() {
-		return user_B;
+	public Integer getUserB() {
+		return userB;
 	}
 
-	public void setUser_B(int user_B) {
-		this.user_B = user_B;
+	public void setUserB(Integer userB) {
+		this.userB = userB;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+		
 	}
 	
 	
-	
-}
+

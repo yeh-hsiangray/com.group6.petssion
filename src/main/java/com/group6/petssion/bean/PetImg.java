@@ -1,7 +1,7 @@
 package com.group6.petssion.bean;
 
 import java.sql.Blob;
-import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,25 +22,28 @@ public class PetImg {
 	private Integer id;
 	private String fileName;
 	private Blob petImage;
-	
-	//對應pet類
+
+	// 對應pet類
 	@Column(name = "fk_pet_id")
 	@Transient
 	private Integer petId;
 	@ManyToOne
 	@JoinColumn(name = "fk_pet_id")
 	private Pet pet;
+	@Transient
+	private List<Integer> imgIdList;
 
 	public PetImg() {
 	}
 
-	public PetImg(Integer id, Timestamp admissionTime, String fileName, Blob petImage, Integer petId, Pet pet) {
+	public PetImg(Integer id, String fileName, Blob petImage, Integer petId, Pet pet, List<Integer> imgIdList) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
 		this.petImage = petImage;
 		this.petId = petId;
 		this.pet = pet;
+		this.imgIdList = imgIdList;
 	}
 
 	public Integer getId() {
@@ -83,5 +86,12 @@ public class PetImg {
 		this.pet = pet;
 	}
 
-	
+	public List<Integer> getImgIdList() {
+		return imgIdList;
+	}
+
+	public void setImgIdList(List<Integer> imgIdList) {
+		this.imgIdList = imgIdList;
+	}
+
 }

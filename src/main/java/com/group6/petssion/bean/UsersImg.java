@@ -1,7 +1,8 @@
 package com.group6.petssion.bean;
 
+
 import java.sql.Blob;
-import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,25 +22,39 @@ public class UsersImg {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String fileName;
+
+
+	
+	
+
 	private Blob usersImage;
+	
+
+	
+
 	@Column(name = "fk_Users_id")
 	@Transient
 	private Integer usersId;
 	@ManyToOne
 	@JoinColumn(name = "fk_Users_id")
 	private Users users;
+	
+	@Transient
+	List<String> imgIdList;
 
 	public UsersImg() {
 	}
 
-	public UsersImg(Integer id, Timestamp admissionTime, String fileName, Blob usersImage, Integer usersId,
-			Users users) {
+	public UsersImg(Integer id, String fileName, Blob usersImage, Integer usersId, Users users,
+			List<String> imgIdList) {
+
 		super();
 		this.id = id;
 		this.fileName = fileName;
 		this.usersImage = usersImage;
 		this.usersId = usersId;
 		this.users = users;
+		this.imgIdList = imgIdList;
 	}
 
 	public Integer getId() {
@@ -59,7 +74,10 @@ public class UsersImg {
 	}
 
 	public Blob getUsersImage() {
-		return usersImage;
+
+		return usersImage ;
+
+
 	}
 
 	public void setUsersImage(Blob usersImage) {
@@ -81,6 +99,16 @@ public class UsersImg {
 	public void setUsers(Users users) {
 		this.users = users;
 	}
+
+	public List<String> getImgIdList() {
+		return imgIdList;
+	}
+
+	public void setImgIdList(List<String> imgIdList) {
+		this.imgIdList = imgIdList;
+	}
+
+	
 
 	
 }

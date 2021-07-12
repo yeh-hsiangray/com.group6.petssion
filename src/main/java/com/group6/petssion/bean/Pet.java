@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "Pet")
@@ -30,27 +35,27 @@ public class Pet implements Serializable {
 	private Integer age;
 
 	// 對應喜愛食物選項
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_food_id")
 	private Food food;
 
 	// 對應種類類型選項
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_type_id")
 	private Type type;
 
 	// 對應種類選項
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_kind_id")
 	private Kind kind;
 
 	// 對應個性選項
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "fk_personality_id")
 	private Personality personality;
 
 	// 對應petImg類
-	@OneToMany(mappedBy = "pet")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pet")
 	private List<PetImg> petImg;
 
 	// 對應User類
@@ -59,13 +64,29 @@ public class Pet implements Serializable {
 	private Integer userId;
 	@ManyToOne
 	@JoinColumn(name = "fk_user_id")
+	@JsonIgnore
 	private Users user;
+	@Transient
+	private List<MultipartFile> img;
+	@Transient
+	private List<Integer> delImgId;	
+	public String getBase64PetImg() {
+		return base64PetImg;
+	}
+
+	public void setBase64PetImg(String base64PetImg) {
+		this.base64PetImg = base64PetImg;
+	}
+
+	@Transient
+	String base64PetImg;
 
 	public Pet() {
 	}
 
 	public Pet(Integer id, String name, String gender, Integer age, Food food, Type type, Kind kind,
-			Personality personality, List<PetImg> petImg, Integer userId, Users user) {
+			Personality personality, List<PetImg> petImg, Integer userId, Users user, List<MultipartFile> img,
+			List<Integer>delImgId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,6 +99,8 @@ public class Pet implements Serializable {
 		this.petImg = petImg;
 		this.userId = userId;
 		this.user = user;
+		this.img = img;
+		this.delImgId = delImgId;
 	}
 
 	public Integer getId() {
@@ -145,6 +168,7 @@ public class Pet implements Serializable {
 	}
 
 	public List<PetImg> getPetImg() {
+
 		return petImg;
 	}
 
@@ -167,5 +191,22 @@ public class Pet implements Serializable {
 	public void setUser(Users user) {
 		this.user = user;
 	}
+
+	public List<MultipartFile> getImg() {
+		return img;
+	}
+
+	public void setImg(List<MultipartFile> img) {
+		this.img = img;
+	}
+
+	public List<Integer> getDelImgId() {
+		return delImgId;
+	}
+
+	public void setDelImgId(List<Integer> delImgId) {
+		this.delImgId = delImgId;
+	}
+
 
 }
