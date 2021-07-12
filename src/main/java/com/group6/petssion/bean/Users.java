@@ -65,7 +65,7 @@ public class Users implements Serializable {
 
 	
 	//對應account類
-	@OneToOne(mappedBy = "users",fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "users",fetch =  FetchType.LAZY)
 	@JsonIgnore
 	private account_password account_password;
 	
@@ -98,8 +98,8 @@ public class Users implements Serializable {
 	
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, String garbled,
-			int checkemail, Integer manager, LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
-			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
+			Integer checkemail, Integer manager, LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
+			account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
 			List<MultipartFile> img, String base64Img) {
 		super();
 		this.id = id;
@@ -124,13 +124,13 @@ public class Users implements Serializable {
 		this.pet = pet;
 		this.usersImg = usersImg;
 		this.img = img;
-		this.base64Img = base64Img;
+		this.base64UserImg = base64Img;
 	}
 
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, Integer manager,
 			LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
-			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
+			account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
 			List<MultipartFile> img, String base64Img) {
 		super();
 		this.id = id;
@@ -153,7 +153,7 @@ public class Users implements Serializable {
 		this.pet = pet;
 		this.usersImg = usersImg;
 		this.img = img;
-		this.base64Img = base64Img;
+		this.base64UserImg = base64Img;
 	}
 
 	public Integer getId() {
@@ -283,7 +283,7 @@ public class Users implements Serializable {
 	public void setHobby(List<Hobby> hobby) {
 		this.hobby = hobby;
 	}
-
+	
 	public account_password getAccount_password() {
 		return account_password;
 	}
@@ -324,11 +324,11 @@ public class Users implements Serializable {
 		this.garbled = garbled;
 	}
 
-	public int getCheckemail() {
+	public Integer getCheckemail() {
 		return checkemail;
 	}
 
-	public void setCheckemail(int checkemail) {
+	public void setCheckemail(Integer checkemail) {
 		this.checkemail = checkemail;
 	}
 	

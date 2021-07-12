@@ -27,7 +27,7 @@ public void forgotMail(String userMail,String checkUrl) {
 	String check="http://localhost:8080/petssion/signIn/check?garbled=";
 	String mail="&email=";
 	message.setTo(userMail);
-	message.setSubject("帳號驗證信");
+	message.setSubject("密碼重置驗證信");
 	message.setText("請點擊連結: "+check+checkUrl+mail+userMail);
 	
 	javaMail.send(message);
