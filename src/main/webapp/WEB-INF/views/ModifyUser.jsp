@@ -446,7 +446,7 @@ margin-bottom:8px;
 <!-- 			=========================================================== -->
 				
 				<div class="input-container">
-					<form:input path='email' type="#{type}" id="#{label}"  readonly="true"/>
+					<form:input path='email' type="#{type}" id="#{label}" />
 					<form:errors path="email" cssClass="error" />
 					<label for="#{label}">電子信箱:</label>
 					<div class="bar"></div>

@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -21,9 +23,13 @@ public class UsersDto {
 	
 	private static final String PHOME_REGEXP = "[0-9]{4}[0-9]{3}[0-9]{3}";
 	
+	
+//	private static final String Birthday_REGEXP = "/^(19|20)\\d{2}-(1[0-2]|0?[1-9])-(0?[1-9]|[1-2][0-9]|3[0-1])$/";	
+	
 	private Integer id;
 	
-	
+	@Email(message="電子郵件格式錯誤")
+	@NotBlank(message = "電子郵件不能為空")
 	private String email;
 	
 	//台灣《姓名條例》規定取名無字數上限，故移除限制字數長度

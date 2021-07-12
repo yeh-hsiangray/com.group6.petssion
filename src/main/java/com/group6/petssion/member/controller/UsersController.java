@@ -1,5 +1,6 @@
 package com.group6.petssion.member.controller;
 
+
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -11,9 +12,12 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -25,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +37,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
@@ -46,6 +52,8 @@ import com.group6.petssion.member.validate.UsersDto;
 @Controller
 @RequestMapping("/user")
 public class UsersController {
+	
+	private final Logger logger = LoggerFactory.getLogger(UsersController.class);
 	
 	@Autowired
 	private UsersImgService usersImgService;
@@ -66,10 +74,10 @@ public class UsersController {
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
 
-		List<Users> users = userService.findUserByUserId(2);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		List<Users> users = userService.findUserByUserId(SessionUserId);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 		
 		for(Users user: users) {
 			Integer userId = user.getId();
@@ -240,11 +248,13 @@ public class UsersController {
 			
 			return "ModifyUser";
 		}
+		
 		Users user = new Users();
 		
 		user.setManager(2);
 		user.setRegdate(LocalDate.now());
 		user.setBlockade(0);
+		user.setCheckemail(1);
 		
 		BeanUtils.copyProperties(usersDto, user);
 
@@ -383,6 +393,25 @@ public class UsersController {
 		}
 		return result;
 	}
+	
+	/**
+	 * 異常處理
+	 * @param request
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler({Exception.class})
+	public ModelAndView handleException(HttpServletRequest request, Exception e) {
+		logger.error("Request URL: {}, Exception : {}", request.getRequestURL(), e.getMessage());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("url", request.getRequestURL());
+		mav.addObject("exception", e);
+		mav.setViewName("error/error");
+		
+		return mav;
+	}
+	
 }
 	
 	

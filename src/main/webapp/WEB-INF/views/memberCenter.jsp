@@ -33,7 +33,11 @@ span.error {
 	display: inline-block;
 	font-size: 5pt;
 }
-
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
 body {
 	background: #fff281;
 	color: #666666;
@@ -393,12 +397,6 @@ input[type="file"] {
 		});
 	})
 
-	function CheckForm() {
-		if (confirm("確認刪除寵物資料嗎？") == true)
-			return true;
-		else
-			return false;
-	}
 </script>
 </head>
 <body>

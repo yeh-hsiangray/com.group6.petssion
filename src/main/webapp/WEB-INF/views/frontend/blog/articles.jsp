@@ -109,7 +109,7 @@
 
 							<div class="row mt-30 mb-30">
 								<div class="col-6">
-									<img class="img-fluid" src="${singleArticle.img2}g" alt="">
+									<img class="img-fluid" src="${singleArticle.img2}" alt="">
 								</div>
 								<div class="col-6">
 									<img class="img-fluid" src="${singleArticle.img3}" alt="">

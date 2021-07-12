@@ -334,7 +334,11 @@ input[type="file"] {
 	border-bottom: 1px solid #fff;
 	background: #fff;
 }
-
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
 #tab-demo>.tab-inner {
 	margin: auto;
 	clear: both;
