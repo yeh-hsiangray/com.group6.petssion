@@ -2,6 +2,8 @@ package com.group6.petssion.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.group6.petssion.bean.Users;
@@ -19,5 +21,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	
 	Users findByEmail(String email);
 	
-	Users findByGarbled(String garbled);
+	Users findByGarbledAndEmail(String garbled,String email);
+	
+	Page<Users> findAll(Pageable pageable);
+
 }
