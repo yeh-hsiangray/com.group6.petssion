@@ -15,7 +15,6 @@ JavaMailSender javaMail;
 public void checkMail(String userMail,String checkUrl) {
 	SimpleMailMessage message = new SimpleMailMessage();
 	String check="http://localhost:8080/petssion/registered/check?garbled=";
-	String mail="&email=";
 	message.setTo(userMail);
 	message.setSubject("帳號驗證信");
 	message.setText("請點擊連結: "+check+checkUrl+mail+userMail);
@@ -29,6 +28,7 @@ public void forgotMail(String userMail,String checkUrl) {
 	message.setTo(userMail);
 	message.setSubject("密碼重置驗證信");
 	message.setText("請點擊連結: "+check+checkUrl+mail+userMail);
+
 	
 	javaMail.send(message);
 }

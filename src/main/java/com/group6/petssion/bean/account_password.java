@@ -2,7 +2,6 @@ package com.group6.petssion.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,31 +24,16 @@ public class account_password {
 	@Column(name = "fk_users_id")
 	@Transient
 	private Integer usersId;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name="fk_users_id")
 	private Users users;
-	@Transient
-	private boolean remember;
-	@Transient
-	private String forgoteEmail;
+	
 	
 	public account_password () {
 		
 	}
 
-
-	public account_password(Integer id, String account, String password, Integer usersId, Users users, boolean remember,
-			String forgoteEmail) {
-		super();
-		this.id = id;
-		this.account = account;
-		this.password = password;
-		this.usersId = usersId;
-		this.users = users;
-		this.remember = remember;
-		this.forgoteEmail = forgoteEmail;
-	}
-
+	
 
 	public account_password(Integer id, String account, String password, Integer usersId, Users users) {
 		super();
@@ -102,28 +86,5 @@ public class account_password {
 		this.users = users;
 	}
 	
-	public boolean getRemember() {
-		return remember;
-	}
-	
-	
-	
-	public String getForgoteEmail() {
-		return forgoteEmail;
-	}
-
-
-
-
-	public void setForgoteEmail(String forgoteEmail) {
-		this.forgoteEmail = forgoteEmail;
-	}
-
-
-
-
-	public void setRemember(boolean remember) {
-		this.remember = remember;
-	}
 	
 }

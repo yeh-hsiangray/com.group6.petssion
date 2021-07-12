@@ -95,7 +95,7 @@ public class Users implements Serializable {
 
 	}
 
-	
+
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, String garbled,
 			Integer checkemail, Integer manager, LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
@@ -127,11 +127,12 @@ public class Users implements Serializable {
 		this.base64UserImg = base64Img;
 	}
 
+
 	public Users(Integer id, String name, String gender, Date birthday, String address, String constellation,
 			Integer height, Integer weight, String mobilephone, String selfintroduction, String email, Integer manager,
 			LocalDate regdate, Job job, Integer blockade, List<Hobby> hobby,
-			account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
-			List<MultipartFile> img, String base64Img) {
+			com.group6.petssion.bean.account_password account_password, List<Pet> pet, List<UsersImg> usersImg,
+			List<MultipartFile> img, String base64UserImg) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -153,7 +154,7 @@ public class Users implements Serializable {
 		this.pet = pet;
 		this.usersImg = usersImg;
 		this.img = img;
-		this.base64UserImg = base64Img;
+		this.base64UserImg = base64UserImg;
 	}
 
 	public Integer getId() {
@@ -315,6 +316,8 @@ public class Users implements Serializable {
 	public void setImg(List<MultipartFile> img) {
 		this.img = img;
 	}
+
+
 
 	public String getGarbled() {
 		return garbled;

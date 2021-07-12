@@ -1,14 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page contentType="text/html; charset=UTF-8"
 	deferredSyntaxAllowedAsLiteral="true"%>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
 <head>
+<!-- Favicon-->
+<link rel="shortcut icon" href="../images/favicon1.ico">
+<!-- Mobile Specific Meta -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Author Meta -->
+<meta name="author" content="">
+<!-- Meta Description -->
+<meta name="description" content="Petssion會員編輯">
+<!-- Meta Keyword -->
+<meta name="keywords" content="Pets, Dating">
+<!-- meta character set -->
 <meta charset="UTF-8">
+<!-- Site Title -->
 <title>編輯個人資訊</title>
+
+<!--imports-->
+<%@include file="commons/frontend_imports.jsp"%>
 <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -22,19 +40,19 @@ span.error {
 body {
 	background: #fff281;
 	color: #666666;
-	font-family: "RobotoDraft", "Roboto", sans-serif;
-	font-size: 14px;
+	/* 	font-family: "RobotoDraft", "Roboto", sans-serif; */
+	font-size: 16px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
 /* Container */
-.container {
-	position: relative;
-	max-width: 900px;
-	width: 100%;
-	margin: 0 auto 100px;
-}
+/* .container { */
+/* 	position: relative; */
+/* 	max-width: 900px; */
+/* 	width: 100%; */
+/* 	margin: 0 auto 100px; */
+/* } */
 
 .container.active .card:first-child {
 	background: #f2f2f2;
@@ -48,6 +66,7 @@ body {
 
 /* Card */
 .card {
+	width:900px;
 	position: relative;
 	background: #ffffff;
 	border-radius: 5px;
@@ -58,6 +77,7 @@ body {
 }
 
 .card:first-child {
+	width:880px;
 	background: #fafafa;
 	height: 10px;
 	border-radius: 5px 5px 0 0;
@@ -150,11 +170,11 @@ body {
 }
 
 .card .input-container .bar:before {
-	left: 50%;
+ 	left: 50%;
 }
 
 .card .input-container .bar:after {
-	right: 50%;
+ 	right: 50%;
 }
 
 .card .button-container {
@@ -221,15 +241,33 @@ body {
 	opacity: 1;
 	transform: scale(10);
 }
+
 input[type="file"] {
-    display: none;
+	display: none;
 }
 
- .t1 img{ 
-/*      opacity:0 */
- } 
-.a1{
-top: 0;
+
+.inlin {
+display: flex;
+justify-content:left;
+align-items:center;
+}
+
+.sl1{
+margin-bottom:8px;
+}
+
+.radio111 {
+	margin-left: 8px;
+}
+
+.t1 img {
+	/*      opacity:0 */
+	
+}
+
+.a1 {
+	top: 0;
 	left: 0;
 	color: #757575;
 	font-size: 16px;
@@ -237,32 +275,72 @@ top: 0;
 	line-height: 60px;
 	margin: 0 60px 0;
 }
-.t1 td{
-border: 2px solid #ccc;
-width: 200px;
-height: 200px;
-padding: o;
 
-}
-.t1{
-margin: auto;
-}
-.b1{
-display: none;
+.t1 td {
+	border: 2px solid #ccc;
+	width: 200px;
+	height: 200px;
+	padding: o;
 }
 
+.t1 {
+	margin: auto;
+}
 
+.b1 {
+	display: none;
+}
+
+.ffood_1 {
+	width: auto;
+	white-space: nowrap;
+	display: inline;
+	font-size: 20pxpx
+}
+#x1 {
+	float: right;
+}
 </style>
 </head>
 <body>
-<div style="text-align: center">
-				<h1>會員更新</h1>
+
+	<!--header -->
+	<%@include file="commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">個人資料編輯</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
+				</div>
 			</div>
-			
-			<hr
-		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;">
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- content -->
+	<section class="post-content-area single-post-area"
+		style="background-color: #fff281;">
+		<div class="container" style="width:900px;">
+
+			<div class="row">
+				<!-- 				<div class="col-lg-8 posts-list"> -->
+				<!-- 					<div class="single-post row"> -->
+				<!-- 					<div class="col-lg-12"> -->
+				<!-- 						======================================= -->
+				<!--內容輸入在這-->
 	<br>
-	
+<!-- 	<hr -->
+<!-- 		style="width: 1400px; height: 3px; border: none; color: #ed5e25; background-color: #ed5e25;"> -->
+	<br>
+
 	<div class="container">
 		<div class="card"></div>
 		<div class="card">
@@ -368,8 +446,7 @@ display: none;
 <!-- 			=========================================================== -->
 				
 				<div class="input-container">
-					<form:input path='email' type="#{type}" id="#{label}"
-						required="required" autocomplete="off" />
+					<form:input path='email' type="#{type}" id="#{label}"  readonly="true"/>
 					<form:errors path="email" cssClass="error" />
 					<label for="#{label}">電子信箱:</label>
 					<div class="bar"></div>
@@ -384,7 +461,7 @@ display: none;
 				</div>
 				<div class="ra1">
 					<label for="#{label}">性別:</label>
-					<form:radiobuttons path="gender" items="${genderMap}" />
+					<form:radiobuttons path="gender" items="${genderMap}" class="radio111"/>
 					<form:errors path="gender" cssClass="error" />
 					<!-- 					<div class="bar"></div> -->
 				</div>
@@ -405,8 +482,6 @@ display: none;
  					<label for="#{label}">住址:</label>
 					<div class="bar"></div>
 				</div>
-				
-				<div id="twzipcode"></div>
 				
 				<div class="input-container">
 					<form:input path='constellation' type="#{type}" id="#{label}"
@@ -452,7 +527,7 @@ display: none;
 				
    				<div class="ra1">
     					<label for="#{label}">興趣:</label>
-  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" itemValue="id" />
+  					<form:checkboxes path="hobby" items="${hobbyList}" itemLabel="name" itemValue="id" class="radio111"/>
  				<form:errors path="hobby" cssClass="error" />
  									<div class="bar"></div>
  				</div>
@@ -478,10 +553,18 @@ display: none;
 					<button type="submit">
 						<span>確認</span>
 					</button>
-					<!-- 					<input type='submit'> -->
 				</div>
 			</form:form>
 		</div>
 	</div>
+				<!-- 					============================================================= -->
+			</div>
+		</div>
+	</section>
+	<!-- content -->
+
+	<!--footer -->
+	<%@include file="commons/frontend_footer.jsp"%>
 </body>
+
 </html>
