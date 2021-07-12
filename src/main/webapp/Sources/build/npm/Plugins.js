@@ -332,7 +332,7 @@ const Plugins = [
     from: 'node_modules/@lgaitan/pace-progress/dist/',
     to: 'plugins/pace-progress'
   },
-  // Select2
+  // select2
   {
     from: 'node_modules/select2/dist/',
     to: 'plugins/select2'

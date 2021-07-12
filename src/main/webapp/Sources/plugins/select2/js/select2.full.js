@@ -1,5 +1,5 @@
 /*!
- * Select2 4.0.13
+ * select2 4.0.13
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -36,7 +36,7 @@
   // The inner file should be wrapped (by `banner.start.js`) in a function that
   // returns the AMD loader references.
   var S2 =(function () {
-  // Restore the Select2 AMD loader so it can be used
+  // Restore the select2 AMD loader so it can be used
   // Needed mostly in the language files, where the loader is not inserted
   if (jQuery && jQuery.fn && jQuery.fn.select2 && jQuery.fn.select2.amd) {
     var S2 = jQuery.fn.select2.amd;
@@ -489,8 +489,8 @@ S2.define('jquery',[],function () {
 
   if (_$ == null && console && console.error) {
     console.error(
-      'Select2: An instance of jQuery or a jQuery-compatible library was not ' +
-      'found. Make sure that you are including jQuery before Select2 on your ' +
+      'select2: An instance of jQuery or a jQuery-compatible library was not ' +
+      'found. Make sure that you are including jQuery before select2 on your ' +
       'web page.'
     );
   }
@@ -1870,7 +1870,7 @@ S2.define('select2/selection/allowClear',[
     if (this.placeholder == null) {
       if (this.options.get('debug') && window.console && console.error) {
         console.error(
-          'Select2: The `allowClear` option should be used in combination ' +
+          'select2: The `allowClear` option should be used in combination ' +
           'with the `placeholder` option.'
         );
       }
@@ -2236,7 +2236,7 @@ S2.define('select2/selection/eventRelay',[
       // The parameters should always be an object
       params = params || {};
 
-      // Generate the jQuery event for the Select2 event
+      // Generate the jQuery event for the select2 event
       var evt = $.Event('select2:' + name, {
         params: params
       });
@@ -3304,7 +3304,7 @@ S2.define('select2/data/select',[
   SelectAdapter.prototype.destroy = function () {
     // Remove anything added to child elements
     this.$element.find('*').each(function () {
-      // Remove any custom data set by Select2
+      // Remove any custom data set by select2
       Utils.RemoveData(this);
     });
   };
@@ -3628,7 +3628,7 @@ S2.define('select2/data/ajax',[
           // Check to make sure that the response included a `results` key.
           if (!results || !results.results || !$.isArray(results.results)) {
             console.error(
-              'Select2: The AJAX results did not return an array in the ' +
+              'select2: The AJAX results did not return an array in the ' +
               '`results` key of the response.'
             );
           }
@@ -4636,8 +4636,8 @@ S2.define('select2/dropdown/selectOnClose',[
   };
 
   SelectOnClose.prototype._handleSelectOnClose = function (_, params) {
-    if (params && params.originalSelect2Event != null) {
-      var event = params.originalSelect2Event;
+    if (params && params.originalselect2Event != null) {
+      var event = params.originalselect2Event;
 
       // Don't select an item if the close event was triggered from a select or
       // unselect event
@@ -4700,7 +4700,7 @@ S2.define('select2/dropdown/closeOnSelect',[
 
     this.trigger('close', {
       originalEvent: originalEvent,
-      originalSelect2Event: evt
+      originalselect2Event: evt
     });
   };
 
@@ -5176,10 +5176,10 @@ S2.define('select2/defaults',[
           } catch (ex) {
             // The translation could not be loaded at all. Sometimes this is
             // because of a configuration problem, other times this can be
-            // because of how Select2 helps load all possible translation files
+            // because of how select2 helps load all possible translation files
             if (debug && window.console && console.warn) {
               console.warn(
-                'Select2: The language file for "' + language + '" could ' +
+                'select2: The language file for "' + language + '" could ' +
                 'not be automatically loaded. A fallback will be used instead.'
               );
             }
@@ -5269,9 +5269,9 @@ S2.define('select2/options',[
     if (Utils.GetData($e[0], 'select2Tags')) {
       if (this.options.debug && window.console && console.warn) {
         console.warn(
-          'Select2: The `data-select2-tags` attribute has been changed to ' +
+          'select2: The `data-select2-tags` attribute has been changed to ' +
           'use the `data-data` and `data-tags="true"` attributes and will be ' +
-          'removed in future versions of Select2.'
+          'removed in future versions of select2.'
         );
       }
 
@@ -5282,9 +5282,9 @@ S2.define('select2/options',[
     if (Utils.GetData($e[0], 'ajaxUrl')) {
       if (this.options.debug && window.console && console.warn) {
         console.warn(
-          'Select2: The `data-ajax-url` attribute has been changed to ' +
+          'select2: The `data-ajax-url` attribute has been changed to ' +
           '`data-ajax--url` and support for the old attribute will be removed' +
-          ' in future versions of Select2.'
+          ' in future versions of select2.'
         );
       }
 
@@ -5362,7 +5362,7 @@ S2.define('select2/core',[
   './utils',
   './keys'
 ], function ($, Options, Utils, KEYS) {
-  var Select2 = function ($element, options) {
+  var select2 = function ($element, options) {
     if (Utils.GetData($element[0], 'select2') != null) {
       Utils.GetData($element[0], 'select2').destroy();
     }
@@ -5375,7 +5375,7 @@ S2.define('select2/core',[
 
     this.options = new Options(options, $element);
 
-    Select2.__super__.constructor.call(this);
+    select2.__super__.constructor.call(this);
 
     // Set up the tabindex
 
@@ -5447,9 +5447,9 @@ S2.define('select2/core',[
     $element.data('select2', this);
   };
 
-  Utils.Extend(Select2, Utils.Observable);
+  Utils.Extend(select2, Utils.Observable);
 
-  Select2.prototype._generateId = function ($element) {
+  select2.prototype._generateId = function ($element) {
     var id = '';
 
     if ($element.attr('id') != null) {
@@ -5466,7 +5466,7 @@ S2.define('select2/core',[
     return id;
   };
 
-  Select2.prototype._placeContainer = function ($container) {
+  select2.prototype._placeContainer = function ($container) {
     $container.insertAfter(this.$element);
 
     var width = this._resolveWidth(this.$element, this.options.get('width'));
@@ -5476,7 +5476,7 @@ S2.define('select2/core',[
     }
   };
 
-  Select2.prototype._resolveWidth = function ($element, method) {
+  select2.prototype._resolveWidth = function ($element, method) {
     var WIDTH = /^width:(([-+]?([0-9]*\.)?[0-9]+)(px|em|ex|%|in|cm|mm|pt|pc))/i;
 
     if (method == 'resolve') {
@@ -5529,7 +5529,7 @@ S2.define('select2/core',[
     return method;
   };
 
-  Select2.prototype._bindAdapters = function () {
+  select2.prototype._bindAdapters = function () {
     this.dataAdapter.bind(this, this.$container);
     this.selection.bind(this, this.$container);
 
@@ -5537,7 +5537,7 @@ S2.define('select2/core',[
     this.results.bind(this, this.$container);
   };
 
-  Select2.prototype._registerDomEvents = function () {
+  select2.prototype._registerDomEvents = function () {
     var self = this;
 
     this.$element.on('change.select2', function () {
@@ -5593,7 +5593,7 @@ S2.define('select2/core',[
     }
   };
 
-  Select2.prototype._registerDataEvents = function () {
+  select2.prototype._registerDataEvents = function () {
     var self = this;
 
     this.dataAdapter.on('*', function (name, params) {
@@ -5601,7 +5601,7 @@ S2.define('select2/core',[
     });
   };
 
-  Select2.prototype._registerSelectionEvents = function () {
+  select2.prototype._registerSelectionEvents = function () {
     var self = this;
     var nonRelayEvents = ['toggle', 'focus'];
 
@@ -5622,7 +5622,7 @@ S2.define('select2/core',[
     });
   };
 
-  Select2.prototype._registerDropdownEvents = function () {
+  select2.prototype._registerDropdownEvents = function () {
     var self = this;
 
     this.dropdown.on('*', function (name, params) {
@@ -5630,7 +5630,7 @@ S2.define('select2/core',[
     });
   };
 
-  Select2.prototype._registerResultsEvents = function () {
+  select2.prototype._registerResultsEvents = function () {
     var self = this;
 
     this.results.on('*', function (name, params) {
@@ -5638,7 +5638,7 @@ S2.define('select2/core',[
     });
   };
 
-  Select2.prototype._registerEvents = function () {
+  select2.prototype._registerEvents = function () {
     var self = this;
 
     this.on('open', function () {
@@ -5720,7 +5720,7 @@ S2.define('select2/core',[
     });
   };
 
-  Select2.prototype._syncAttributes = function () {
+  select2.prototype._syncAttributes = function () {
     this.options.set('disabled', this.$element.prop('disabled'));
 
     if (this.isDisabled()) {
@@ -5734,7 +5734,7 @@ S2.define('select2/core',[
     }
   };
 
-  Select2.prototype._isChangeMutation = function (evt, mutations) {
+  select2.prototype._isChangeMutation = function (evt, mutations) {
     var changed = false;
     var self = this;
 
@@ -5775,7 +5775,7 @@ S2.define('select2/core',[
     return changed;
   };
 
-  Select2.prototype._syncSubtree = function (evt, mutations) {
+  select2.prototype._syncSubtree = function (evt, mutations) {
     var changed = this._isChangeMutation(evt, mutations);
     var self = this;
 
@@ -5793,8 +5793,8 @@ S2.define('select2/core',[
    * Override the trigger method to automatically trigger pre-events when
    * there are events that can be prevented.
    */
-  Select2.prototype.trigger = function (name, args) {
-    var actualTrigger = Select2.__super__.trigger;
+  select2.prototype.trigger = function (name, args) {
+    var actualTrigger = select2.__super__.trigger;
     var preTriggerMap = {
       'open': 'opening',
       'close': 'closing',
@@ -5827,7 +5827,7 @@ S2.define('select2/core',[
     actualTrigger.call(this, name, args);
   };
 
-  Select2.prototype.toggleDropdown = function () {
+  select2.prototype.toggleDropdown = function () {
     if (this.isDisabled()) {
       return;
     }
@@ -5839,7 +5839,7 @@ S2.define('select2/core',[
     }
   };
 
-  Select2.prototype.open = function () {
+  select2.prototype.open = function () {
     if (this.isOpen()) {
       return;
     }
@@ -5851,7 +5851,7 @@ S2.define('select2/core',[
     this.trigger('query', {});
   };
 
-  Select2.prototype.close = function (evt) {
+  select2.prototype.close = function (evt) {
     if (!this.isOpen()) {
       return;
     }
@@ -5866,7 +5866,7 @@ S2.define('select2/core',[
    * @return {true} if the instance is not disabled.
    * @return {false} if the instance is disabled.
    */
-  Select2.prototype.isEnabled = function () {
+  select2.prototype.isEnabled = function () {
     return !this.isDisabled();
   };
 
@@ -5876,19 +5876,19 @@ S2.define('select2/core',[
    * @return {true} if the disabled option is true.
    * @return {false} if the disabled option is false.
    */
-  Select2.prototype.isDisabled = function () {
+  select2.prototype.isDisabled = function () {
     return this.options.get('disabled');
   };
 
-  Select2.prototype.isOpen = function () {
+  select2.prototype.isOpen = function () {
     return this.$container.hasClass('select2-container--open');
   };
 
-  Select2.prototype.hasFocus = function () {
+  select2.prototype.hasFocus = function () {
     return this.$container.hasClass('select2-container--focus');
   };
 
-  Select2.prototype.focus = function (data) {
+  select2.prototype.focus = function (data) {
     // No need to re-trigger focus events if we are already focused
     if (this.hasFocus()) {
       return;
@@ -5898,11 +5898,11 @@ S2.define('select2/core',[
     this.trigger('focus', {});
   };
 
-  Select2.prototype.enable = function (args) {
+  select2.prototype.enable = function (args) {
     if (this.options.get('debug') && window.console && console.warn) {
       console.warn(
-        'Select2: The `select2("enable")` method has been deprecated and will' +
-        ' be removed in later Select2 versions. Use $element.prop("disabled")' +
+        'select2: The `select2("enable")` method has been deprecated and will' +
+        ' be removed in later select2 versions. Use $element.prop("disabled")' +
         ' instead.'
       );
     }
@@ -5916,11 +5916,11 @@ S2.define('select2/core',[
     this.$element.prop('disabled', disabled);
   };
 
-  Select2.prototype.data = function () {
+  select2.prototype.data = function () {
     if (this.options.get('debug') &&
         arguments.length > 0 && window.console && console.warn) {
       console.warn(
-        'Select2: Data can no longer be set using `select2("data")`. You ' +
+        'select2: Data can no longer be set using `select2("data")`. You ' +
         'should consider setting the value instead using `$element.val()`.'
       );
     }
@@ -5934,11 +5934,11 @@ S2.define('select2/core',[
     return data;
   };
 
-  Select2.prototype.val = function (args) {
+  select2.prototype.val = function (args) {
     if (this.options.get('debug') && window.console && console.warn) {
       console.warn(
-        'Select2: The `select2("val")` method has been deprecated and will be' +
-        ' removed in later Select2 versions. Use $element.val() instead.'
+        'select2: The `select2("val")` method has been deprecated and will be' +
+        ' removed in later select2 versions. Use $element.val() instead.'
       );
     }
 
@@ -5957,7 +5957,7 @@ S2.define('select2/core',[
     this.$element.val(newVal).trigger('input').trigger('change');
   };
 
-  Select2.prototype.destroy = function () {
+  select2.prototype.destroy = function () {
     this.$container.remove();
 
     if (this.$element[0].detachEvent) {
@@ -5999,7 +5999,7 @@ S2.define('select2/core',[
     this.results = null;
   };
 
-  Select2.prototype.render = function () {
+  select2.prototype.render = function () {
     var $container = $(
       '<span class="select2 select2-container">' +
         '<span class="selection"></span>' +
@@ -6018,7 +6018,7 @@ S2.define('select2/core',[
     return $container;
   };
 
-  return Select2;
+  return select2;
 });
 
 S2.define('select2/compat/utils',[
@@ -6033,7 +6033,7 @@ S2.define('select2/compat/utils',[
       classes = '' + classes; // for IE which returns object
 
       $(classes.split(/\s+/)).each(function () {
-        // Save all Select2 classes
+        // Save all select2 classes
         if (this.indexOf('select2-') === 0) {
           replacements.push(this);
         }
@@ -6046,7 +6046,7 @@ S2.define('select2/compat/utils',[
       classes = '' + classes; // for IE which returns object
 
       $(classes.split(/\s+/)).each(function () {
-        // Only adapt non-Select2 classes
+        // Only adapt non-select2 classes
         if (this.indexOf('select2-') !== 0) {
           adapted = adapter(this);
 
@@ -6185,11 +6185,11 @@ S2.define('select2/compat/initSelection',[
   function InitSelection (decorated, $element, options) {
     if (options.get('debug') && window.console && console.warn) {
       console.warn(
-        'Select2: The `initSelection` option has been deprecated in favor' +
+        'select2: The `initSelection` option has been deprecated in favor' +
         ' of a custom data adapter that overrides the `current` method. ' +
         'This method is now called multiple times instead of a single ' +
         'time when the instance is initialized. Support will be removed ' +
-        'for the `initSelection` option in future versions of Select2'
+        'for the `initSelection` option in future versions of select2'
       );
     }
 
@@ -6233,7 +6233,7 @@ S2.define('select2/compat/inputData',[
     if ($element.prop('type') === 'hidden') {
       if (options.get('debug') && console && console.warn) {
         console.warn(
-          'Select2: Using a hidden input with Select2 is no longer ' +
+          'select2: Using a hidden input with select2 is no longer ' +
           'supported and may stop working in the future. It is recommended ' +
           'to use a `<select>` element instead.'
         );
@@ -6400,10 +6400,10 @@ S2.define('select2/compat/query',[
   function Query (decorated, $element, options) {
     if (options.get('debug') && window.console && console.warn) {
       console.warn(
-        'Select2: The `query` option has been deprecated in favor of a ' +
+        'select2: The `query` option has been deprecated in favor of a ' +
         'custom data adapter that overrides the `query` method. Support ' +
         'will be removed for the `query` option in future versions of ' +
-        'Select2.'
+        'select2.'
       );
     }
 
@@ -6747,7 +6747,7 @@ S2.define('jquery.select2',[
   './select2/core',
   './select2/defaults',
   './select2/utils'
-], function ($, _, Select2, Defaults, Utils) {
+], function ($, _, select2, Defaults, Utils) {
   if ($.fn.select2 == null) {
     // All methods that should return the element
     var thisMethods = ['open', 'close', 'destroy'];
@@ -6759,7 +6759,7 @@ S2.define('jquery.select2',[
         this.each(function () {
           var instanceOptions = $.extend(true, {}, options);
 
-          var instance = new Select2($(this), instanceOptions);
+          var instance = new select2($(this), instanceOptions);
         });
 
         return this;
@@ -6773,7 +6773,7 @@ S2.define('jquery.select2',[
           if (instance == null && window.console && console.error) {
             console.error(
               'The select2(\'' + options + '\') method was called on an ' +
-              'element that is not using Select2.'
+              'element that is not using select2.'
             );
           }
 
@@ -6787,7 +6787,7 @@ S2.define('jquery.select2',[
 
         return ret;
       } else {
-        throw new Error('Invalid arguments for Select2: ' + options);
+        throw new Error('Invalid arguments for select2: ' + options);
       }
     };
   }
@@ -6796,7 +6796,7 @@ S2.define('jquery.select2',[
     $.fn.select2.defaults = Defaults;
   }
 
-  return Select2;
+  return select2;
 });
 
   // Return the AMD loader configuration so it can be used outside of this file
@@ -6811,10 +6811,10 @@ S2.define('jquery.select2',[
   var select2 = S2.require('jquery.select2');
 
   // Hold the AMD module references on the jQuery function that was just loaded
-  // This allows Select2 to use the internal loader outside of this file, such
+  // This allows select2 to use the internal loader outside of this file, such
   // as in the language files.
   jQuery.fn.select2.amd = S2;
 
-  // Return the Select2 instance for anyone who is importing it.
+  // Return the select2 instance for anyone who is importing it.
   return select2;
 }));

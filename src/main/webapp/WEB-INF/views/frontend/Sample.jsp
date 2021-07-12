@@ -52,14 +52,7 @@
 	<section class="post-content-area single-post-area">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8 posts-list">
-					<div class="single-post row">
-						<div class="col-lg-12"></div>
-						
-						<!--內容輸入在這-->
-					
-					</div>
-				</div>
+			 <!-- 新增內容 -->		
 			</div>
 		</div>
 	</section>
