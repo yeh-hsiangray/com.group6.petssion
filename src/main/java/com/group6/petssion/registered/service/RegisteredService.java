@@ -54,7 +54,7 @@ public class RegisteredService {
 	}
 	
 	public int checkEmail(Users user) {
-		Users user2 = ur.findByGarbled(user.getGarbled());
+		Users user2 = ur.findByGarbledAndEmail(user.getGarbled(),user.getEmail());
 		if(user2!=null) {
 			user2.setCheckemail(1);
 			user2.setGarbled("end");
