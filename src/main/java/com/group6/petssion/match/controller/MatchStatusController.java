@@ -103,21 +103,51 @@ public class MatchStatusController {
 	}
 	
 	/**@Get
-	 * @使用者B欄登入時收到使用A交友通知"1"為喜歡
-	 * @使用者A欄登入時收到使用者B欄的回覆"3"為互相喜歡,"4"為使用者單方不喜歡
+	 * 
+	 * @使用者A欄登入時收到使用者B欄的回覆"3"為互相喜歡
 	 */
-	@GetMapping("/signInNotify")
-	public @ResponseBody List<Users> signInNotify(@RequestParam Integer userid){			
-		List<Users> getlikeNotify=matchStatusService.getlikeNotify(userid);	//userB=22登入 return [] 
-		List<Users> oneSideLove= matchStatusService.oneSideLove(userid);	//userA=22登入 return倪雅嵐
-		List<Users> eachLike= matchStatusService.eachLike(userid);	//userA=22 登入 return 陳冠士 
-		ArrayList<Users> resultList = new ArrayList<Users>();
-		resultList.addAll(getlikeNotify);
-		resultList.addAll(oneSideLove);
-		resultList.addAll(eachLike);
-		return resultList;
+	@GetMapping("/signInNotifyEachLike")
+	public @ResponseBody List<Users> signInNotifyEachLike(HttpServletRequest request){	
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userid");//抓取userId
+		int sessionUserId =22;
+//		List<Users> oneSideLove= matchStatusService.oneSideLove(SessionUserId);	
+//		List<Users> eachLike= matchStatusService.eachLike(SessionUserId);	
+//		ArrayList<Users> resultList = new ArrayList<Users>();
+//		resultList.addAll(oneSideLove);
+//		resultList.addAll(eachLike);
+//		return resultList;
+		return matchStatusService.eachLike(sessionUserId);
+	}
+	
+	/**@Get
+	 * @使用者A欄登入時收到使用者B欄的回覆"4"為使用者單方不喜歡
+	 * 
+	 */
+	@GetMapping("/signInNotifyOneSideLove")
+	public @ResponseBody List<Users> signInNotifyOneSideLove(HttpServletRequest request){	
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userid");//抓取userId
+		int sessionUserId =22;
+		// 阻擋 倒回登入	
+		return matchStatusService.oneSideLove(sessionUserId);
+	}
+	
+	/**@Get
+	 * @使用者B欄登入時收到使用A交友通知"1"為喜歡
+	 * 
+	 */
+	@GetMapping("/signInNotifyConfirm")
+	public @ResponseBody List<Users> signInNotifyConfirm(HttpServletRequest request){	
+//		HttpSession session=request.getSession();
+//		int SessionUserId =(int)session.getAttribute("userid");//抓取userId
+		int sessionUserId =22;
+		// 阻擋 倒回登入	
+		return matchStatusService.getlikeNotify(sessionUserId);
 	}
 
+	
+	
 	
 	/**
 	 * @更新回覆狀態 
@@ -127,10 +157,10 @@ public class MatchStatusController {
 	  public void updateMatchStatus(
 			  @RequestBody MatchStatus matchStatus,HttpServletRequest request) {
 		
-		HttpSession session=request.getSession();
-	    int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+//		HttpSession session=request.getSession();
+//	    int sessionUserId =(int)session.getAttribute("userId");//抓取userId
 	   
-//		Integer SessionUserId=22;
+		Integer sessionUserId=22;
 		matchStatus.setUserB(sessionUserId);
 		matchStatusService.saveReplyStatus(matchStatus);
 		   

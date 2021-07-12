@@ -139,17 +139,17 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 			if (userStatus.getStatus().equals(1)) {
 				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserA());
 				Integer id = userStatus.getId();
-				System.out.println(id);
+//				System.out.println(id);
 				loveListUserA.add(usersOptional.get());
-				if (usersOptional.get().getUsersImg() != null) {
-//					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
-//					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+				if (!usersOptional.get().getUsersImg() .isEmpty()) {
+					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
 					usersOptional.get().setUsersImg(null);
 				}
 				if (!usersOptional.get().getPet().isEmpty()) {
-//					byte[] PetImg = new PetController()
-//							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
-//					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+					byte[] PetImg = new PetController()
+							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
 					usersOptional.get().getPet().get(0).setPetImg(null);
 				}
 			}
@@ -184,15 +184,15 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 			if (userStatus.getStatus().equals(3)) {
 				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserB());
 				loveListUserB.add(usersOptional.get());
-				if (usersOptional.get().getUsersImg() != null) {
-//					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
-//					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+				if (!usersOptional.get().getUsersImg().isEmpty()) {
+					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
 					usersOptional.get().setUsersImg(null);
 				}
 				if (!usersOptional.get().getPet().isEmpty()) {
-//					byte[] PetImg = new PetController()
-//							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
-//					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+					byte[] PetImg = new PetController()
+							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
 					usersOptional.get().getPet().get(0).setPetImg(null);
 				}
 			}
@@ -212,15 +212,15 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 			if (userStatus.getStatus().equals(4)) {
 				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserB());
 				loveListUserB.add(usersOptional.get());
-				if (usersOptional.get().getUsersImg() != null) {
-//					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
-//					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+				if (!usersOptional.get().getUsersImg().isEmpty()) {
+					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
 					usersOptional.get().setUsersImg(null);
 				}
 				if (!usersOptional.get().getPet().isEmpty()) {
-//					byte[] PetImg = new PetController()
-//							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
-//					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+					byte[] PetImg = new PetController()
+							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
 					usersOptional.get().getPet().get(0).setPetImg(null);
 				}
 			}

@@ -14,6 +14,17 @@ public class changePageController {
 		return "match/showMatch";
 	}
 
+	@GetMapping("/Notify")
+	public String Notify() {
+		
+		return "match/Notify";
+	}
+	
+	@GetMapping("/NewFile")
+	public String NewFile() {
+		return "match/NewFile";
+	}
+	
 	@GetMapping("/_02_login")
 	public String login() {
 		return "_02_login/loginForm";
