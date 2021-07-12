@@ -37,19 +37,25 @@ ul {
 					<li class="menu-has-children"><a href="<c:url value='#'/>"
 						class="fsh">會員中心</a>
 						<ul>
-							<li><a href="#"></a>修改會員資料</li>
-							<li><a href="#"></a>交友檔案</li>
-							<li><a href="#"></a>寵物檔案</li>
-							<li><a href="#"></a>購買VIP</li>
-						</ul> 
+							<li><a href="<c:url value='/user/memberCenter' />" class="fsh">會員資料</a></li>
+							<li><a href="<c:url value='/pet/showUserPets' />" class="fsh">寵物列表</a></li>
+<!-- 							<li><a href="#"></a>寵物檔案</li> -->
+<!-- 							<li><a href="#"></a>購買VIP</li> -->
+						</ul></li>
+
 						<!-- make friends via map -->
 <!-- 					<li><a href="#" class="fsh">地圖交友</a></li>
  -->
 					<!-- make friends via interests -->
-					<li><a href="#" class="fsh">興趣交友</a></li>
+					<li class="menu-has-children"><a href="<c:url value='#'/>"
+						class="fsh">興趣交友</a>
+						<ul>
+							<li><a href="<c:url value='/match/Notify' />" class="fsh">交友通知</a></li>
+							<li><a href="<c:url value='/match/showMatch' />" class="fsh">搜尋交友配對</a></li>
+							</ul></li>
 
 					<!-- friendly environment-->
-					<li><a href="#" class="fsh">友善環境</a></li>
+					<li><a href="<c:url value='/FriendlyEnvSearchFR' />" class="fsh">友善環境</a></li>
 
 					<!-- Blog-->
 					<li><a href="<c:url value='/frontend/blog/index' />"

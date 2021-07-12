@@ -18,23 +18,22 @@
 				</div>
 				<div class="col-lg-2 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
-						<h4>購物車</h4>
+						<h4>友善環境</h4>
 						<ul>
-							<li><a href="#">寵物食品</a></li>
-							<li><a href="#">寵物用品</a></li>
-							<li><a href="#">寵物寢具</a></li>
-							<li><a href="#">外出用具</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">友善環境</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">搜尋檢索</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">餐廳資訊</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
-						<h4>相關資訊</h4>
+						<h4>寵物專欄</h4>
 						<ul>
-							<li><a href="#">友善餐廳</a></li>
-							<li><a href="#">友善環境</a></li>
-							<li><a href="#">寵物專欄</a></li>
-							<li><a href="#">寵物新知</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">友善環境</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">寵物專欄</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">最新文章</a></li>
+							<li><a href="<c:url value='/FriendlyEnvSearchFR' />">熱門文章</a></li>
 						</ul>
 					</div>
 				</div>
@@ -42,10 +41,10 @@
 					<div class="single-footer-widget">
 						<h4>與我們聯絡</h4>
 						<ul>
-							<li><a href="#">求職登錄</a></li>
-							<li><a href="#">廠商聯絡</a></li>
-							<li><a href="#">問題反應</a></li>
-							<li><a href="#">申訴購物</a></li>
+							<li><a href="<c:url value='/frontend/main/contact' />">求職登錄</a></li>
+							<li><a href="<c:url value='/frontend/main/contact' />">廠商聯絡</a></li>
+							<li><a href="<c:url value='/frontend/main/contact' />">問題反應</a></li>
+							<li><a href="<c:url value='/frontend/main/contact' />">申訴購物</a></li>
 						</ul>
 					</div>
 				</div>

@@ -153,7 +153,7 @@ border: #4caf50 2px solid; */
 									<div class="feature-img">
 										<img class="img-fluid" src="\${item.img1}" alt="">
 									</div>
-									<a class="posts-title" href="blog-single.html">
+									<a class="posts-title" href="<c:url value='/frontend/blog/article/\${item.id}'/>">
 										<h3>\${item.title}</h3>
 									</a>
 									<div class="box">
