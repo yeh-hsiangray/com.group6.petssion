@@ -403,7 +403,7 @@ margin-bottom:8px;
 
 							<div class="input-container">
 								<form:input path='name' type="#{type}" id="#{label}"
-									required="required" autocomplete="off" maxlength="12" />
+									required="required" autocomplete="off" maxlength="12"/>
 								<form:errors path="name" cssClass="error" />
 								<label for="#{label}">名字:</label>
 								<div class="bar"></div>
