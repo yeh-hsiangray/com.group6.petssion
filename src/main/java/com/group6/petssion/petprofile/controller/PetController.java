@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
@@ -72,11 +73,11 @@ public class PetController {
 	@GetMapping("/showUserPets")
 	public String list(Model model, HttpServletRequest request) {
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 		
-		List<Pet> pets = petService.findAllPetByUserId(1);
+		List<Pet> pets = petService.findAllPetByUserId(SessionUserId);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 //		放入map讓前端以key->id區分
 		for (Pet pet : pets) {
@@ -133,9 +134,9 @@ public class PetController {
 			return "pet/InsertPet";
 		}
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDto, pet);
@@ -151,7 +152,7 @@ public class PetController {
 //			}
 //		}
 		
-		List<Users> list= userService.findUserByUserId(1);
+		List<Users> list= userService.findUserByUserId(SessionUserId);
 		System.out.println(list);
 		for(Users user:list) {
 			pet.setUser(user);
@@ -222,7 +223,7 @@ public class PetController {
 
 	@PostMapping("/update/{id}")
 	public String modify(@ModelAttribute("pet") @Valid PetDto petDto, BindingResult result, Model model,
-			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId) {
+			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId,HttpServletRequest request) {
 //--------------------驗證有錯時返回頁面圖片------------------------------------------------	
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pets = petService.get(id);
@@ -268,9 +269,9 @@ public class PetController {
 			return "pet/UpdatePet";
 		}
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDto, pet);
@@ -286,7 +287,7 @@ public class PetController {
 //			}
 //		}
 //-----------------------儲存外鍵----------------------------------------------
-		List<Users> list= userService.findUserByUserId(1);
+		List<Users> list= userService.findUserByUserId(SessionUserId);
 		System.out.println(list);
 		for(Users user:list) {
 			pet.setUser(user);
