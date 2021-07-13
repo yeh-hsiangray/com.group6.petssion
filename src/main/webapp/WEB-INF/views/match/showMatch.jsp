@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,20 +8,57 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>配對選擇</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
 <link rel=stylesheet href="../css/card.css">
-
+<%@include file="../commons/frontend_imports.jsp"%>
 </head>
 <body>
-<div class="btn-group" role="group" aria-label="...">
-	請挑選搜尋之興趣: 
-	<select id='hobby'></select>
-</div>
-<!-- <div class="alert alert-success alert-dismissable fade show" id="alert"> -->
-<!--   <button type="button" class="close" data-dismiss="alert">&times;</button> -->
-<!--   <strong>成功!</strong> 指定操作成功提示信息。 -->
-<!-- </div>	 -->
-<div id='showuser'></div>
+	<!--header -->
+	<%@include file="../commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">${tag}</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span
+							class="lnr lnr-arrow-right"></span><a
+							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span
+							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- content-->
+	<div style="height:70vh; margin-top:-200px;">
+		<div class="container" style="color: powderblue;">
+			<div class="row">
+
+				<div role="group" aria-label="...">
+					請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
+				</div>
+				<div class="alert alert-success alert-dismissable fade show"
+					id="alert">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>成功!</strong> 指定操作成功提示信息。
+				</div>
+				<div id='showuser'></div>
+			</div>
+		</div>
+
+	</div>
+	<!-- content -->
+
 
 	<script>
 		var selectElement = document.getElementById('hobby');  // 取出select標籤
@@ -232,47 +269,48 @@
 			 //取值 [{key:value},{key:value}] =mapData[0]["Users"],  json[2].key
 // 		     for(var i=0; i < dataJson.length; i++){
 		    	 i=0;		     			
-				console.log("-----------"+dataJson[i].base64UserImg)
-				var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
-			                "<section class='s"+i+"'><table>"+
-			                "<tr>"+
-		                       "<td>會員姓名:</td>"+
-		                       "<td>" + dataJson[i].name + "</td>" +  
-		                       "<td>寵物姓名:</td>"+
-		                       "<td>" + dataJson[i].pet[i].name + "</td>" +  	                       
-			            "</tr>" +
-			            "<tr>"+
-			                   "<td >會員性別:</td>"+ 
-			                   "<td >" + dataJson[i].gender + "</td>"+
-			                   "<td >寵物類型:</td>"+ 
-			                   "<td >" + dataJson[i].pet[i].type.name + "</td>"+
-			            "</tr>" +
-			            "<tr>"+
-			                   "<td>會員星座:</td>"+
-			                   "<td>" + dataJson[i].constellation + "</td>"+
-			                   "<td >寵物性別:</td>"+ 
-			                   "<td >" + dataJson[i].pet[i].gender + "</td>"+
-			            "</tr>"+
-			            "<tr>"+
-			                   "<td>自我介紹:</td>"+
-			                   "<td>" + dataJson[i].selfintroduction + "</td>"+
-			                   "<td>寵物個性:</td>"+
-			                   "<td>" + dataJson[i].pet[i].personality.name + "</td>"+
-			            "</tr>"+
-			            "<tr>"+
-			                    "<td >會員照片:</td>"+
-		                        "<td ><img  width='110' height='110' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
-			                    "<td >寵物照片:</td>"+
-		                        "<td ><img  width='110' height='110' src='data:image/jpeg;base64," + dataJson[i].pet[i].base64PetImg + "'></td>"+
-		                "</tr>"+
-			           "<tr>";		
-			        	content +="<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
-			                    "<img  src='../img/heart.png'></button>"+
-			                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
-			                     "<img  src='../img/cross.png'></button></td>"+
-			            "</tr>";
-// 		     }
-			content +="</table></section>";
+// 				console.log("-----------"+dataJson[i].base64UserImg)
+               var content="<input class='n"+i+" nav' name='nav' type='radio'>"+
+				 "<section class='s"+i+"'><table>"+
+	                "<tr>"+
+	                       "<td>會員姓名:</td>"+
+	                       "<td>" + dataJson[i].name + "</td>" +               
+	                       "<td>寵物姓名:</td>"+
+	                       "<td>" + dataJson[i].pet[0].name + "</td>" +               
+		                   
+		            "</tr>" +
+		            "<tr>"+
+		                   "<td > 會員性別:</td>"+ 
+		                   "<td >" + dataJson[i].gender + "</td>"+
+		                   "<td > 寵物種類:</td>"+ 
+		                   "<td >" + dataJson[i].pet[0].type.name + "</td>"+
+		            "</tr>" +
+		            "<tr>"+
+		                   "<td>會員星座:</td>"+
+		                   "<td>" + dataJson[i].constellation + "</td>"+
+		                   "<td>寵物性別:</td>"+
+		                   "<td>" + dataJson[i].pet[0].gender + "</td>"+
+		            "</tr>"+
+		            "<tr>"+
+		                   "<td>會員自我介紹:</td>"+
+		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+		                   "<td>寵物個性:</td>"+
+		                   "<td>" + dataJson[i].pet[0].personality.name + "</td>"+
+		            "</tr>"+
+		            "<tr>"+
+		                    "<td>會員照片:</td>"+
+	                        "<td><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+		                    "<td >寵物照片:</td>"+
+	                        "<td ><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
+	               "</tr>"+
+	                "<tr>"+				                 				                  
+		            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
+		                    "<img  src='../img/heart.png'></button>"+
+		                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
+		                     "<img  src='../img/cross.png'></button></td>"+
+		            "</tr>";
+// }
+	                 content +="</table></section>";
 			showuser.innerHTML = content; 	
 			i++;
 		}	
@@ -280,8 +318,12 @@
 // 		"+"\'"+dataJson.users[i].id+"\'"+"
 
 	</script>
+	<!--footer -->
+	<%@include file="../commons/frontend_footer.jsp"%>
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
