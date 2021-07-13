@@ -35,6 +35,7 @@ public class signInController {
 		Users user = signInService.signIn(account, password);
 		if(user!=null) {
 			if(user.getBlockade()!=1) {
+				if(user.getCheckemail()==0) {return 3;}
 				int date = 60 * 60 * 24 * 7;
 				Cookie cookie = new Cookie("youSession", session.getId());
 				cookie.setMaxAge(date);

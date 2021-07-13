@@ -141,6 +141,10 @@
                             signInMsg.innerHTML = "此帳號被停權"
                         }else if(data == 1){
                         	window.location.href=document.getElementById("index").href;
+                        }else if(data == 3){
+                        	signInMsg.innerHTML = "請先驗證信箱"
+                        }else{
+                        	signInMsg.innerHTML = "非預期錯誤 請聯絡管理人員"
                         }
                     })
             }

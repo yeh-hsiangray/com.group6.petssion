@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 
 SET QUOTED_IDENTIFIER ON
 
-CREATE TABLE [dbo].[Users]([id] [int] IDENTITY(1,1) NOT NULL,[name] [varchar](255) NOT NULL,[gender] [varchar](255) NOT NULL,[birthday] [date] NOT NULL,[address] [varchar](255) NOT NULL,[constellation] [varchar](255) NULL,[height] [int] NULL,[weight] [int] NULL,[mobilephone] [varchar](255) NOT NULL,[selfintroduction] [varchar](255) NULL,[email] [varchar](255) NOT NULL,[manager] [int] NOT NULL,[regdate] [date] NOT NULL,[fk_job_id] [int] NOT NULL,[Blockade] [int] NOT NULL,[checkemail] [int] NOT NULL,[garbled] [varchar](255) NULL
+CREATE TABLE [dbo].[Users]([id] [int] IDENTITY(1,1) NOT NULL,[name] [varchar](255) NOT NULL,[gender] [varchar](255) NULL,[birthday] [date] NULL,[address] [varchar](255) NULL,[constellation] [varchar](255) NULL,[height] [int] NULL,[weight] [int] NULL,[mobilephone] [varchar](255) NOT NULL,[selfintroduction] [varchar](255) NULL,[email] [varchar](255) NOT NULL,[manager] [int] NOT NULL,[regdate] [date] NOT NULL,[fk_job_id] [int] NULL,[Blockade] [int] NOT NULL,[checkemail] [int] NOT NULL,[garbled] [varchar](255) NULL
  CONSTRAINT [PK__Users__3213E83F4B02B7C4] PRIMARY KEY CLUSTERED ([id] ASC)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]) ON [PRIMARY]
 
 SET IDENTITY_INSERT [dbo].[Users] ON;
