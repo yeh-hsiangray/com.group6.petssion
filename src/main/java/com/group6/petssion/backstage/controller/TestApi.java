@@ -1,7 +1,6 @@
 package com.group6.petssion.backstage.controller;
 
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +8,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.group6.petssion.bean.account_password;
+import com.group6.petssion.bean.Users;
 import com.group6.petssion.repository.AAndPRepository;
 import com.group6.petssion.repository.UsersRepository;
 
-@RestController
-@RequestMapping("/test")
+@Controller
+@RequestMapping("/BasckSelect")
 public class TestApi {
 
 	@Autowired
@@ -31,20 +33,17 @@ public class TestApi {
 //		return user.findByNameContains(name);
 //	}
 	@GetMapping
-	public Map<String, Object> findAll(){
-		Pageable pageable= PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC,"id"));
-		Map<String,Object> pageMap=new HashMap<String, Object>();
-		
-//		pageMap.put("user",user.findAll(pageable));
-		pageMap.put("Account", aAndP.findAll(pageable));
-		return pageMap;
+	public String index(){
+
+		return "backend/BasckSelect";
 		}
 	
-	@GetMapping("/1")
-	public Page<account_password> findTest(){
-		Pageable pageable= PageRequest.of(0, 5, Sort.by(Sort.Direction.ASC,"id"));
-
+	@PostMapping("/1")
+	@ResponseBody
+	public Page<Users> findTest(@RequestBody Map<String, Object> map){
 		
-		return aAndP.findTest(pageable);
+		Pageable pageable= PageRequest.of(Integer.valueOf(map.get("index").toString()) , 5, Sort.by(Sort.Direction.ASC,"id"));
+
+		return user.findTest((String) map.get("name"),pageable);
 		}
 }
