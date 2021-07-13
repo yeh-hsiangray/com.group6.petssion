@@ -4,9 +4,7 @@
 * {
 	margin: 10px;
 }
-html, body {
-  background-color: #ddd;
-}
+
 .pretty-select {
   /*移除箭頭樣式*/
   appearance:none;
@@ -43,8 +41,8 @@ html, body {
 /* } */
 
 table {
-        width:800px;
-        margin:10px;
+/*         width:800px; */
+/*         margin:10px; */
 /*         border-collapse:collapse; */
         }
         
@@ -82,9 +80,17 @@ button {
   z-index: 999;
   outline: 0;
 }
+.packhole{
+	position: relative;
+}
 
+.frameTop{
+	position:absolute;
+	margin-top: -500px;
+
+}
 section {	
-  z-index:999;
+z-index:999;
   -webkit-box-shadow: 0 0 0 .2em #999;
           box-shadow: 0 0 0 .2em #999;
   font-family: sans-serif;
@@ -94,10 +100,12 @@ section {
   grid-template-rows: 50px 50px 50px;
   place-content: center;
   background-color: white;
-  font-size: 5vw;
-  font-weight: 800;
-  position: fixed;
-  top: 0;
+  font-size: 96px !important;
+  font-weight: 500;
+  position:absolute;
+/*  position: fixed; */
+  /*margin-top: -170px;*/
+  top: -500px;
   right: 0;
   bottom: 0;
   left: 0;
