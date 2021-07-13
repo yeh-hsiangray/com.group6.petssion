@@ -75,6 +75,7 @@ public class Users implements Serializable {
 	
 	// 對應UsersImg類
 	@OneToMany(mappedBy = "users")
+	@JsonIgnore
 	private List<UsersImg> usersImg;
 	
 	@Transient
