@@ -60,7 +60,7 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 			if (statusOptional.isEmpty()) {
 //				System.out.println(users.getName());
 				/* show使用者圖片 */
-				if (users.getUsersImg() != null) {
+				if (!users.getUsersImg() .isEmpty()) {
 //				System.out.println(users.getUsersImg().get(0)==null);					
 					byte[] UserImg = new UsersController().blobToByteArray(users.getUsersImg().get(0).getUsersImage());
 //				System.out.println(Base64.getMimeEncoder().encodeToString(img));

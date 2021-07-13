@@ -40,23 +40,24 @@
 	<!-- End banner Area -->
 
 	<!-- content-->
-	<div style="height:70vh; margin-top:-200px;">
-		<div class="container" style="color: powderblue;">
+	<div class="packhole" style="height:70vh; margin-top:-100px;">
+<!-- 		<div class="container" style="color: powderblue;"> -->
 			<div class="row">
-
-				<div role="group" aria-label="...">
-					請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
-				</div>
-				<div class="alert alert-success alert-dismissable fade show"
-					id="alert">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong>成功!</strong> 指定操作成功提示信息。
+				<div class="frameTop">
+					<div role="group" aria-label="...">
+						請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
+					</div>
+<!-- 					<div class="alert alert-success alert-dismissable fade show" -->
+<!-- 						id="alert"> -->
+<!-- 						<button type="button" class="close" data-dismiss="alert">&times;</button> -->
+<!-- 						<strong>成功!</strong> 指定操作成功提示信息。 -->
+<!-- 					</div> -->
 				</div>
 				<div id='showuser'></div>
 			</div>
 		</div>
 
-	</div>
+<!-- 	</div> -->
 	<!-- content -->
 
 

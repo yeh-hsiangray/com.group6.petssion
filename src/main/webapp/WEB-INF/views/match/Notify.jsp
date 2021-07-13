@@ -21,30 +21,72 @@
 <link rel=stylesheet href="../css/notify.css">
 <script src="../js/jquery-2.2.3.min.js"></script>
 <style>
-.box{
-border:solid red 5px;
+.head {
+	border: solid red 5px;
 }
 </style>
 <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<!--imports-->
+<%@include file="../commons/frontend_imports.jsp"%>
 </head>
 <body>
 
-	<div class="btn-group" role="group" aria-label="...">
-	配對狀態:
-	<select id=''>
-	<option value="">請選擇</option>
-	<option value="">交友邀請</option>
-	<option value="">配對成功</option>
-	<option value="">配對失敗</option>
-	</select>
-	</div>
-<div style="display:block;">
-	<div><div id="showuser" class="showuser"></div></div>
-	<div><div id="OneSideLove" ></div></div>
-	<div><div id="EachLike" ></div></div>
-	<div id="ou"></div>
-</div>
+	<!--header -->
+	<%@include file="../commons/frontend_header.jsp"%>
+
+	<!-- start banner Area -->
+	<section class="banner-area relative" id="home">
+		<div class="overlay overlay-bg"></div>
+		<div class="container">
+			<div class="row d-flex align-items-center justify-content-center">
+				<div class="about-content col-lg-12">
+					<h1 class="text-white">${tag}</h1>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- content -->
+	<section class="post-content-area single-post-area">
+<!-- 		<div class="container"> -->
+			<div class="row">
+				<div class="col-lg-8 posts-list">
+					<div class="single-post row">
+						<div class="col-lg-12"></div>
+
+						<div class="btn-group" role="group" aria-label="...">
+							配對狀態: <select id='selectMode'>
+								<option value="">請選擇</option>
+								<option value="1">交友邀請</option>
+								<option value="2">配對成功</option>
+								<option value="3">配對失敗</option>
+							</select>
+						</div>
+						<div style="display: block;">
+							<div>
+								<div id="showuser" class="showuser"></div>
+							</div>
+							<div>
+								<div id="OneSideLove"></div>
+							</div>
+							<div>
+								<div id="EachLike"></div>
+							</div>
+							<div id="ou"></div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+<!-- 		</div> -->
+	</section>
+	<!-- content -->
+
+
+
 	<script>		
 		var showuser = document.getElementById('showuser'); // 取出相同興趣使用者資料的div標籤		
 		var OneSideLove1 = document.getElementById('OneSideLove'); // 取出相同興趣使用者資料的div標籤		
@@ -57,13 +99,21 @@ border:solid red 5px;
 		var i = 0;
 		var dataJson;	
 		
-	ajaxRefresh();
-	ajaxRefresh1();
-	ajaxRefresh2();
+		let select = document.querySelector("#selectMode");
+		select.addEventListener("change", selectFun);
+
+function selectFun() {
+  const switchValue = select.options[select.selectedIndex].value;
+  if(switchValue==1){
+	  ajaxRefresh();
+  }else if(switchValue==2){
+	  ajaxRefresh1();
+  }else if(switchValue==3){
+	  ajaxRefresh2();
+  }
+}
+
 	
-// 	$('#select').change(function(){
-		
-// 	}
     function ajaxRefresh(){
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
@@ -101,11 +151,10 @@ border:solid red 5px;
 		xhr2.send();
 		}
 	
-    $(".remove").click(function(){
-   	 console.log("--------");
-   	  $(this).parent(".head").remove();
-     })	
-  
+    
+  $(document).on('click', '.remove', function() {
+    $(this).parents(".head").remove();
+});
 
     
 // 		window.setInterval(ajaxRefresh,2000);
@@ -163,11 +212,11 @@ border:solid red 5px;
 				
 			 content+= "<div class='head'>"+
 				         "<ul class='nav nav-tabs' id='myTab' role='tablist'>"+
-			                     "<li><a href='#home"+i+"'" +"data-toggle='tab'>個人資訊</a></li>"+
-			                     "<li><a href='#board"+i+"'"+" data-toggle='tab'>寵物檔案</a></li>"+			
+			                     "<li><a href='#home"+i+3+"'" +"data-toggle='tab'>個人資訊</a></li>"+
+			                     "<li><a href='#board"+i+3+"'"+" data-toggle='tab'>寵物檔案</a></li>"+			
 		                   "</ul>"+
 		                "<div class='tab-content' style='padding: 10px;'>"+
-			                    "<div class='tab-pane active' id='home"+i+"'"+">"+
+			                    "<div class='tab-pane active' id='home"+i+3+"'"+">"+
 				                "<div class='row no-gutters'>"+
 					              "<div class='col-md-4'>";   
 					              
@@ -200,7 +249,7 @@ border:solid red 5px;
 					"</div>"+
 				"</div>"+
 			"</div>"+
-			"<div class='tab-pane row' id='board"+i+"'"+">"+
+			"<div class='tab-pane row' id='board"+i+3+"'"+">"+
 				"<div class='row no-gutters'>"+
 					"<div class='col-md-4'>";
 					 if(dataJson[i].pet[0].base64PetImg==null){
@@ -240,13 +289,13 @@ border:solid red 5px;
 			dataJson = JSON.parse(responseText);
 			 var content= "<div class=' mb-3 box' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){			 
-			 content+= "<div id='head'>"+
+			 content+= "<div class='head'>"+
 				         "<ul class='nav nav-tabs' id='myTab' role='tablist'>"+
-			                     "<li><a href='#home"+i+"'" +"data-toggle='tab'>個人資訊</a></li>"+
-			                     "<li><a href='#board"+i+"'" +" data-toggle='tab'>寵物檔案</a></li>"+			
+			                     "<li><a href='#home"+i+2+"'" +"data-toggle='tab'>個人資訊</a></li>"+
+			                     "<li><a href='#board"+i+2+"'" +" data-toggle='tab'>寵物檔案</a></li>"+			
 		                   "</ul>"+
 		                "<div class='tab-content' style='padding: 10px;'>"+
-			                    "<div class='tab-pane active' id='home"+i+"'"+">"+
+			                    "<div class='tab-pane active' id='home"+i+2+"'"+">"+
 				                "<div class='row no-gutters'>"+
 					              "<div class='col-md-4'>";   
 					              
@@ -266,9 +315,6 @@ border:solid red 5px;
 							   "<p>會員星座:" + dataJson[i].constellation + "</p>"+
 							   "<p>自我介紹:" + dataJson[i].selfintroduction + "</p>"+
 							"</p>"+
-// 							"<p class='card-text'>"+
-// 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
-// 							"</p>"+
 							"<div class='card-body bottom'>"+
 								"<button  id='love_Btn' class='remove btn btn-success agree' >確定</button>"+								
 								<!-- 								<a href="#" class="card-link">Card link</a>  -->
@@ -278,7 +324,7 @@ border:solid red 5px;
 					"</div>"+
 				"</div>"+
 			"</div>"+
-			"<div class='tab-pane row' id='board"+i+"'"+">"+
+			"<div class='tab-pane row' id='board"+i+2+"'"+">"+
 				"<div class='row no-gutters'>"+
 					"<div class='col-md-4'>";
 					 if(dataJson[i].pet[0].base64PetImg==null){
@@ -315,10 +361,9 @@ border:solid red 5px;
 		/*signInNotifyEachLike*/
 		function EachLike(responseText){
 			 dataJson = JSON.parse(responseText);
-			 var content= "<div class='mb-3 box hole' style='max-width: 540px;'>";
+			 var content= "<div class='mb-3 box ' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){
-			 content+= "<div id='head'>"+
-			 "<button class='test'>測試</button>"+
+			 content+= "<div class='head'>"+
 				         "<ul class='nav nav-tabs' id='myTab' role='tablist'>"+
 			                     "<li><a href='#home"+i+"'" +"data-toggle='tab'>個人資訊</a></li>"+
 			                     "<li><a href='#board"+i+"'" +"data-toggle='tab'>寵物檔案</a></li>"+			
@@ -398,5 +443,7 @@ border:solid red 5px;
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<!--footer -->
+	<%@include file="../commons/frontend_footer.jsp"%>
 </body>
 </html>
