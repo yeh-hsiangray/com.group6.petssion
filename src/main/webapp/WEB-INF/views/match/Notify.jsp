@@ -19,16 +19,36 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
 <link rel=stylesheet href="../css/notify.css">
+<script src="../js/jquery-2.2.3.min.js"></script>
+<style>
+.box{
+border:solid red 5px;
+}
+</style>
 <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="showuser" class="showuser"></div>
-	<div id="OneSideLove" class="showuser"></div>
-	<div id="EachLike" class="showuser"></div>
+
+	<div class="btn-group" role="group" aria-label="...">
+	配對狀態:
+	<select id=''>
+	<option value="">請選擇</option>
+	<option value="">交友邀請</option>
+	<option value="">配對成功</option>
+	<option value="">配對失敗</option>
+	</select>
+	</div>
+<div style="display:block;">
+	<div><div id="showuser" class="showuser"></div></div>
+	<div><div id="OneSideLove" ></div></div>
+	<div><div id="EachLike" ></div></div>
 	<div id="ou"></div>
+</div>
 	<script>		
 		var showuser = document.getElementById('showuser'); // 取出相同興趣使用者資料的div標籤		
+		var OneSideLove1 = document.getElementById('OneSideLove'); // 取出相同興趣使用者資料的div標籤		
+		var EachLike1 = document.getElementById('EachLike'); // 取出相同興趣使用者資料的div標籤		
 		var xhr = new XMLHttpRequest();  // 讀取所有的興趣
 		var xhr1 = new XMLHttpRequest();
 		var xhr2 = new XMLHttpRequest();
@@ -41,6 +61,9 @@
 	ajaxRefresh1();
 	ajaxRefresh2();
 	
+// 	$('#select').change(function(){
+		
+// 	}
     function ajaxRefresh(){
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
@@ -50,8 +73,8 @@
 				ou.innerHTML="現在="+new Date();
 				}							
 		}
-		xhr.open("GET", "<c:url value='/match/signInNotifyOneSideLove'/>", true);
-		xhr.send();
+		xhr.open("GET", "<c:url value='/match/signInNotifyConfirm'/>", true);
+        xhr.send();
 		}
 	
     function ajaxRefresh1(){
@@ -78,6 +101,13 @@
 		xhr2.send();
 		}
 	
+    $(".remove").click(function(){
+   	 console.log("--------");
+   	  $(this).parent(".head").remove();
+     })	
+  
+
+    
 // 		window.setInterval(ajaxRefresh,2000);
  
 // 		window.setInterval(ajaxRefresh,2000);
@@ -123,19 +153,21 @@
  											
 		}
 		
-		
+   	
 		/*signInNotifyConfirm*/
 		function displayUsers(responseText){
 			 dataJson = JSON.parse(responseText);
-			 var content= "<div class='card mb-3 card hole' style='max-width: 540px;'>";
-			 for(var i=0; i < dataJson.length; i++){			 
-			 content+= "<div id='head'>"+
+			 
+			 var content= "<div class=' mb-3 box ' style='max-width: 540px;'>";
+			 for(var i=0; i < dataJson.length; i++){	
+				
+			 content+= "<div class='head'>"+
 				         "<ul class='nav nav-tabs' id='myTab' role='tablist'>"+
-			                     "<li><a href='#home' data-toggle='tab'>個人資訊</a></li>"+
-			                     "<li><a href='#board' data-toggle='tab'>寵物檔案</a></li>"+			
+			                     "<li><a href='#home"+i+"'" +"data-toggle='tab'>個人資訊</a></li>"+
+			                     "<li><a href='#board"+i+"'"+" data-toggle='tab'>寵物檔案</a></li>"+			
 		                   "</ul>"+
 		                "<div class='tab-content' style='padding: 10px;'>"+
-			                    "<div class='tab-pane active' id='home'>"+
+			                    "<div class='tab-pane active' id='home"+i+"'"+">"+
 				                "<div class='row no-gutters'>"+
 					              "<div class='col-md-4'>";   
 					              
@@ -159,8 +191,8 @@
 // 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
 // 							"</p>"+
 							"<div class='card-body bottom'>"+
-								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='loveSubmit("+dataJson[i].id+")'>加入</button>"+
-								"<button type='button' id='hate_Btn' class='btn btn-danger refuse' onClick='hateSubmit("+dataJson[i].id+")'>拒絕</button>"+
+								"<button type='button' id='love_Btn' class='btn btn-success agree remove' onClick='loveSubmit("+dataJson[i].id+")'>加入</button>"+
+								"<button type='button' id='hate_Btn' class='btn btn-danger refuse remove' onClick='hateSubmit("+dataJson[i].id+")'>拒絕</button>"+
 								<!-- 								<a href="#" class="card-link">Card link</a>  -->
 								<!-- 								<a href="#"class="card-link">Another link</a> -->
 							"</div>"+
@@ -168,7 +200,7 @@
 					"</div>"+
 				"</div>"+
 			"</div>"+
-			"<div class='tab-pane row' id='board'>"+
+			"<div class='tab-pane row' id='board"+i+"'"+">"+
 				"<div class='row no-gutters'>"+
 					"<div class='col-md-4'>";
 					 if(dataJson[i].pet[0].base64PetImg==null){
@@ -206,15 +238,15 @@
 		/*signInNotifyOneSideLove*/
 		function OneSideLove(responseText){
 			dataJson = JSON.parse(responseText);
-			 var content= "<div class='card mb-3 card hole' style='max-width: 540px;'>";
+			 var content= "<div class=' mb-3 box' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){			 
 			 content+= "<div id='head'>"+
 				         "<ul class='nav nav-tabs' id='myTab' role='tablist'>"+
-			                     "<li><a href='#home' data-toggle='tab'>個人資訊</a></li>"+
-			                     "<li><a href='#board' data-toggle='tab'>寵物檔案</a></li>"+			
+			                     "<li><a href='#home"+i+"'" +"data-toggle='tab'>個人資訊</a></li>"+
+			                     "<li><a href='#board"+i+"'" +" data-toggle='tab'>寵物檔案</a></li>"+			
 		                   "</ul>"+
 		                "<div class='tab-content' style='padding: 10px;'>"+
-			                    "<div class='tab-pane active' id='home'>"+
+			                    "<div class='tab-pane active' id='home"+i+"'"+">"+
 				                "<div class='row no-gutters'>"+
 					              "<div class='col-md-4'>";   
 					              
@@ -238,8 +270,7 @@
 // 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
 // 							"</p>"+
 							"<div class='card-body bottom'>"+
-								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='Confirm("+dataJson[i].id+")'>確定</button>"+
-								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='Confirm("+dataJson[i].id+")'>觀看資料</button>"+
+								"<button  id='love_Btn' class='remove btn btn-success agree' >確定</button>"+								
 								<!-- 								<a href="#" class="card-link">Card link</a>  -->
 								<!-- 								<a href="#"class="card-link">Another link</a> -->
 							"</div>"+
@@ -247,7 +278,7 @@
 					"</div>"+
 				"</div>"+
 			"</div>"+
-			"<div class='tab-pane row' id='board'>"+
+			"<div class='tab-pane row' id='board"+i+"'"+">"+
 				"<div class='row no-gutters'>"+
 					"<div class='col-md-4'>";
 					 if(dataJson[i].pet[0].base64PetImg==null){
@@ -278,21 +309,22 @@
 		"</div>";
 			 }
 			 content+="</div>";
-			 OneSideLove.innerHTML = content; 	
+			 OneSideLove1.innerHTML = content; 	
 		}
 		
 		/*signInNotifyEachLike*/
 		function EachLike(responseText){
 			 dataJson = JSON.parse(responseText);
-			 var content= "<div class='card mb-3 card hole' style='max-width: 540px;'>";
+			 var content= "<div class='mb-3 box hole' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){
 			 content+= "<div id='head'>"+
+			 "<button class='test'>測試</button>"+
 				         "<ul class='nav nav-tabs' id='myTab' role='tablist'>"+
-			                     "<li><a href='#home' data-toggle='tab'>個人資訊</a></li>"+
-			                     "<li><a href='#board' data-toggle='tab'>寵物檔案</a></li>"+			
+			                     "<li><a href='#home"+i+"'" +"data-toggle='tab'>個人資訊</a></li>"+
+			                     "<li><a href='#board"+i+"'" +"data-toggle='tab'>寵物檔案</a></li>"+			
 		                   "</ul>"+
 		                "<div class='tab-content' style='padding: 10px;'>"+
-			                    "<div class='tab-pane active' id='home'>"+
+			                    "<div class='tab-pane active' id='home"+i+"'"+">"+
 				                "<div class='row no-gutters'>"+
 					              "<div class='col-md-4'>";   
 					              
@@ -325,7 +357,7 @@
 					"</div>"+
 				"</div>"+
 			"</div>"+
-			"<div class='tab-pane row' id='board'>"+
+			"<div class='tab-pane row' id='board"+i+"'"+">"+
 				"<div class='row no-gutters'>"+
 					"<div class='col-md-4'>";
 					 if(dataJson[i].pet[0].base64PetImg==null){
@@ -357,7 +389,7 @@
 			 }
 			
 			 content+="</div>";
-			 EachLike.innerHTML = content; 	
+			 EachLike1.innerHTML = content; 	
 		}
 	</script>
 	<script src="../js/bootstrap.min.js"></script>

@@ -141,7 +141,7 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 				Integer id = userStatus.getId();
 //				System.out.println(id);
 				loveListUserA.add(usersOptional.get());
-				if (!usersOptional.get().getUsersImg() .isEmpty()) {
+				if (!usersOptional.get().getUsersImg().isEmpty()) {
 					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
 					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
 					usersOptional.get().setUsersImg(null);
