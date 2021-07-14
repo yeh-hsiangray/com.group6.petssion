@@ -70,7 +70,7 @@ margin-left: 395px;
 
 						<div class="d1" style="border: 1px solid rgba(0, 0, 0, 0.2);border-radius: 10px; padding: 20px;background-color:white;
 						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 350px;">
-							<table style="border-collapse:separate; border-spacing:0px 10px;">
+							<table style="border-collapse:separate; border-spacing:0px 10px;font-size: 18px;">
 								<tr>
 									<td>帳號:</td>
 									<td><input type="text" name="account" id="act"></td>
