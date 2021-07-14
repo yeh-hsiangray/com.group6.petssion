@@ -38,14 +38,14 @@
 	<!-- start banner Area -->
 	<section class="banner-area relative" id="home">
 		<div class="overlay overlay-bg"></div>
-		<div class="container">
+<!-- 		<div class="container"> -->
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">${tag}</h1>
 
 				</div>
 			</div>
-		</div>
+<!-- 		</div> -->
 	</section>
 	<!-- End banner Area -->
 
@@ -393,8 +393,8 @@ function selectFun() {
 // 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
 // 							"</p>"+
 							"<div class='card-body bottom'>"+
-								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='Comfirm("+dataJson[i].id+")'>確定</button>"+
-								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='Check("+dataJson[i].id+")'>觀看資料</button>"+
+								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='Check("+dataJson[i].id+")'>"+
+							" <a href='<c:url value='/user/memberCenter'>'> 觀看資料</button>"+
 								<!-- 								<a href="#" class="card-link">Card link</a>  -->
 								<!-- 								<a href="#"class="card-link">Another link</a> -->
 							"</div>"+
