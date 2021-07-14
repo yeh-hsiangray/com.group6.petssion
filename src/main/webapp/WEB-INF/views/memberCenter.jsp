@@ -539,6 +539,8 @@ input[type="file"] {
 										${users.selfintroduction}
 									</div>
 									
+									<c:if test="${users.id==userId}">
+									
 									<div class="button-container">
 										<a href="<c:url value='/' />user/update">
 										<button type="button">
@@ -546,6 +548,8 @@ input[type="file"] {
 										</button>
 										</a>
 									</div>
+									
+									</c:if>
 											</div>
 										</div>
 										<!-- 					---------------------------- -->
