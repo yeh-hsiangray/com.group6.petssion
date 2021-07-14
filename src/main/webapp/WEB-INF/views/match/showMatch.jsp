@@ -15,24 +15,23 @@
 	crossorigin="anonymous">
 <link rel=stylesheet href="../css/card.css">
 <%@include file="../commons/frontend_imports.jsp"%>
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&family=ZCOOL+KuaiLe&display=swap')
+	;
+</style>
 </head>
 <body>
 	<!--header -->
 	<%@include file="../commons/frontend_header.jsp"%>
 
 	<!-- start banner Area -->
-	<section class="banner-area relative" id="home">
+	<section class=" relative" id="home">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">${tag}</h1>
-					<p class="text-white link-nav">
-						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span
-							class="lnr lnr-arrow-right"></span><a
-							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span
-							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a>
-					</p>
 				</div>
 			</div>
 		</div>
@@ -40,28 +39,36 @@
 	<!-- End banner Area -->
 
 	<!-- content-->
-	<div class="packhole" style="height:70vh; margin-top:-100px;">
-<!-- 		<div class="container" style="color: powderblue;"> -->
-			<div class="row">
-				<div class="frameTop">
-					<div role="group" aria-label="...">
-						請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
-					</div>
-<!-- 					<div class="alert alert-success alert-dismissable fade show" -->
-<!-- 						id="alert"> -->
-<!-- 						<button type="button" class="close" data-dismiss="alert">&times;</button> -->
-<!-- 						<strong>成功!</strong> 指定操作成功提示信息。 -->
-<!-- 					</div> -->
-				</div>
-				<div id='showuser'></div>
+	<div class="packhole" style="height: 80vh; margin-top: -100px;">
+		<!-- 		<div class="container" style="color: powderblue;"> -->
+		<div class="row">
+			
+			<div class="frameTop">
+			<div class="alert alert-warning alert-dismissible fade show"
+				role="alert" data-dismiss="alert">
+				<strong>Holy guacamole!</strong> You should check in on some of
+				those fields below.
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 			</div>
+				<div class="selecthobby" role="group" aria-label="...">
+					請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
+				</div>
+				<div id="alertBox"></div>
+			</div>
+			<div id='showuser'></div>
 		</div>
 
-<!-- 	</div> -->
+	</div>
+
+	<!-- 	</div> -->
 	<!-- content -->
 
 
 	<script>
+	    var alertBox = document.getElementById('alertBox'); 
 		var selectElement = document.getElementById('hobby');  // 取出select標籤
 		var showuser = document.getElementById('showuser');     // 取出相同興趣使用者資料的div標籤
 		var likearea=document.getElementById('likearea'); 
@@ -127,12 +134,14 @@
 			var love=document.getElementById('love_Btn').value = '1'; //喜歡狀態
 			xhr3.onreadystatechange = function() {
 				if (xhr3.readyState == 4 && xhr3.status == 200) {
+					$(".alert").alert();
 					if(i>=dataJson.length){ 
 		            	lastData() ;
 		            	return 
 		            	}
+					$(".alert").alert();
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
-	                "<section class='s"+i+"'><table>"+
+	                "<article class='s"+i+"'><table>"+
 	                "<tr>"+
 	                       "<td>會員姓名:</td>"+
 	                       "<td>" + dataJson[i].name + "</td>" +               
@@ -160,18 +169,18 @@
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td>會員照片:</td>"+
-	                        "<td><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+	                        "<td><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
 		                    "<td >寵物照片:</td>"+
-	                        "<td ><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
+	                        "<td ><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
 	               "</tr>"+
 	                "<tr>"+				                 				                  
-		            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
+		            "<td colspan='4' style='text-align:center;'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
 		                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
 		                     "<img  src='../img/cross.png'></button></td>"+
 		            "</tr>";
      
-	                 content +="</table></section>";
+	                 content +="</table></article>";
 	                 showuser.innerHTML = content; 	
 	                  i++;		
 	              	console.log("------hate="+hate+"&--------hate_Btn="+id);
@@ -194,7 +203,7 @@
 	            	return 
 	            	}
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
-	                "<section class='s"+i+"'><table>"+
+	                "<article class='s"+i+"'><table>"+
 	                "<tr>"+
 	                       "<td>會員姓名:</td>"+
 	                       "<td>" + dataJson[i].name + "</td>" +  
@@ -221,19 +230,19 @@
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td >會員照片:</td>"+
-	                        "<td ><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+	                        "<td ><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
 		                    "<td >寵物照片:</td>"+
-	                        "<td ><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
+	                        "<td ><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
 	                "</tr>"+
 		           "<tr>";		
-		        	content +="<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
+		        	content +="<td colspan='4' style='text-align:center;'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
 		                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
 		                     "<img  src='../img/cross.png'></button></td>"+
 		            "</tr>";
 		          
 			
-	                 content +="</table></section>";
+	                 content +="</table></article>";
 	                 showuser.innerHTML = content; 	
 					 i+=1;
 							
@@ -247,10 +256,11 @@
 									
 		}
 		
-						
+			
+		
 	function lastData(){
 		 if(i>=dataJson.length){
-      	   content = "已無配對相同興趣者"
+      	   content = "<div class='alertMode'>已無配對相同興趣者</div>"
       	   alert("已無配對相同興趣者");
       	showuser.innerHTML = content;
 }
@@ -259,7 +269,7 @@
 		function displayUsers(responseText){
 			 dataJson = JSON.parse(responseText);
 			 if(dataJson.length==0){
-				 content = "目前無此相同興趣者"
+				 content = "<div class='alertMode'>目前無此相同興趣者</div>"
 			      	   alert("目前無此相同興趣者,請挑選另一興趣");
 			      	showuser.innerHTML = content;
 				return
@@ -271,10 +281,10 @@
 // 		     for(var i=0; i < dataJson.length; i++){
 		    	 i=0;		     			
 // 				console.log("-----------"+dataJson[i].base64UserImg)
-               var content="<input class='n"+i+" nav' name='nav' type='radio'>"+
-				 "<section class='s"+i+"'><table>"+
+              	var content="<input class='n"+i+" nav ' name='nav' type='radio'>"+			
+	                "<article  class='s"+i+" myfont'><table>"+
 	                "<tr>"+
-	                       "<td>會員姓名:</td>"+
+	                       "<td class='myfont'>會員姓名:</td>"+
 	                       "<td>" + dataJson[i].name + "</td>" +               
 	                       "<td>寵物姓名:</td>"+
 	                       "<td>" + dataJson[i].pet[0].name + "</td>" +               
@@ -293,25 +303,25 @@
 		                   "<td>" + dataJson[i].pet[0].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
-		                   "<td>會員自我介紹:</td>"+
+		                   "<td>自我介紹:</td>"+
 		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
 		                   "<td>寵物個性:</td>"+
 		                   "<td>" + dataJson[i].pet[0].personality.name + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td>會員照片:</td>"+
-	                        "<td><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+	                        "<td><img class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
 		                    "<td >寵物照片:</td>"+
-	                        "<td ><img  width='100' height='100' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
+	                        "<td ><img class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
 	               "</tr>"+
 	                "<tr>"+				                 				                  
-		            "<td colspan='4'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
+		            "<td colspan='4' style='text-align:center;'><button type='button' name='love_Btn' id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
 		                     "<button  type='button'  name='hate_Btn'  id='hate_Btn' onClick='hateSubmit("+dataJson[i].id+")'>"+
 		                     "<img  src='../img/cross.png'></button></td>"+
 		            "</tr>";
-// }
-	                 content +="</table></section>";
+     
+	                 content +="</table></article >";
 			showuser.innerHTML = content; 	
 			i++;
 		}	
