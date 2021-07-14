@@ -381,7 +381,7 @@ public class UsersController {
 		Integer uId = user.getId();
 		System.out.println(uId);
 		
-		return "redirect:/user/update/"+uId;
+		return "redirect:/user/update/";
 	}
 
 	public byte[] blobToByteArray(Blob blob) {
