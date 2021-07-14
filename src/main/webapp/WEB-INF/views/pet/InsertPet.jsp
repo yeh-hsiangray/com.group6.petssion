@@ -292,6 +292,11 @@ margin-bottom:8px;
 	display: inline;
 	font-size: 20pxpx
 }
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
 </style>
 </head>
 <body>
@@ -307,9 +312,9 @@ margin-bottom:8px;
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">新增寵物</h1>
 					<p class="text-white link-nav">
-						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/showUserPets">寵物資料編輯</a>
+						<a href="<c:url value='${header.referer}' />" style="font-size: 25px;">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/showUserPets" style="font-size: 25px;">寵物列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/showUserPets" style="font-size: 25px;">寵物資料編輯</a>
 					</p>
 				</div>
 			</div>
