@@ -184,7 +184,7 @@
 	background-size: cover !important;
 }
 .d1{
-margin-left: 370px;
+margin-left: 365px;
 }
 </style>
 <body>
@@ -214,7 +214,7 @@ margin-left: 370px;
 					<div class="single-post row">
 						<div class="col-lg-12">
 							<form action="registered" method="POST" class="d1" style="border: 1px solid rgba(0, 0, 0, 0.2);border-radius: 10px; padding: 20px;background-color:white;
-						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 350px;width: 380px;">
+						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 400px;width: 400px;">
 								<table style="border-collapse:separate; border-spacing:0px 10px;margin: auto;font-size: 18px;">
 									<tr>
 										<td>帳號:</td>
