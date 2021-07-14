@@ -8,7 +8,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -29,7 +28,7 @@ public class UsersDto {
 	private Integer id;
 	
 	@Email(message="電子郵件格式錯誤")
-	@NotBlank(message = "電子郵件不能為空")
+//	@NotBlank(message = "電子郵件不能為空")
 	private String email;
 	
 	//台灣《姓名條例》規定取名無字數上限，故移除限制字數長度
