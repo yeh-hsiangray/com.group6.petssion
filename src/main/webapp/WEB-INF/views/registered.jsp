@@ -19,7 +19,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>>註冊</title>
+<title>註冊</title>
 
 <!--imports-->
 <%@include file="commons/frontend_imports.jsp"%>
@@ -177,6 +177,16 @@
             }
         })
     </script>
+<style type="text/css">
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+.d1{
+margin-left: 375px;
+}
+</style>
 <body>
 
 	<!--header -->
@@ -189,10 +199,7 @@
 			<div class="row d-flex align-items-center justify-content-center">
 
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">${tag}</h1>
-					<p class="text-white link-nav">
-						<a href="<c:url value='/signIn'/>">註冊</a>
-					</p>
+					<a href="<c:url value='/signIn'/>"><h1 class="text-white">註冊</h1></a>
 				</div>
 			</div>
 		</div>
@@ -200,14 +207,15 @@
 	<!-- End banner Area -->
 
 	<!-- content -->
-	<section class="post-content-area single-post-area">
+	<section class="post-content-area single-post-area" style="background-color: #fff281;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<div class="col-lg-12">
-							<form action="registered" method="POST">
-								<table>
+							<form action="registered" method="POST" class="d1" style="border: 1px solid rgba(0, 0, 0, 0.2);border-radius: 10px; padding: 20px;background-color:white;
+						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 350px;width: 380px;">
+								<table style="border-collapse:separate; border-spacing:0px 10px;margin: auto;">
 									<tr>
 										<td>帳號:</td>
 										<td><input type="text" name="account" id="act"></td>
@@ -219,7 +227,7 @@
 										<td id="psdMsg"></td>
 									</tr>
 									<tr>
-										<td>確認密碼:</td>
+										<td>確認密碼:&nbsp;&nbsp;&nbsp;</td>
 										<td><input type="password" name="passwordcheck" id="psdc"></td>
 										<td id="psdcMsg"></td>
 									</tr>
@@ -239,7 +247,7 @@
 											id="mobilephone"></td>
 										<td id="mobilephoneMsg"></td>
 									</tr>
-									<tr>
+									<tr style="text-align: center;">
 										<td><button type="submit" id="sub" disabled="true">送出</button></td>
 										<td><button type="button" id="fast">快速完成</button></td>
 									</tr>

@@ -365,6 +365,11 @@ input[type="file"] {
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -416,9 +421,9 @@ input[type="file"] {
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">寵物列表</h1>
 					<p class="text-white link-nav">
-						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/showUserPets">寵物資料編輯</a>
+						<a href="<c:url value='${header.referer}' />" style="font-size: 25px;">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/pet_form" style="font-size: 25px;">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />pet/showUserPets" style="font-size: 25px;">寵物資料編輯</a>
 					</p>
 				</div>
 			</div>
@@ -506,7 +511,8 @@ input[type="file"] {
 												<div class="ra1">
 													<label for="#{label}">個性:</label> ${pets.personality.name}
 												</div>
-
+												
+												<c:if test="${pets.user.id==userId}">
 												<div class="button-container">
 													<a href="<c:url value='/' />pet/update/${pets.id}">
 														<button type="button">
@@ -518,6 +524,7 @@ input[type="file"] {
 														</button>
 													</a>
 												</div>
+												</c:if>
 											</div>
 										</div>
 										<!-- 					---------------------------- -->
