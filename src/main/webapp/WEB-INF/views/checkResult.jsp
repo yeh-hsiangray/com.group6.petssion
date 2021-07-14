@@ -20,6 +20,15 @@
 <meta charset="UTF-8">
 <!-- Site Title -->
 <title>>跳轉消息</title>
+<style type="text/css">
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-2.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+
+
+</style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
         var timeoutID = setTimeout(myAlert, 3000);
@@ -44,12 +53,12 @@
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">${tag}</h1>
-					<p class="text-white link-nav">
-						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span
-							class="lnr lnr-arrow-right"></span><a
-							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span
-							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a>
-					</p>
+<!-- 					<p class="text-white link-nav"> -->
+<%-- 						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span --%>
+<!-- 							class="lnr lnr-arrow-right"></span><a -->
+<%-- 							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span --%>
+<%-- 							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a> --%>
+<!-- 					</p> -->
 				</div>
 			</div>
 		</div>
