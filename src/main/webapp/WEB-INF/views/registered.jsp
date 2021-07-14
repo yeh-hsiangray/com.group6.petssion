@@ -184,7 +184,16 @@
 	background-size: cover !important;
 }
 .d1{
-margin-left: 365px;
+margin-left: 155px;
+}
+.dv1{
+padding: 10px;
+padding-left: 220px;
+font-size: 18px;
+}
+.dv1 span{
+font-size: 16px;
+color: red;
 }
 </style>
 <body>
@@ -213,45 +222,47 @@ margin-left: 365px;
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<div class="col-lg-12">
-							<form action="registered" method="POST" class="d1" style="border: 1px solid rgba(0, 0, 0, 0.2);border-radius: 10px; padding: 20px;background-color:white;
-						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 400px;width: 400px;">
-								<table style="border-collapse:separate; border-spacing:0px 10px;margin: auto;font-size: 18px;">
-									<tr>
-										<td>帳號:</td>
-										<td><input type="text" name="account" id="act"></td>
-										<td id="actMsg"></td>
-									</tr>
-									<tr>
-										<td>密碼:</td>
-										<td><input type="password" name="password" id="psd"></td>
-										<td id="psdMsg"></td>
-									</tr>
-									<tr>
-										<td>確認密碼:&nbsp;&nbsp;&nbsp;</td>
-										<td><input type="password" name="passwordcheck" id="psdc"></td>
-										<td id="psdcMsg"></td>
-									</tr>
-									<tr>
-										<td>姓名:</td>
-										<td><input type="text" name="name" id="name"></td>
-										<td id="nameMsg"></td>
-									</tr>
-									<tr>
-										<td>e-mail:</td>
-										<td><input type="text" name="email" id="email"></td>
-										<td id="emailMsg"></td>
-									</tr>
-									<tr>
-										<td>手機:</td>
-										<td><input type="text" name="mobilephone"
-											id="mobilephone"></td>
-										<td id="mobilephoneMsg"></td>
-									</tr>
-									<tr style="text-align: center;">
-										<td><button type="submit" id="sub" disabled="true">送出</button></td>
-										<td><button type="button" id="fast">快速完成</button></td>
-									</tr>
-								</table>
+							<form action="registered" method="POST" class="d1" >
+									<div style="border: 3px solid 	#FFB630;border-radius: 10px;background-color:#FFFAF2;
+						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 500px;width: 800px;padding: 20px;">
+									<br>
+									<br>
+									<div class="dv1">
+										<label>帳號:</label>
+										<input type="text" name="account" id="act">
+										<span id="actMsg"></span>
+									</div>
+									<div class="dv1">
+										<label>密碼:</label>
+										<input type="password" name="password" id="psd">
+										<span id="psdMsg"></span>
+									</div>
+									<div class="dv1">
+										<label>確認密碼:</label>
+										<input type="password" name="passwordcheck" id="psdc">
+										<span id="psdcMsg"></span>
+									</div>
+									<div class="dv1">
+										<label>姓名:</label>
+										<input type="text" name="name" id="name"><span id="nameMsg">
+										</span>
+									</div>
+									<div class="dv1">
+										<label>e-mail:</label>
+										<input type="text" name="email" id="email">
+										<span id="emailMsg"></span>
+									</div>
+									<div class="dv1">
+										<label>手機:</label>
+										<input type="text" name="mobilephone"
+											id="mobilephone">
+											<span id="mobilephoneMsg"></span>
+									</div>
+									<div  class="dv1" style="padding-left: 305px;">
+										<button type="submit" id="sub" disabled="true">送出</button>
+										<button type="button" id="fast">快速完成</button>
+									</div>
+									</div>
 							</form>
 
 						</div>
