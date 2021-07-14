@@ -40,14 +40,13 @@ public class UsersImg {
 	private Users users;
 	
 	@Transient
-	List<String> imgIdList;
+	private List<Integer> imgIdList;
 
 	public UsersImg() {
 	}
 
 	public UsersImg(Integer id, String fileName, Blob usersImage, Integer usersId, Users users,
-			List<String> imgIdList) {
-
+			List<Integer> imgIdList) {
 		super();
 		this.id = id;
 		this.fileName = fileName;
@@ -74,10 +73,7 @@ public class UsersImg {
 	}
 
 	public Blob getUsersImage() {
-
-		return usersImage ;
-
-
+		return usersImage;
 	}
 
 	public void setUsersImage(Blob usersImage) {
@@ -100,13 +96,15 @@ public class UsersImg {
 		this.users = users;
 	}
 
-	public List<String> getImgIdList() {
+	public List<Integer> getImgIdList() {
 		return imgIdList;
 	}
 
-	public void setImgIdList(List<String> imgIdList) {
+	public void setImgIdList(List<Integer> imgIdList) {
 		this.imgIdList = imgIdList;
 	}
+
+	
 
 	
 

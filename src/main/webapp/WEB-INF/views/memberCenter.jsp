@@ -413,8 +413,6 @@ input[type="file"] {
 					<h1 class="text-white">個人資料</h1>
 					<p class="text-white link-nav">
 						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/showUserPets">寵物資料編輯</a>
 					</p>
 				</div>
 			</div>
@@ -542,7 +540,7 @@ input[type="file"] {
 									</div>
 									
 									<div class="button-container">
-										<a href="<c:url value='/' />user/update/${users.id}">
+										<a href="<c:url value='/' />user/update">
 										<button type="button">
 											<span>編輯</span>
 										</button>

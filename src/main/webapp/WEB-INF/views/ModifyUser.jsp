@@ -46,6 +46,12 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+
 /* Container */
 /* .container { */
 /* 	position: relative; */
@@ -316,8 +322,7 @@ margin-bottom:8px;
 					<h1 class="text-white">個人資料編輯</h1>
 					<p class="text-white link-nav">
 						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/showUserPets">寵物列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="<c:url value='/' />pet/pet_form">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />user/memberCenter">個人資料</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 				</div>
 			</div>
@@ -445,12 +450,12 @@ margin-bottom:8px;
 				</script>
 <!-- 			=========================================================== -->
 				
-				<div class="input-container">
-					<form:input path='email' type="#{type}" id="#{label}" />
-					<form:errors path="email" cssClass="error" />
-					<label for="#{label}">電子信箱:</label>
-					<div class="bar"></div>
-				</div>
+<!-- 				<div class="input-container"> -->
+<%-- 					<form:input path='email' type="#{type}" id="#{label}" /> --%>
+<%-- 					<form:errors path="email" cssClass="error" /> --%>
+<%-- 					<label for="#{label}">電子信箱:</label> --%>
+<!-- 					<div class="bar"></div> -->
+<!-- 				</div> -->
 				
 				<div class="input-container">
 					<form:input path='name' type="#{type}" id="#{label}"

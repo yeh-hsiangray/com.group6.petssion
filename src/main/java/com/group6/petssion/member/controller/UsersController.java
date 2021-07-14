@@ -4,7 +4,6 @@ package com.group6.petssion.member.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,13 +134,11 @@ public class UsersController {
 //		HttpSession session=request.getSession();
 //		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		System.out.println(SessionUserId);
-		System.out.println(usersDto.getName());
-		System.out.println(new Users().getId());
 		Users user = usersDto;
 //		BeanUtils.copyProperties(usersDto, user);
 		
 		user.setManager(2);
-		user.setRegdate(LocalDate.now());
+//		user.setRegdate(LocalDate.now());
 		user.setBlockade(0);
 //		----------------------------------
 		List<MultipartFile> pictures = user.getImg();
@@ -185,11 +182,13 @@ public class UsersController {
 		return "redirect:/pet/pet_form";
 	}
 	
-	@GetMapping(value = "/update/{id}")
-	public String showDataForm(@PathVariable("id") Integer id, Model model) {
+	@GetMapping(value = "/update")
+	public String showDataForm(HttpServletRequest request, Model model) {
 		
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-		Users users = userService.get(id);
+		Users users = userService.get(SessionUserId);
 			Integer userId = users.getId();
 			System.out.println(userId);
 			
@@ -215,13 +214,17 @@ public class UsersController {
 	 * @return
 	 */
 	
-	@PostMapping("/update/{id}")
+	@PostMapping("/update")
 	public String modify(@ModelAttribute("user") @Valid UsersDto usersDto, BindingResult result, Model model,
-			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId)
+			HttpServletRequest request, @RequestParam(value = "delImgId", required = false) List<String> delId)
 	{
+		
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+//		List<Users> users = userService.findUserByUserId(SessionUserId);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-		Users users = userService.get(id);
-			Integer userId = users.getId();
+//		Users users = userService.findUserByUserId(SessionUserId);
+			Integer userId = SessionUserId;
 			System.out.println(userId);
 			List<Integer> userImgIdList = usersImgService.findUserImgByUserId(userId);
 			while (userImgIdList.size() < 8) {
@@ -249,15 +252,17 @@ public class UsersController {
 			return "ModifyUser";
 		}
 		
+		Users user1 = userService.get(userId);
 		Users user = new Users();
 		
-		user.setManager(2);
-		user.setRegdate(LocalDate.now());
-		user.setBlockade(0);
-		user.setCheckemail(1);
-		
+	
 		BeanUtils.copyProperties(usersDto, user);
-
+		user.setId(userId);
+		user.setEmail(user1.getEmail());
+		user.setManager(user1.getManager());
+		user.setRegdate(user1.getRegdate());
+		user.setBlockade(user1.getBlockade());
+		user.setCheckemail(user1.getCheckemail());
 		if (delId != null) {
 			for (String dId : delId) {
 				if (dId.startsWith("d")) {
