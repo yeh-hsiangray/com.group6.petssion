@@ -78,4 +78,13 @@ public class signInController {
 		signInService.updatePassword(aAndP);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("userId");
+		session.removeAttribute("userManager");
+		session.removeAttribute("userName");
+		
+		return "redirect:/signIn";
+	}
 }
