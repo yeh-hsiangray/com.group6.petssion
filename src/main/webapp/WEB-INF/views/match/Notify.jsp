@@ -8,6 +8,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>交友通知</title>
+<style>
+.head {
+	border: solid red 5px;
+}
+
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -20,11 +31,7 @@
 	href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
 <link rel=stylesheet href="../css/notify.css">
 <script src="../js/jquery-2.2.3.min.js"></script>
-<style>
-.head {
-	border: solid red 5px;
-}
-</style>
+
 <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <!--imports-->
@@ -36,22 +43,27 @@
 	<%@include file="../commons/frontend_header.jsp"%>
 
 	<!-- start banner Area -->
+	<
 	<section class="banner-area relative" id="home">
 		<div class="overlay overlay-bg"></div>
-<!-- 		<div class="container"> -->
+		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">${tag}</h1>
-
+					<h1 class="text-white">配對通知</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />match/showMatch">興趣交友配對</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/pet/memberProfile'/>" id="finduser"></a> 
+					</p>
 				</div>
 			</div>
-<!-- 		</div> -->
+		</div>
 	</section>
 	<!-- End banner Area -->
 
 	<!-- content -->
 	<section class="post-content-area single-post-area">
-<!-- 		<div class="container"> -->
+		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
@@ -81,7 +93,7 @@
 					</div>
 				</div>
 			</div>
-<!-- 		</div> -->
+		</div>
 	</section>
 	<!-- content -->
 
@@ -95,7 +107,8 @@
 		var xhr1 = new XMLHttpRequest();
 		var xhr2 = new XMLHttpRequest();
 		var xhr3 = new XMLHttpRequest();
-		var xhr4 = new XMLHttpRequest();
+		var xhr4 = new XMLHttpRequest();	
+		var xhr5 = new XMLHttpRequest();	
 		var i = 0;
 		var dataJson;	
 		
@@ -133,7 +146,7 @@ function selectFun() {
 // 					
                 ou.innerHTML="現在="+new Date();
 //                 displayUsers(xhr1.responseText);	
-				 OneSideLove(xhr1.responseText);	
+                EachLike(xhr1.responseText);	
 				}							
 		}
 		xhr1.open("GET", "<c:url value='/match/signInNotifyEachLike'/>", true);
@@ -143,8 +156,9 @@ function selectFun() {
     function ajaxRefresh2(){
 		xhr2.onreadystatechange = function() {
 			if (xhr2.readyState == 4 && xhr2.status == 200) {
-// 				console.log(xhr.responseText);	           				
-				EachLike(xhr2.responseText);	
+// 				console.log(xhr.responseText);
+            OneSideLove(xhr2.responseText);
+					
 				}							
 		}
 		xhr2.open("GET", "<c:url value='/match/signInNotifyOneSideLove'/>", true);
@@ -202,6 +216,12 @@ function selectFun() {
  											
 		}
 		
+		function changePage(id){
+			
+		   var finduser=document.getElementById("finduser");
+			window.location.href=finduser.href+"/"+id;
+				
+		}
    	
 		/*signInNotifyConfirm*/
 		function displayUsers(responseText){
@@ -269,9 +289,6 @@ function selectFun() {
 							"<p>寵物個性:" + dataJson[i].pet[0].personality.name +  "</p>"+
 							"<p>寵物個性:" + dataJson[i].pet[0].personality.name +  "</p>"+
 						    "</p>"+
-// 							"<p class='card-text'>"+
-// 								"<small class='text-muted'>Last updated 3 mins ago</small>"+
-// 							"</p>"+
 						"</div>"+
 					"</div>"+
 				"</div>"+
@@ -344,9 +361,6 @@ function selectFun() {
 							"<p>寵物個性:" + dataJson[i].pet[0].personality.name +  "</p>"+
 							"<p>寵物個性:" + dataJson[i].pet[0].personality.name +  "</p>"+
 						    "</p>"+
-// 							"<p class='card-text'>"+
-// 								"<small class='text-muted'>Last updated 3 mins ago</small>"+
-// 							"</p>"+
 						"</div>"+
 					"</div>"+
 				"</div>"+
@@ -355,12 +369,13 @@ function selectFun() {
 		"</div>";
 			 }
 			 content+="</div>";
-			 OneSideLove1.innerHTML = content; 	
+			 showuser.innerHTML = content; 	
 		}
 		
 		/*signInNotifyEachLike*/
 		function EachLike(responseText){
 			 dataJson = JSON.parse(responseText);
+			 
 			 var content= "<div class='mb-3 box ' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){
 			 content+= "<div class='head'>"+
@@ -393,8 +408,8 @@ function selectFun() {
 // 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
 // 							"</p>"+
 							"<div class='card-body bottom'>"+
-								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='Check("+dataJson[i].id+")'>"+
-							" <a href='<c:url value='/user/memberCenter'>'> 觀看資料</button>"+
+								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='changePage("+dataJson[i].id+")'>觀看資料</button>"+
+
 								<!-- 								<a href="#" class="card-link">Card link</a>  -->
 								<!-- 								<a href="#"class="card-link">Another link</a> -->
 							"</div>"+
@@ -434,7 +449,10 @@ function selectFun() {
 			 }
 			
 			 content+="</div>";
-			 EachLike1.innerHTML = content; 	
+			 if(i>=dataJson.length){ 
+				 showuser.innerHTML = "無資料";
+	            	}
+			 showuser.innerHTML = content; 	
 		}
 	</script>
 	<script src="../js/bootstrap.min.js"></script>

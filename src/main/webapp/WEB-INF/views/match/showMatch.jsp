@@ -8,6 +8,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>配對選擇</title>
+<style>
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+.selecthobby{
+ font-size: 100px;
+ color:red;
+ font-weight:bold;
+}
+.cont{
+font-style:italic;
+color:blue;
+}
+</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -26,12 +42,16 @@
 	<%@include file="../commons/frontend_header.jsp"%>
 
 	<!-- start banner Area -->
-	<section class=" relative" id="home">
+	<section class="banner-area relative" id="home">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">${tag}</h1>
+					<h1 class="text-white">配對通知</h1>
+					<p class="text-white link-nav">
+						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='/' />match/Notify">興趣交友配對</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					</p>
 				</div>
 			</div>
 		</div>
@@ -43,16 +63,16 @@
 		<!-- 		<div class="container" style="color: powderblue;"> -->
 		<div class="row">
 			
-			<div class="frameTop">
-			<div class="alert alert-warning alert-dismissible fade show"
-				role="alert" data-dismiss="alert">
-				<strong>Holy guacamole!</strong> You should check in on some of
-				those fields below.
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
+<!-- 			<div class="frameTop"> -->
+<!-- 			<div class="alert alert-warning alert-dismissible fade show" -->
+<!-- 				role="alert" data-dismiss="alert"> -->
+<!-- 				<strong>Holy guacamole!</strong> You should check in on some of -->
+<!-- 				those fields below. -->
+<!-- 				<button type="button" class="close" data-dismiss="alert" -->
+<!-- 					aria-label="Close"> -->
+<!-- 					<span aria-hidden="true">&times;</span> -->
+<!-- 				</button> -->
+<!-- 			</div> -->
 				<div class="selecthobby" role="group" aria-label="...">
 					請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
 				</div>
@@ -61,7 +81,7 @@
 			<div id='showuser'></div>
 		</div>
 
-	</div>
+	
 
 	<!-- 	</div> -->
 	<!-- content -->
@@ -144,28 +164,28 @@
 	                "<article class='s"+i+"'><table>"+
 	                "<tr>"+
 	                       "<td>會員姓名:</td>"+
-	                       "<td>" + dataJson[i].name + "</td>" +               
+	                       "<td class='cont'>" + dataJson[i].name + "</td>" +               
 	                       "<td>寵物姓名:</td>"+
-	                       "<td>" + dataJson[i].pet[0].name + "</td>" +               
+	                       "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
 		                   
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td > 會員性別:</td>"+ 
-		                   "<td >" + dataJson[i].gender + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].gender + "</td>"+
 		                   "<td > 寵物種類:</td>"+ 
-		                   "<td >" + dataJson[i].pet[0].type.name + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td>會員星座:</td>"+
-		                   "<td>" + dataJson[i].constellation + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
 		                   "<td>寵物性別:</td>"+
-		                   "<td>" + dataJson[i].pet[0].gender + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                   "<td>會員自我介紹:</td>"+
-		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
 		                   "<td>寵物個性:</td>"+
-		                   "<td>" + dataJson[i].pet[0].personality.name + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td>會員照片:</td>"+
@@ -206,27 +226,27 @@
 	                "<article class='s"+i+"'><table>"+
 	                "<tr>"+
 	                       "<td>會員姓名:</td>"+
-	                       "<td>" + dataJson[i].name + "</td>" +  
+	                       "<td class='cont'>" + dataJson[i].name + "</td>" +  
 	                       "<td>寵物姓名:</td>"+
-	                       "<td>" + dataJson[i].pet[0].name + "</td>" +  	                       
+	                       "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +  	                       
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td >會員性別:</td>"+ 
-		                   "<td >" + dataJson[i].gender + "</td>"+
+		                   "<td class='cont' >" + dataJson[i].gender + "</td>"+
 		                   "<td >寵物類型:</td>"+ 
-		                   "<td >" + dataJson[i].pet[0].type.name + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td>會員星座:</td>"+
-		                   "<td>" + dataJson[i].constellation + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
 		                   "<td>寵物性別:</td>"+
-		                   "<td>" + dataJson[i].pet[0].gender + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                   "<td>會員自我介紹:</td>"+
-		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
 		                   "<td>寵物個性:</td>"+
-		                   "<td>" + dataJson[i].pet[0].personality.name + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td >會員照片:</td>"+
@@ -285,28 +305,28 @@
 	                "<article  class='s"+i+" myfont'><table>"+
 	                "<tr>"+
 	                       "<td class='myfont'>會員姓名:</td>"+
-	                       "<td>" + dataJson[i].name + "</td>" +               
+	                       "<td class='cont'>" + dataJson[i].name + "</td>" +               
 	                       "<td>寵物姓名:</td>"+
-	                       "<td>" + dataJson[i].pet[0].name + "</td>" +               
+	                       "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
 		                   
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td > 會員性別:</td>"+ 
-		                   "<td >" + dataJson[i].gender + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].gender + "</td>"+
 		                   "<td > 寵物種類:</td>"+ 
-		                   "<td >" + dataJson[i].pet[0].type.name + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
 		            "</tr>" +
 		            "<tr>"+
 		                   "<td>會員星座:</td>"+
-		                   "<td>" + dataJson[i].constellation + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
 		                   "<td>寵物性別:</td>"+
-		                   "<td>" + dataJson[i].pet[0].gender + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                   "<td>自我介紹:</td>"+
-		                   "<td>" + dataJson[i].selfintroduction + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
 		                   "<td>寵物個性:</td>"+
-		                   "<td>" + dataJson[i].pet[0].personality.name + "</td>"+
+		                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
 		            "</tr>"+
 		            "<tr>"+
 		                    "<td>會員照片:</td>"+
