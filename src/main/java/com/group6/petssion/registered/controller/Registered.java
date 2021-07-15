@@ -27,7 +27,7 @@ public class Registered {
 	@PostMapping
 	public String postRegistered(account_password aAndP, Users user) {
 		rs.regisered(user, aAndP);
-		return "redirect:index";
+		return "redirect:/";
 	}
 
 	@PostMapping("/act")

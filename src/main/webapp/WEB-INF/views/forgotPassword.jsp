@@ -29,6 +29,7 @@
 }
 </style>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body>
 
@@ -63,11 +64,8 @@
 						<c:choose>
 	<c:when test="${account!=null}">
 	<form action='<c:url value="/signIn/password"></c:url>' method="POST">
+	<input type="hidden" name="account" value="${account}">
     <table>
-   		<tr>
-            <td>帳號:</td>
-            <td><input type="text" name="account" value="${account}" readonly="readonly"></td>
-        </tr>
         <tr>
             <td>密碼:</td>
             <td><input type="password" name="password" id="psd"></td>
@@ -94,6 +92,7 @@
                 let psdMsg = document.getElementById("psdMsg");
                 if (t1.test(psdv)) {
                     psdMsg.innerHTML = "正確"
+                    console.log("hi")
                     checked[0] = true
                 } else {
                     psdMsg.innerHTML = "請輸入6~8位英文及數字"
@@ -101,7 +100,7 @@
                 }
                 check();
             }
-
+            console.log("hi")
             let psdc = document.getElementById("psdc");
             psdc.onkeyup = psdcCheck;
             function psdcCheck() {
@@ -125,12 +124,15 @@
             }
             function check() {
                 let checkint = 0
-                for (i = 0; i < check.length; i++) {
+                for (i = 0; i < checked.length; i++) {
                     if (checked[i]) {
+                    	
                         checkint++;
+                    	console.log(checkint)
+                    	console.log(checked[i])
                     }
                 }
-                if (checkint == check.length) {
+                if (checkint == checked.length) {
                     document.getElementById("sub").disabled = false;
                 } else {
                     document.getElementById("sub").disabled = true;
