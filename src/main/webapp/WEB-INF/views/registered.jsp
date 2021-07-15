@@ -45,9 +45,9 @@
                     fetch("registered/act",{method:"POST",body:JSON.stringify(data),headers:{"Content-Type":"application/json"}}).
                     then(res => res.json()).then
                     (function(data){
-                    	console.log("yes")
                 		 if(data==1){
                 			actMsg.innerHTML = "此帳號已被使用"
+				             check();
                 		 }else{
                 			 checked[0] = true
 				             check();
@@ -162,8 +162,6 @@
             function check() {
                 let checkint = 0
                 for (i = 0; i < 6; i++) {
-                	 console.log(checked[i])
-                	 console.log("--------")
                     if (checked[i]) {
                         checkint++;
                     }

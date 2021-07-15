@@ -32,8 +32,6 @@ public class signInController {
 	@PostMapping
 	@ResponseBody
 	public int signIn(@RequestBody account_password aAndP,HttpSession session,HttpServletResponse response) {
-		System.out.println(aAndP.getAccount());
-		System.out.println(aAndP.getPassword());
 		Users user = signInService.signIn(aAndP.getAccount(), aAndP.getPassword());
 		if(user!=null) {
 			if(user.getBlockade()!=1) {

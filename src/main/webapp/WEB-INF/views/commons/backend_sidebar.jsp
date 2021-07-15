@@ -21,7 +21,7 @@
 					class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block">Admin</a>
+				<a href="#" class="d-block">${userName}</a>
 			</div>
 		</div>
 
@@ -35,15 +35,15 @@
 						<p>登入管理</p> <i class="right fas fa-angle-left"></i>
 				</a>
 					<ul class="nav nav-treeview" id="tv1">
-						<li class="nav-item"><a href="#" class="nav-link"> <i
+						<li class="nav-item"><a href="<c:url value='/backend/backBlockade' />" class="nav-link"> <i
 								class="nav-icon fas fa-ban"></i>
 								<p>黑名單</p>
 						</a></li>
-						<li class="nav-item"><a href="＃" class="nav-link"> <i
+						<li class="nav-item"><a href="<c:url value='/backend/backManager' />" class="nav-link"> <i
 								class="fas fa-key nav-icon"></i>
 								<p>權限設定</p>
 						</a></li>
-						<li class="nav-item"><a href="＃" class="nav-link"> <i
+						<li class="nav-item"><a href="<c:url value='/backend/backChart' />" class="nav-link"> <i
 								class="fas fa-file-alt nav-icon"></i>
 								<p>圖表分析</p>
 						</a></li>
