@@ -70,11 +70,11 @@ ul {
 						</ul></li>
 
 					<!--  sign up -->
-					<li><a href="contact.html" class="fsh"><i
+					<li><a href="<c:url value='/registered' />" class="fsh"><i
 							class="fas fa-user-plus"></i> 註冊</a></li>
 
 					<!--  login -->
-					<li><a href="contact.html" class="fsh"><i
+					<li><a href="<c:url value='/signIn' />" class="fsh"><i
 							class="fas fa-user-alt"></i> 登入</a></li>
 				</ul>
 			</nav>

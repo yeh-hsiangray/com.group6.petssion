@@ -199,7 +199,7 @@ public class PetController {
 		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 		System.out.println(SessionUserId);
 
-		//		放入map讓前端以key->id區分
+//		放入map讓前端以key->id區分
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pet = petService.get(id);
 		if(pet.getUser().getId()!=SessionUserId) {

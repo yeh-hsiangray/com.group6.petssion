@@ -184,7 +184,28 @@
 	background-size: cover !important;
 }
 .d1{
-margin-left: 375px;
+margin-left: 155px;
+}
+.dv1{
+padding: 10px;
+padding-left: 210px;
+font-size: 18px;
+}
+span{
+font-size: 16px;
+color: red;
+margin-left:340px;
+/* position: absolute; */
+float: right;
+margin-top: -30px;
+text-align: left;
+}
+.dv1 input{
+float: right;
+margin-right: 205px;
+}
+.dv2{
+float: left;
 }
 </style>
 <body>
@@ -199,7 +220,7 @@ margin-left: 375px;
 			<div class="row d-flex align-items-center justify-content-center">
 
 				<div class="about-content col-lg-12">
-					<a href="<c:url value='/signIn'/>"><h1 class="text-white">註冊</h1></a>
+					<a href="<c:url value='/registered' />"><h1 class="text-white">註冊</h1></a>
 				</div>
 			</div>
 		</div>
@@ -213,45 +234,47 @@ margin-left: 375px;
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<div class="col-lg-12">
-							<form action="registered" method="POST" class="d1" style="border: 1px solid rgba(0, 0, 0, 0.2);border-radius: 10px; padding: 20px;background-color:white;
-						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 350px;width: 380px;">
-								<table style="border-collapse:separate; border-spacing:0px 10px;margin: auto;">
-									<tr>
-										<td>帳號:</td>
-										<td><input type="text" name="account" id="act"></td>
-										<td id="actMsg"></td>
-									</tr>
-									<tr>
-										<td>密碼:</td>
-										<td><input type="password" name="password" id="psd"></td>
-										<td id="psdMsg"></td>
-									</tr>
-									<tr>
-										<td>確認密碼:&nbsp;&nbsp;&nbsp;</td>
-										<td><input type="password" name="passwordcheck" id="psdc"></td>
-										<td id="psdcMsg"></td>
-									</tr>
-									<tr>
-										<td>姓名:</td>
-										<td><input type="text" name="name" id="name"></td>
-										<td id="nameMsg"></td>
-									</tr>
-									<tr>
-										<td>e-mail:</td>
-										<td><input type="text" name="email" id="email"></td>
-										<td id="emailMsg"></td>
-									</tr>
-									<tr>
-										<td>手機:</td>
-										<td><input type="text" name="mobilephone"
-											id="mobilephone"></td>
-										<td id="mobilephoneMsg"></td>
-									</tr>
-									<tr style="text-align: center;">
-										<td><button type="submit" id="sub" disabled="true">送出</button></td>
-										<td><button type="button" id="fast">快速完成</button></td>
-									</tr>
-								</table>
+							<form action="registered" method="POST" class="d1" >
+									<div style="border: 3px solid 	#FFB630;border-radius: 10px;background-color:#FFFAF2;
+						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 500px;width: 800px;padding: 20px;">
+									<br>
+									<br>
+									<div class="dv1">
+										<label>帳號:</label>
+										<input type="text" name="account" id="act">
+										<div class="dv2"><span id="actMsg"></span></div>
+									</div>
+									<div class="dv1">
+										<label>密碼:</label>
+										<input type="password" name="password" id="psd">
+										<div class="dv2"><span id="psdMsg"></span></div>
+									</div>
+									<div class="dv1">
+										<label>確認密碼:</label>
+										<input type="password" name="passwordcheck" id="psdc">
+										<div class="dv2"><span id="psdcMsg"></span></div>
+									</div>
+									<div class="dv1">
+										<label>姓名:</label>
+										<input type="text" name="name" id="name">
+										<div class="dv2"><span id="nameMsg"></span></div>
+									</div>
+									<div class="dv1">
+										<label>e-mail:</label>
+										<input type="text" name="email" id="email">
+										<div class="dv2"><span id="emailMsg"></span></div>
+									</div>
+									<div class="dv1">
+										<label>手機:</label>
+										<input type="text" name="mobilephone"
+											id="mobilephone">
+											<div class="dv2"><span id="mobilephoneMsg"></span></div>
+									</div>
+									<div  class="dv1" style="padding-left: 305px;">
+										<button type="submit" id="sub" disabled="true">送出</button>
+										<button type="button" id="fast">快速完成</button>
+									</div>
+									</div>
 							</form>
 
 						</div>
