@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <style>
 ul {
@@ -32,7 +33,9 @@ ul {
 							<li><a href="<c:url value='/frontend/main/news' />">最新消息</a></li>
 							<li><a href="<c:url value='/frontend/main/contact' />">聯絡我們</a></li>
 						</ul></li>
-
+					
+					<!-- 	登入前隱藏會員中心和興趣交友，登入後顯示	 -->
+					<c:if test="${users.id!=userId}">
 					<!-- membership -->
 					<li class="menu-has-children"><a href="<c:url value='#'/>"
 						class="fsh">會員中心</a>
@@ -53,7 +56,7 @@ ul {
 							<li><a href="<c:url value='/match/Notify' />" class="fsh">交友通知</a></li>
 							<li><a href="<c:url value='/match/showMatch' />" class="fsh">搜尋交友配對</a></li>
 							</ul></li>
-
+</c:if>
 					<!-- friendly environment-->
 					<li><a href="<c:url value='/FriendlyEnvSearchFR' />" class="fsh">友善環境</a></li>
 
@@ -69,13 +72,22 @@ ul {
 							<li><a href="<c:url value='/frontend/main/cookie' />"></a>COOKIE政策</li>
 						</ul></li>
 
-					<!--  sign up -->
-					<li><a href="contact.html" class="fsh"><i
+					<!--  sign up(登入後隱藏註冊、登入，顯示登出選項 -->
+						<c:if test="${users.id==userId}">
+					<li><a href="<c:url value='/registered' />" class="fsh"><i
 							class="fas fa-user-plus"></i> 註冊</a></li>
 
 					<!--  login -->
-					<li><a href="contact.html" class="fsh"><i
+					<li><a href="<c:url value='/signIn' />" class="fsh"><i
 							class="fas fa-user-alt"></i> 登入</a></li>
+							</c:if>
+							
+					<!--  logout	-->
+					<c:if test="${users.id!=userId}">
+							<li><a href="<c:url value='/signIn/logout' />" class="fsh"><i
+							class="fas fa-user-plus"></i> 登出</a></li>
+							</c:if>
+							
 				</ul>
 			</nav>
 			<!-- #nav-menu-container -->

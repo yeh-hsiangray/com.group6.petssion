@@ -1,7 +1,13 @@
 :root {
   text-align: center;
 }
-
+* {
+	margin: 10px;
+}
+.box{
+	margin-left:30%;
+	margin-top:4%;
+}
 .card {
 	position:fixed; top:25%; left:25%;
 }

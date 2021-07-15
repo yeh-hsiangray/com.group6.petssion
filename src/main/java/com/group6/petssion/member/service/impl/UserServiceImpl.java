@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	@Override
 	public void updateUser(Users user) {
-		
 		userDao2.detachJob(user.getJob());
 		userDao2.detachHobby(user.getHobby());
 		Job job = jobService.getJob(user.getJob().getId());

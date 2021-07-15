@@ -10,9 +10,12 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +35,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.group6.petssion.bean.Food;
 import com.group6.petssion.bean.Kind;
@@ -39,19 +44,21 @@ import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.PetImg;
 import com.group6.petssion.bean.Type;
 import com.group6.petssion.bean.Users;
+import com.group6.petssion.member.controller.UsersController;
 import com.group6.petssion.member.service.UserService;
-import com.group6.petssion.member.service.UsersImgService;
 import com.group6.petssion.petprofile.service.FoodService;
 import com.group6.petssion.petprofile.service.KindService;
 import com.group6.petssion.petprofile.service.PersonalityService;
 import com.group6.petssion.petprofile.service.PetImgService;
 import com.group6.petssion.petprofile.service.PetService;
 import com.group6.petssion.petprofile.service.TypeService;
+import com.group6.petssion.petprofile.validate.MyException;
 import com.group6.petssion.petprofile.validate.PetDto;
 
 @Controller
 @RequestMapping("/pet")
 public class PetController {
+	private final Logger logger = LoggerFactory.getLogger(UsersController.class);
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -72,11 +79,11 @@ public class PetController {
 	@GetMapping("/showUserPets")
 	public String list(Model model, HttpServletRequest request) {
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 		
-		List<Pet> pets = petService.findAllPetByUserId(1);
+		List<Pet> pets = petService.findAllPetByUserId(SessionUserId);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 //		放入map讓前端以key->id區分
 		for (Pet pet : pets) {
@@ -133,25 +140,14 @@ public class PetController {
 			return "pet/InsertPet";
 		}
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDto, pet);
 
-//		if (petService.isUsersExist(pet)) {
-//			List<Pet> list=petService.getAllPetNameByUserId(SessionUserId);
-//			for(Pet petName:list) {
-//				String name=String.valueOf(petName);
-//				if(name==pet.getName()) {
-//					result.rejectValue("name", "", "名字重複");
-//					return "pet/insertPet";
-//				}
-//			}
-//		}
-		
-		List<Users> list= userService.findUserByUserId(1);
+		List<Users> list= userService.findUserByUserId(SessionUserId);
 		System.out.println(list);
 		for(Users user:list) {
 			pet.setUser(user);
@@ -198,14 +194,17 @@ public class PetController {
 	}
 
 	@GetMapping(value = "/update/{id}")
-	public String showDataForm(@PathVariable("id") Integer id, Model model) {
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+	public String showDataForm(@PathVariable("id") Integer id, Model model,HttpServletRequest request) throws MyException {
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 
 //		放入map讓前端以key->id區分
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pet = petService.get(id);
+		if(pet.getUser().getId()!=SessionUserId) {
+			throw new MyException("無訪問權限");
+		}
 		Integer petId = pet.getId();
 		System.out.println(petId);
 		List<Integer> petImgIdList = petImgService.findPetImgIdByPetId(petId);
@@ -222,7 +221,7 @@ public class PetController {
 
 	@PostMapping("/update/{id}")
 	public String modify(@ModelAttribute("pet") @Valid PetDto petDto, BindingResult result, Model model,
-			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId) {
+			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId,HttpServletRequest request) {
 //--------------------驗證有錯時返回頁面圖片------------------------------------------------	
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pets = petService.get(id);
@@ -268,9 +267,9 @@ public class PetController {
 			return "pet/UpdatePet";
 		}
 
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-//		System.out.println(SessionUserId);
+		HttpSession session=request.getSession();
+		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		System.out.println(SessionUserId);
 
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDto, pet);
@@ -286,7 +285,7 @@ public class PetController {
 //			}
 //		}
 //-----------------------儲存外鍵----------------------------------------------
-		List<Users> list= userService.findUserByUserId(1);
+		List<Users> list= userService.findUserByUserId(SessionUserId);
 		System.out.println(list);
 		for(Users user:list) {
 			pet.setUser(user);
@@ -432,4 +431,15 @@ public class PetController {
 		return result;
 	}
 
+	@ExceptionHandler({Exception.class})
+	public ModelAndView handleException(HttpServletRequest request, Exception e) {
+		logger.error("Request URL: {}, Exception : {}", request.getRequestURL(), e.getMessage());
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("url", request.getRequestURL());
+		mav.addObject("exception", e);
+		mav.setViewName("error/error");
+		
+		return mav;
+	}
 }

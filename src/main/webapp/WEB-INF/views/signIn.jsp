@@ -19,13 +19,21 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>>登入</title>
+<title>登入</title>
 
 <!--imports-->
 <%@include file="commons/frontend_imports.jsp"%>
 <style type="text/css">
 .t1 {
 	text-align: center;
+}
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
+.d1{
+margin-left: 395px;
 }
 </style>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -42,10 +50,9 @@
 			<div class="row d-flex align-items-center justify-content-center">
 
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">${tag}</h1>
-					<p class="text-white link-nav">
-						<a href="<c:url value='/signIn'/>">登入</a>
-					</p>
+					<a href="<c:url value='/signIn'/>"><h1 class="text-white">登入</h1></a>
+<!-- 					<p class="text-white link-nav"> -->
+<!-- 					</p> -->
 					<a href="<c:url value='/'/>" id="index"></a>
 				</div>
 			</div>
@@ -54,15 +61,16 @@
 	<!-- End banner Area -->
 
 	<!-- content -->
-	<section class="post-content-area single-post-area">
+	<section class="post-content-area single-post-area" style="background-color: #fff281;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<div class="col-lg-12"></div>
 
-						<div class="d1">
-							<table>
+						<div class="d1" style="border: 2px solid #FFB630;border-radius: 10px; padding: 20px;background-color:#FFFAF2;
+						box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); height: 350px;">
+							<table style="border-collapse:separate; border-spacing:0px 10px;font-size: 18px;">
 								<tr>
 									<td>帳號:</td>
 									<td><input type="text" name="account" id="act"></td>

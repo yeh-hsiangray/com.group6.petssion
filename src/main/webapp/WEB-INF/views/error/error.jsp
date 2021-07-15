@@ -37,6 +37,12 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+.banner-area {
+	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
+		!important;
+	background-size: cover !important;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
