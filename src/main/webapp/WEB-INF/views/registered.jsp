@@ -188,12 +188,24 @@ margin-left: 155px;
 }
 .dv1{
 padding: 10px;
-padding-left: 220px;
+padding-left: 210px;
 font-size: 18px;
 }
-.dv1 span{
+span{
 font-size: 16px;
 color: red;
+margin-left:340px;
+/* position: absolute; */
+float: right;
+margin-top: -30px;
+text-align: left;
+}
+.dv1 input{
+float: right;
+margin-right: 205px;
+}
+.dv2{
+float: left;
 }
 </style>
 <body>
@@ -208,7 +220,7 @@ color: red;
 			<div class="row d-flex align-items-center justify-content-center">
 
 				<div class="about-content col-lg-12">
-					<a href="<c:url value='/signIn'/>"><h1 class="text-white">註冊</h1></a>
+					<a href="<c:url value='/registered' />"><h1 class="text-white">註冊</h1></a>
 				</div>
 			</div>
 		</div>
@@ -230,33 +242,33 @@ color: red;
 									<div class="dv1">
 										<label>帳號:</label>
 										<input type="text" name="account" id="act">
-										<span id="actMsg"></span>
+										<div class="dv2"><span id="actMsg"></span></div>
 									</div>
 									<div class="dv1">
 										<label>密碼:</label>
 										<input type="password" name="password" id="psd">
-										<span id="psdMsg"></span>
+										<div class="dv2"><span id="psdMsg"></span></div>
 									</div>
 									<div class="dv1">
 										<label>確認密碼:</label>
 										<input type="password" name="passwordcheck" id="psdc">
-										<span id="psdcMsg"></span>
+										<div class="dv2"><span id="psdcMsg"></span></div>
 									</div>
 									<div class="dv1">
 										<label>姓名:</label>
-										<input type="text" name="name" id="name"><span id="nameMsg">
-										</span>
+										<input type="text" name="name" id="name">
+										<div class="dv2"><span id="nameMsg"></span></div>
 									</div>
 									<div class="dv1">
 										<label>e-mail:</label>
 										<input type="text" name="email" id="email">
-										<span id="emailMsg"></span>
+										<div class="dv2"><span id="emailMsg"></span></div>
 									</div>
 									<div class="dv1">
 										<label>手機:</label>
 										<input type="text" name="mobilephone"
 											id="mobilephone">
-											<span id="mobilephoneMsg"></span>
+											<div class="dv2"><span id="mobilephoneMsg"></span></div>
 									</div>
 									<div  class="dv1" style="padding-left: 305px;">
 										<button type="submit" id="sub" disabled="true">送出</button>
