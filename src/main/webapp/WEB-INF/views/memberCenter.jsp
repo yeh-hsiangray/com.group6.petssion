@@ -412,7 +412,7 @@ input[type="file"] {
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">個人資料</h1>
 					<p class="text-white link-nav">
-						<a href="<c:url value='${header.referer}' />">上一頁</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="<c:url value='${header.referer}' />">上一頁</a>
 					</p>
 				</div>
 			</div>
