@@ -41,11 +41,11 @@ public class MatchStatusController {
 	@GetMapping("/selectHobby/getUsers")
 	public @ResponseBody List<Users> getUserWithoutSignInId(@RequestParam Integer id, 			
 			HttpServletResponse response,HttpServletRequest request) {
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-		int SessionUserId =2;
+		HttpSession session=request.getSession();
+		int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+//		int sessionUserId =2;
 		List<Users> userList =  matchStatusService.getUsersByHobbyId(id);
-		Users user=userService.get(SessionUserId);
+		Users user=userService.get(sessionUserId);
 //		System.out.println(user);
 		userList.remove(user);
 	
@@ -92,9 +92,9 @@ public class MatchStatusController {
 //            
 //            System.out.print(name);
 //        }        
-//		HttpSession session=request.getSession();
-//		  int sessionUserId =(int)session.getAttribute("userId");//抓取userId
-		Integer sessionUserId=2;
+		HttpSession session=request.getSession();
+		  int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+//		Integer sessionUserId=2;
 		matchstatus.setUserA(sessionUserId);
 		
 		System.out.println(sessionUserId);
@@ -108,9 +108,9 @@ public class MatchStatusController {
 	 */
 	@GetMapping("/signInNotifyEachLike")
 	public @ResponseBody List<Users> signInNotifyEachLike(HttpServletRequest request){	
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userid");//抓取userId
-		int sessionUserId =22;
+		HttpSession session=request.getSession();
+		int sessionUserId =(int)session.getAttribute("userid");//抓取userId
+//		int sessionUserId =22;
 //		List<Users> oneSideLove= matchStatusService.oneSideLove(SessionUserId);	
 //		List<Users> eachLike= matchStatusService.eachLike(SessionUserId);	
 //		ArrayList<Users> resultList = new ArrayList<Users>();
@@ -126,9 +126,9 @@ public class MatchStatusController {
 	 */
 	@GetMapping("/signInNotifyOneSideLove")
 	public @ResponseBody List<Users> signInNotifyOneSideLove(HttpServletRequest request){	
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userid");//抓取userId
-		int sessionUserId =22;
+		HttpSession session=request.getSession();
+		int sessionUserId =(int)session.getAttribute("userid");//抓取userId
+//		int sessionUserId =22;
 		// 阻擋 倒回登入	
 		return matchStatusService.oneSideLove(sessionUserId);
 	}
@@ -139,9 +139,9 @@ public class MatchStatusController {
 	 */
 	@GetMapping("/signInNotifyConfirm")
 	public @ResponseBody List<Users> signInNotifyConfirm(HttpServletRequest request){	
-//		HttpSession session=request.getSession();
-//		int SessionUserId =(int)session.getAttribute("userid");//抓取userId
-		int sessionUserId =22;
+		HttpSession session=request.getSession();
+		int sessionUserId =(int)session.getAttribute("userid");//抓取userId
+//		int sessionUserId =22;
 		// 阻擋 倒回登入	
 		return matchStatusService.getlikeNotify(sessionUserId);
 	}
@@ -157,10 +157,10 @@ public class MatchStatusController {
 	  public void updateMatchStatus(
 			  @RequestBody MatchStatus matchStatus,HttpServletRequest request) {
 		
-//		HttpSession session=request.getSession();
-//	    int sessionUserId =(int)session.getAttribute("userId");//抓取userId
+		HttpSession session=request.getSession();
+	    int sessionUserId =(int)session.getAttribute("userId");//抓取userId
 	   
-		Integer sessionUserId=22;
+//		Integer sessionUserId=22;
 		matchStatus.setUserB(sessionUserId);
 		matchStatusService.saveReplyStatus(matchStatus);
 		   
