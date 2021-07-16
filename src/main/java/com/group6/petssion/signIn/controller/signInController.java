@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.group6.petssion.bean.Users;
@@ -76,6 +75,11 @@ public class signInController {
 	public String password(account_password aAndP) {
 		signInService.updatePassword(aAndP);
 		return "redirect:/";
+	}
+	@GetMapping("/noManager")
+	public String naManager(Model model) {
+		model.addAttribute("message", "無訪問權限 3秒後返回首頁");
+		return "checkResult";
 	}
 	
 	@GetMapping("/logout")

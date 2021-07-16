@@ -23,19 +23,24 @@ public class RegisteredService {
 	@Autowired
 	private Mail mail;
 	
-	public void regisered(Users users,account_password aAndP) {
+	public int regisered(Users users,account_password aAndP) {
+		if(aAndPR.findByAccount(aAndP.getAccount())!=null) {
+			return 1;
+		}else if(ur.findByEmail(users.getEmail())!=null) {
+			return 2;
+		}
+		
 		users.setManager(0);
 		users.setRegdate(LocalDate.now());
 		users.setBlockade(0);
 		users.setCheckemail(0);
 		users.setGarbled(mail.garbled());
-		
 		ur.save(users);
 		users=ur.findByNameAndEmail(users.getName(),users.getEmail());
 		aAndP.setUsers(users);
 		aAndPR.save(aAndP);
 		mail.checkMail(users.getEmail(),users.getGarbled());
-		
+		return 0;
 	}
 	
 	public int selectAct(account_password aAndP) {

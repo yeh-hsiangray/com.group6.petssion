@@ -17,7 +17,7 @@ ul {
 	<div class="container main-menu">
 		<div class="row align-items-center justify-content-between d-flex">
 			<div id="logo">
-				<a href="#"><img src="<c:url value='/Sources/img/logo.png' />"
+				<a href="<c:url value='/frontend/main/index' />"><img src="<c:url value='/Sources/img/logo.png' />"
 					style="height: 50px;"></a>
 			</div>
 			<nav id="nav-menu-container" style="font-size:20px;">
@@ -35,9 +35,9 @@ ul {
 						</ul></li>
 					
 					<!-- 	登入前隱藏會員中心和興趣交友，登入後顯示	 -->
-					<c:if test="${users.id!=userId}">
+					<c:if test="${userId!=null}">
 					<!-- membership -->
-					<li class="menu-has-children"><a href="<c:url value='#'/>"
+					<li class="menu-has-children"><a href="#"
 						class="fsh">會員中心</a>
 						<ul>
 							<li><a href="<c:url value='/user/memberCenter' />" class="fsh">會員資料</a></li>
@@ -50,7 +50,7 @@ ul {
 <!-- 					<li><a href="#" class="fsh">地圖交友</a></li>
  -->
 					<!-- make friends via interests -->
-					<li class="menu-has-children"><a href="<c:url value='#'/>"
+					<li class="menu-has-children"><a href="#"
 						class="fsh">興趣交友</a>
 						<ul>
 							<li><a href="<c:url value='/match/Notify' />" class="fsh">交友通知</a></li>
@@ -73,7 +73,7 @@ ul {
 						</ul></li>
 
 					<!--  sign up(登入後隱藏註冊、登入，顯示登出選項 -->
-						<c:if test="${users.id==userId}">
+						<c:if test="${userId==null}">
 					<li><a href="<c:url value='/registered' />" class="fsh"><i
 							class="fas fa-user-plus"></i> 註冊</a></li>
 
@@ -83,7 +83,7 @@ ul {
 							</c:if>
 							
 					<!--  logout	-->
-					<c:if test="${users.id!=userId}">
+					<c:if test="${userId!=null}">
 							<li><a href="<c:url value='/signIn/logout' />" class="fsh"><i
 							class="fas fa-user-plus"></i> 登出</a></li>
 							</c:if>
