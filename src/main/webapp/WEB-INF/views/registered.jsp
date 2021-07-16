@@ -29,28 +29,31 @@
             let checked = [false, false, false, false, false, false]
             act.onkeyup = actCheck;
             function actCheck() {
-                t1 = /^[A-Za-z0-9]{6,8}$/;
+            	document.getElementById("sub").disabled = true;
+                t1 = /^[A-Za-z0-9]{6,12}$/;
                 let actv = act.value;
                 let actMsg = document.getElementById("actMsg");
                 if (t1.test(actv)) {
                     actMsg.innerHTML = "正確"
                     checked[0] = true
                 } else {
-                    actMsg.innerHTML = "請輸入6~8位英文及數字"
+                    actMsg.innerHTML = "請輸入6~12位英文及數字"
                     checked[0] = false
                 }
+                check();
                 if(checked[0]){
                 	checked[0] = false
+                	check();
                 	let data={account:act.value}
                     fetch("registered/act",{method:"POST",body:JSON.stringify(data),headers:{"Content-Type":"application/json"}}).
                     then(res => res.json()).then
                     (function(data){
                 		 if(data==1){
                 			actMsg.innerHTML = "此帳號已被使用"
-				             check();
+                				check();
                 		 }else{
                 			 checked[0] = true
-				             check();
+                			 check();
                 		 }
                     })
                 }
@@ -58,14 +61,16 @@
             let psd = document.getElementById("psd");
             psd.onkeyup = psdCheck;
             function psdCheck() {
-                t1 = /^[A-Za-z0-9]{6,8}$/;
+            	document.getElementById("sub").disabled = true;
+            	psdcCheck();
+                t1 = /^[A-Za-z0-9]{6,12}$/;
                 let psdv = psd.value;
                 let psdMsg = document.getElementById("psdMsg");
                 if (t1.test(psdv)) {
                     psdMsg.innerHTML = "正確"
                     checked[1] = true
                 } else {
-                    psdMsg.innerHTML = "請輸入6~8位英文及數字"
+                    psdMsg.innerHTML = "請輸入6~12位英文及數字"
                     checked[1] = false
                 }
                 check();
@@ -74,14 +79,17 @@
             let psdc = document.getElementById("psdc");
             psdc.onkeyup = psdcCheck;
             function psdcCheck() {
+            	document.getElementById("sub").disabled = true;
                 let psdv = psd.value;
                 let psdcv = psdc.value;
                 let psdcMsg = document.getElementById("psdcMsg");
                 if (psdv == psdcv) {
-                    psdcMsg.innerHTML = "正確"
+                	if(psdv!=""){
+                    psdcMsg.innerHTML = "正確"}
                     checked[2] = true
                 } else {
-                    psdcMsg.innerHTML = "請輸入正確密碼"
+                	if(psdv!=""){
+                    psdcMsg.innerHTML = "請輸入正確密碼"}
                     checked[2] = false
                 }
                 check();
@@ -89,6 +97,7 @@
             let name = document.getElementById("name");
             name.onkeyup = nameCheck;
             function nameCheck() {
+            	document.getElementById("sub").disabled = true;
                 let namev = name.value;
                 t1 = /^[A-Za-z0-9\u4e00-\u9fa5]{2,10}$/;
                 let nameMsg = document.getElementById("nameMsg");
@@ -104,6 +113,7 @@
             let email = document.getElementById("email");
             email.onkeyup = emailCheck;
             function emailCheck() {
+            	document.getElementById("sub").disabled = true;
                 let emailv = email.value;
                 emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
                 let psdcMsg = document.getElementById("psdcMsg");
@@ -132,6 +142,7 @@
             let mobilephone = document.getElementById("mobilephone");
             mobilephone.onkeyup = mobilephoneCheck;
             function mobilephoneCheck() {
+            	document.getElementById("sub").disabled = true;
                 let mobilephonev = mobilephone.value;
                 phoneRule = /^09[0-9]{8}$/;
                 let mobilephoneMsg = document.getElementById("mobilephoneMsg");

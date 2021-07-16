@@ -25,8 +25,12 @@ public class Registered {
 	}
 
 	@PostMapping
-	public String postRegistered(account_password aAndP, Users user) {
-		rs.regisered(user, aAndP);
+	public String postRegistered(account_password aAndP, Users user,Model model) {
+		int status= rs.regisered(user, aAndP);
+		if(status!=0) {
+			model.addAttribute("message", status==1?"帳號已被使用":"信箱已被使用 ");
+			return "checkResult";
+		}
 		return "redirect:/";
 	}
 
@@ -45,11 +49,7 @@ public class Registered {
 	@GetMapping("/check")
 	public String emailCheck(Users user, Model model) {
 		int status = rs.checkEmail(user);
-		if(status==0) {
-			model.addAttribute("message", "驗證未成功請聯絡管理人員 10秒後返回首頁");
-		}else {
-			model.addAttribute("message", "驗證成功10秒後回到首頁");			
-		}
+			model.addAttribute("message", status==0?"驗證未成功請聯絡管理人員 3秒後返回首頁":"驗證成功3秒後回到首頁");
 		return "checkResult";
 	}
 

@@ -87,7 +87,8 @@
             let psd = document.getElementById("psd");
             psd.onkeyup = psdCheck;
             function psdCheck() {
-                t1 = /^[A-Za-z0-9]{6,8}$/;
+            	psdcCheck()
+                t1 = /^[A-Za-z0-9]{6,12}$/;
                 let psdv = psd.value;
                 let psdMsg = document.getElementById("psdMsg");
                 if (t1.test(psdv)) {
@@ -95,7 +96,7 @@
                     console.log("hi")
                     checked[0] = true
                 } else {
-                    psdMsg.innerHTML = "請輸入6~8位英文及數字"
+                    psdMsg.innerHTML = "請輸入6~12位英文及數字"
                     checked[0] = false
                 }
                 check();

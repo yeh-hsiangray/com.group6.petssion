@@ -13,6 +13,6 @@ public interface AAndPRepository extends JpaRepository<account_password, Integer
 	account_password findByAccount(String account);
 	
 	Page<account_password> findAll(Pageable pageable);
-
+	
 	
 }
