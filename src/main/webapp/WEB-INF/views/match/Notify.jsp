@@ -11,12 +11,16 @@
 <style>
 .head {
 	border: solid red 5px;
+	border-radius:20px; 
 }
 
 .banner-area {
 	background: url("<c:url value='/Sources/img/banner-bg-1.jpg' />") right
 		!important;
 	background-size: cover !important;
+}
+body{
+background-color: yellow;
 }
 </style>
 <link
@@ -81,12 +85,7 @@
 							<div>
 								<div id="showuser" class="showuser"></div>
 							</div>
-							<div>
-								<div id="OneSideLove"></div>
-							</div>
-							<div>
-								<div id="EachLike"></div>
-							</div>
+							
 							<div id="ou"></div>
 						</div>
 
@@ -133,7 +132,7 @@ function selectFun() {
 // 				console.log(xhr.responseText);	
                 
 				displayUsers(xhr.responseText);	
-				ou.innerHTML="現在="+new Date();
+				
 				}							
 		}
 		xhr.open("GET", "<c:url value='/match/signInNotifyConfirm'/>", true);
@@ -144,7 +143,7 @@ function selectFun() {
 		xhr1.onreadystatechange = function() {
 			if (xhr1.readyState == 4 && xhr1.status == 200) {
 // 					
-                ou.innerHTML="現在="+new Date();
+               
 //                 displayUsers(xhr1.responseText);	
                 EachLike(xhr1.responseText);	
 				}							
@@ -173,8 +172,7 @@ function selectFun() {
     
 // 		window.setInterval(ajaxRefresh,2000);
  
-// 		window.setInterval(ajaxRefresh,2000);
- 
+
 	
 		function loveSubmit(id){			
 // 			console.log(id);
@@ -196,10 +194,7 @@ function selectFun() {
 		
 		
 		
-		function hateSubmit(id){
-//              var e = document.getElementById(id);
-//              console.log(e);
-// 			console.log(id);		
+		function hateSubmit(id){	
              var matchstatus = {
 					userA: id,
 					status:'4' //不喜歡狀態
@@ -247,8 +242,8 @@ function selectFun() {
 					         content+= "<img class='card-img' width='180' height='210' src='data:image/jpeg;base64," + dataJson[i].base64UserImg +"' class='card-img' alt='...'>";					            	  
 					              }				              
 			     content+= "</div>"+
-					               "<div class='col-md-8 '>"+
-					      	"<div class='card-body'>"+
+					               "<div class='col-md-4 '>"+
+// 					      	"<div class='card-body'>"+
 					      	"<p>會員姓名:"+ dataJson[i].name + "</p>"+
 							"<p class='card-text'>"+
 							   
@@ -256,16 +251,13 @@ function selectFun() {
 							   "<p>會員星座:" + dataJson[i].constellation + "</p>"+
 							   "<p>自我介紹:" + dataJson[i].selfintroduction + "</p>"+
 							"</p>"+
-// 							"<p class='card-text'>"+
-// 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
-// 							"</p>"+
 							"<div class='card-body bottom'>"+
 								"<button type='button' id='love_Btn' class='btn btn-success agree remove' onClick='loveSubmit("+dataJson[i].id+")'>加入</button>"+
 								"<button type='button' id='hate_Btn' class='btn btn-danger refuse remove' onClick='hateSubmit("+dataJson[i].id+")'>拒絕</button>"+
 								<!-- 								<a href="#" class="card-link">Card link</a>  -->
 								<!-- 								<a href="#"class="card-link">Another link</a> -->
 							"</div>"+
-						"</div>"+
+// 						"</div>"+
 					"</div>"+
 				"</div>"+
 			"</div>"+
@@ -279,7 +271,7 @@ function selectFun() {
 					content+= "<img src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg +"' class='card-img' alt='...'>";						
 					}
 	 	 content+="</div>"+
-					"<div class='col-md-8'>"+
+					"<div class='col-md-4'>"+
 						"<div class='card-body'>"+
 							"<p>寵物姓名:" + dataJson[i].pet[0].name + "</p>"+
 							"<p class='card-text'>"+
@@ -323,8 +315,8 @@ function selectFun() {
 					         content+= "<img class='card-img' width='180' height='210' src='data:image/jpeg;base64," + dataJson[i].base64UserImg +"' class='card-img' alt='...'>";					            	  
 					              }				              
 			     content+= "</div>"+
-					               "<div class='col-md-8 '>"+
-					      	"<div class='card-body'>"+
+					               "<div class='col-md-4 '>"+
+// 					      	"<div class='card-body'>"+
 					      	"<p>會員姓名:"+ dataJson[i].name + "</p>"+
 							"<p class='card-text'>"+
 							   
@@ -333,11 +325,9 @@ function selectFun() {
 							   "<p>自我介紹:" + dataJson[i].selfintroduction + "</p>"+
 							"</p>"+
 							"<div class='card-body bottom'>"+
-								"<button  id='love_Btn' class='remove btn btn-success agree' >確定</button>"+								
-								<!-- 								<a href="#" class="card-link">Card link</a>  -->
-								<!-- 								<a href="#"class="card-link">Another link</a> -->
+								"<button  id='love_Btn' class='remove btn btn-success agree' >確定</button>"+							
 							"</div>"+
-						"</div>"+
+// 						"</div>"+
 					"</div>"+
 				"</div>"+
 			"</div>"+
@@ -351,7 +341,7 @@ function selectFun() {
 					content+= "<img src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg +"' class='card-img' alt='...'>";						
 					}
 	 	 content+="</div>"+
-					"<div class='col-md-8'>"+
+					"<div class='col-md-4'>"+
 						"<div class='card-body'>"+
 							"<p>寵物姓名:" + dataJson[i].pet[0].name + "</p>"+
 							"<p class='card-text'>"+
@@ -390,13 +380,13 @@ function selectFun() {
 					              
 					              if(dataJson[i].base64UserImg==null){
 					            	  dataJson = JSON.parse(responseText);
-					         content+= "<img class='card-img' src='../img/images.png' width='180' height='210' class='card-img' alt='...'>";
+					         content+= "<img  width='280' height='210' class='card-img' src='../img/images.png' class='card-img' alt='...'>";
 					              }else{
-					         content+= "<img class='card-img' width='180' height='210' src='data:image/jpeg;base64," + dataJson[i].base64UserImg +"' class='card-img' alt='...'>";					            	  
+					         content+= "<img class='card-img' width='280' height='210' src='data:image/jpeg;base64," + dataJson[i].base64UserImg +"' class='card-img' alt='...'>";					            	  
 					              }				              
 			     content+= "</div>"+
-					               "<div class='col-md-8 '>"+
-					      	"<div class='card-body'>"+
+					               "<div class='col-md-4' >"+
+// 					      	"<div class='card-body'>"+
 					      	"<p>會員姓名:"+ dataJson[i].name + "</p>"+
 							"<p class='card-text'>"+
 							   
@@ -404,16 +394,10 @@ function selectFun() {
 							   "<p>會員星座:" + dataJson[i].constellation + "</p>"+
 							   "<p>自我介紹:" + dataJson[i].selfintroduction + "</p>"+
 							"</p>"+
-// 							"<p class='card-text'>"+
-// 								 "<small class='text-muted'>Last updated 3 mins ago</small>"+
-// 							"</p>"+
 							"<div class='card-body bottom'>"+
 								"<button type='button' id='love_Btn' class='btn btn-success agree' onClick='changePage("+dataJson[i].id+")'>觀看資料</button>"+
-
-								<!-- 								<a href="#" class="card-link">Card link</a>  -->
-								<!-- 								<a href="#"class="card-link">Another link</a> -->
 							"</div>"+
-						"</div>"+
+// 						"</div>"+
 					"</div>"+
 				"</div>"+
 			"</div>"+
@@ -422,24 +406,20 @@ function selectFun() {
 					"<div class='col-md-4'>";
 					 if(dataJson[i].pet[0].base64PetImg==null){
 		            	  dataJson = JSON.parse(responseText);
-		            content+= "<img src='../img/animal.png' width='180' height='210' class='card-img' alt='...'>";
+		            content+= "<img src='../img/animal.png' width='250' height='210' class='card-img' alt='...'>";
 					 }else{
-					content+= "<img src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg +"' class='card-img' alt='...'>";						
+					content+= "<img width='250' height='210' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg +"' class='card-img' alt='...'>";						
 					}
 	 	 content+="</div>"+
-					"<div class='col-md-8'>"+
+					"<div class='col-md-4'>"+
 						"<div class='card-body'>"+
 							"<p>寵物姓名:" + dataJson[i].pet[0].name + "</p>"+
-							"<p class='card-text'>"+
-							
+							"<p class='card-text'>"+							
 							"<p>寵物種類:" + dataJson[i].pet[0].type.name+ "</p>"+
 							"<p>寵物性別:" + dataJson[i].pet[0].gender + "</p>"+
 							"<p>寵物個性:" + dataJson[i].pet[0].personality.name +  "</p>"+
 							"<p>寵物個性:" + dataJson[i].pet[0].personality.name +  "</p>"+
 						    "</p>"+
-// 							"<p class='card-text'>"+
-// 								"<small class='text-muted'>Last updated 3 mins ago</small>"+
-// 							"</p>"+
 						"</div>"+
 					"</div>"+
 				"</div>"+
