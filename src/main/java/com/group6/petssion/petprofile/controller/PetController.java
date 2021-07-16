@@ -79,13 +79,17 @@ public class PetController {
 	@GetMapping("/showUserPets")
 	public String list(Model model, HttpServletRequest request) {
 
-		HttpSession session=request.getSession();
-		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		HttpSession session = request.getSession();
+		int SessionUserId = (int) session.getAttribute("userId");// 抓取userId
 		System.out.println(SessionUserId);
-		
+
 		List<Pet> pets = petService.findAllPetByUserId(SessionUserId);
+//		使用者未輸入任何寵物時跳轉輸入頁
+		if (pets.isEmpty()) {
+			return "redirect:/pet/pet_form";
+		}
+//		將圖片放入map讓前端以key=id區分
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-//		放入map讓前端以key->id區分
 		for (Pet pet : pets) {
 			Integer petId = pet.getId();
 			List<Integer> petImgIdList = petImgService.findPetImgIdByPetId(petId);
@@ -100,16 +104,18 @@ public class PetController {
 
 	@GetMapping(value = "/pet_form")
 	public String showEmptyForm(Model model) {
-		
+
 		Pet pet = new Pet();
 		model.addAttribute("pet", pet);
 
 		return "pet/InsertPet";
 	}
 
+	
 	@PostMapping(value = "/pet_form")
 	public String add(@ModelAttribute("pet") @Valid PetDto petDto, BindingResult result, Model model,
 			HttpServletRequest request) {
+//---------------------------驗證內容-------------------------------
 		if (petDto.getType().getId() == -1) {
 			result.rejectValue("type", "", "必須挑選品種欄的選項");
 		}
@@ -140,20 +146,20 @@ public class PetController {
 			return "pet/InsertPet";
 		}
 
-		HttpSession session=request.getSession();
-		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+		HttpSession session = request.getSession();
+		int SessionUserId = (int) session.getAttribute("userId");// 抓取userId
 		System.out.println(SessionUserId);
-
+//		將驗證內容複製至bean
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDto, pet);
-
-		List<Users> list= userService.findUserByUserId(SessionUserId);
+//--------------------------儲存外鍵---------------------------------------------
+		List<Users> list = userService.findUserByUserId(SessionUserId);
 		System.out.println(list);
-		for(Users user:list) {
+		for (Users user : list) {
 			pet.setUser(user);
 			pet.setUserId(user.getId());
 		}
-//		---------------------圖片處理--------------------------
+//----------------------------圖片處理-----------------------------------------
 		List<MultipartFile> pictures = pet.getImg();
 
 		if (pictures != null && pictures.size() > 0) {
@@ -173,7 +179,7 @@ public class PetController {
 						List<PetImg> petImgSet = new ArrayList<PetImg>();
 						petImgSet.add(petImg);
 						pet.setPetImg(petImgSet);
-						
+
 						try {
 							petService.savePet(pet);
 							petImgService.savePetImg(petImg);
@@ -189,20 +195,22 @@ public class PetController {
 			}
 		}
 //		-------------------------------------------------
-
 		return "redirect:/pet/showUserPets";
 	}
 
+	
 	@GetMapping(value = "/update/{id}")
-	public String showDataForm(@PathVariable("id") Integer id, Model model,HttpServletRequest request) throws MyException {
-		HttpSession session=request.getSession();
-		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
+	public String showDataForm(@PathVariable("id") Integer id, Model model, HttpServletRequest request)
+			throws MyException {
+		HttpSession session = request.getSession();
+		int SessionUserId = (int) session.getAttribute("userId");// 抓取userId
 		System.out.println(SessionUserId);
 
 //		放入map讓前端以key->id區分
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pet = petService.get(id);
-		if(pet.getUser().getId()!=SessionUserId) {
+//      如果使用者想訪問別的寵物id將被禁止
+		if (pet.getUser().getId() != SessionUserId) {
 			throw new MyException("無訪問權限");
 		}
 		Integer petId = pet.getId();
@@ -219,9 +227,11 @@ public class PetController {
 		return "pet/UpdatePet";
 	}
 
+	
 	@PostMapping("/update/{id}")
 	public String modify(@ModelAttribute("pet") @Valid PetDto petDto, BindingResult result, Model model,
-			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId,HttpServletRequest request) {
+			@PathVariable Integer id, @RequestParam(value = "delImgId", required = false) List<String> delId,
+			HttpServletRequest request) {
 //--------------------驗證有錯時返回頁面圖片------------------------------------------------	
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		Pet pets = petService.get(id);
@@ -236,7 +246,7 @@ public class PetController {
 
 		model.addAttribute("petImgIdMap", map);
 //------------------------驗證內容--------------------------------------------	
-		
+
 		if (petDto.getType().getId() == -1) {
 			result.rejectValue("type", "", "必須挑選品種欄的選項");
 		}
@@ -263,31 +273,19 @@ public class PetController {
 			for (ObjectError error : list) {
 				System.out.println("有錯誤：" + error);
 			}
-			
+
 			return "pet/UpdatePet";
 		}
-
-		HttpSession session=request.getSession();
-		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
-		System.out.println(SessionUserId);
-
+//		將驗證內容複製至bean
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDto, pet);
-
-//		if (petService.isUsersExist(pet)) {
-//			List<Pet> list=petService.getAllPetNameByUserId(SessionUserId);
-//			for(Pet petName:list) {
-//				String name=String.valueOf(petName);
-//				if(name==pet.getName()) {
-//					result.rejectValue("name", "", "名字重複");
-//					return "pet/insertPet";
-//				}
-//			}
-//		}
 //-----------------------儲存外鍵----------------------------------------------
-		List<Users> list= userService.findUserByUserId(SessionUserId);
+		HttpSession session = request.getSession();
+		int SessionUserId = (int) session.getAttribute("userId");// 抓取userId
+		System.out.println(SessionUserId);
+		List<Users> list = userService.findUserByUserId(SessionUserId);
 		System.out.println(list);
-		for(Users user:list) {
+		for (Users user : list) {
 			pet.setUser(user);
 			pet.setUserId(user.getId());
 		}
@@ -302,11 +300,11 @@ public class PetController {
 						petImgService.delete(i);
 						System.out.println("更新原有圖del#" + i);
 					}
-				}else {
+				} else {
 					System.out.println("無更新原有圖片");
 				}
 			}
-		}else if(delId == null) {
+		} else if (delId == null) {
 			System.out.println("無圖片");
 		}
 //-----------------------先儲存內容防止無更新圖片時 內容無儲存-----------------------------------------
@@ -348,18 +346,20 @@ public class PetController {
 //------------------------------------------------------------------------
 		return "redirect:/pet/showUserPets";
 	}
+
 	
 	@RequestMapping("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id) {
 //		先將petImg刪除 因pet有外鍵關聯
-		List<Integer>list=petImgService.findPetImgIdByPetId(id);
-		for(Integer petImgId:list) {
+		List<Integer> list = petImgService.findPetImgIdByPetId(id);
+		for (Integer petImgId : list) {
 			petImgService.delete(petImgId);
 		}
 		petService.deletePet(id);
 		return "redirect:/pet/showUserPets";
 	}
 
+	
 	@ModelAttribute
 	public void commonData(Model model) {
 		List<Type> typeList = typeService.getAllType();
@@ -376,6 +376,7 @@ public class PetController {
 		model.addAttribute("genderMap", genderMap);
 	}
 
+	
 	@GetMapping("/picture/{id}")
 	public ResponseEntity<byte[]> getPicture(@PathVariable("id") Integer id) {
 		byte[] body = null;
@@ -405,8 +406,10 @@ public class PetController {
 		return re;
 	}
 
+	
 	@GetMapping("/delPicture/{id}-{petId}")
 	public String delPicture(@PathVariable("id") Integer id, @PathVariable("petId") Integer petId) {
+//		更新頁點選X時刪除原有圖片
 		petImgService.delete(id);
 
 		Pet pet = petService.get(petId);
@@ -416,6 +419,7 @@ public class PetController {
 		return "redirect:/pet/update/" + pId;
 	}
 
+	
 	public byte[] blobToByteArray(Blob blob) {
 		byte[] result = null;
 		try (InputStream is = blob.getBinaryStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
@@ -431,15 +435,16 @@ public class PetController {
 		return result;
 	}
 
-	@ExceptionHandler({Exception.class})
+	
+	@ExceptionHandler({ Exception.class })
 	public ModelAndView handleException(HttpServletRequest request, Exception e) {
 		logger.error("Request URL: {}, Exception : {}", request.getRequestURL(), e.getMessage());
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("url", request.getRequestURL());
 		mav.addObject("exception", e);
 		mav.setViewName("error/error");
-		
+
 		return mav;
 	}
 }
