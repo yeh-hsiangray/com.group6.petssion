@@ -24,9 +24,9 @@
 <meta charset="UTF-8">
 <!-- Site Title -->
 <title>會員中心</title>
-
 <!--imports-->
 <%@include file="commons/frontend_imports.jsp"%>
+
 <style type="text/css">
 span.error {
 	color: red;
@@ -368,7 +368,7 @@ input[type="file"] {
 	transform: translate(-50%, -50%);
 }
 </style>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <script type="text/javascript">
 	$(function() {
 		var $li = $('ul.tab-title li');
@@ -398,6 +398,7 @@ input[type="file"] {
 	})
 
 </script>
+
 </head>
 <body>
 
