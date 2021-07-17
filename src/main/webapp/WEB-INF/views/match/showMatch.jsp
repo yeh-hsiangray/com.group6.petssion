@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="../images/favicon1.ico">
 <title>配對選擇</title>
 <style>
 .banner-area {
@@ -14,15 +18,22 @@
 		!important;
 	background-size: cover !important;
 }
-.selecthobby{
- font-size: 100px;
- color:red;
- font-weight:bold;
+
+.selecthobby {
+	font-size: 100px;
+	color: red;
+	font-weight: bold;
 }
-.cont{
-font-style:italic;
-color:blue;
+
+.cont {
+	font-style: italic;
+	color: blue;
 }
+.alertNotify {
+	 align:right;
+	 width:100px;
+	 weight:100px;
+}	
 </style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -30,11 +41,13 @@ color:blue;
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 <link rel=stylesheet href="../css/card.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <%@include file="../commons/frontend_imports.jsp"%>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&family=ZCOOL+KuaiLe&display=swap')
 	;
+
 </style>
 </head>
 <body>
@@ -61,27 +74,27 @@ color:blue;
 	<!-- content-->
 	<div class="packhole" style="height: 80vh; margin-top: -100px;">
 		<!-- 		<div class="container" style="color: powderblue;"> -->
-		<div class="row">
-			
-<!-- 			<div class="frameTop"> -->
-<!-- 			<div class="alert alert-warning alert-dismissible fade show" -->
-<!-- 				role="alert" data-dismiss="alert"> -->
-<!-- 				<strong>Holy guacamole!</strong> You should check in on some of -->
-<!-- 				those fields below. -->
-<!-- 				<button type="button" class="close" data-dismiss="alert" -->
-<!-- 					aria-label="Close"> -->
-<!-- 					<span aria-hidden="true">&times;</span> -->
-<!-- 				</button> -->
-<!-- 			</div> -->
-				<div class="selecthobby" role="group" aria-label="...">
-					請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
-				</div>
-				<div id="alertBox"></div>
-			</div>
-			<div id='showuser'></div>
-		</div>
+		<div class="row ">
 
-	
+			<!-- 			<div class="frameTop"> -->
+			<!-- 			<div class="alert alert-warning alert-dismissible fade show" -->
+			<!-- 				role="alert" data-dismiss="alert"> -->
+			<!-- 				<strong>Holy guacamole!</strong> You should check in on some of -->
+			<!-- 				those fields below. -->
+			<!-- 				<button type="button" class="close" data-dismiss="alert" -->
+			<!-- 					aria-label="Close"> -->
+			<!-- 					<span aria-hidden="true">&times;</span> -->
+			<!-- 				</button> -->
+			<!-- 			</div> -->
+			<div class="selecthobby" role="group" aria-label="...">
+				請挑選搜尋之興趣: <select id='hobby' class="pretty-select"></select>
+			</div>
+			<div id="alertBox" class="alertNotify"></div>
+		</div>
+		<div id='showuser'></div>
+	</div>
+
+
 
 	<!-- 	</div> -->
 	<!-- content -->
@@ -154,45 +167,46 @@ color:blue;
 			var love=document.getElementById('love_Btn').value = '1'; //喜歡狀態
 			xhr3.onreadystatechange = function() {
 				if (xhr3.readyState == 4 && xhr3.status == 200) {
-					$(".alert").alert();
+					alertLoveNotify();
+					
 					if(i>=dataJson.length){ 
 		            	lastData() ;
 		            	return 
 		            	}
-					$(".alert").alert();
+					
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
-	                "<article class='s"+i+"'><table>"+
-	                "<tr>"+
-	                       "<td>會員姓名:</td>"+
-	                       "<td class='cont'>" + dataJson[i].name + "</td>" +               
-	                       "<td>寵物姓名:</td>"+
-	                       "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
-		                   
-		            "</tr>" +
-		            "<tr>"+
-		                   "<td > 會員性別:</td>"+ 
-		                   "<td class='cont'>" + dataJson[i].gender + "</td>"+
-		                   "<td > 寵物種類:</td>"+ 
-		                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
-		            "</tr>" +
-		            "<tr>"+
-		                   "<td>會員星座:</td>"+
-		                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
-		                   "<td>寵物性別:</td>"+
-		                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
-		            "</tr>"+
-		            "<tr>"+
-		                   "<td>會員自我介紹:</td>"+
-		                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
-		                   "<td>寵物個性:</td>"+
-		                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
-		            "</tr>"+
-		            "<tr>"+
-		                    "<td>會員照片:</td>"+
-	                        "<td><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
-		                    "<td >寵物照片:</td>"+
-	                        "<td ><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
-	               "</tr>"+
+					 "<article  class='s"+i+" myfont'><table>"+
+					 "<tr>"+
+                     "<td class='myfont'>會員姓名:</td>"+
+                     "<td class='cont'>" + dataJson[i].name + "</td>" +               
+                     "<td>寵物姓名:</td>"+
+                     "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
+	                   
+	            "</tr>" +
+	            "<tr>"+
+	                   "<td > 會員性別:</td>"+ 
+	                   "<td class='cont'>" + dataJson[i].gender + "</td>"+
+	                   "<td > 寵物種類:</td>"+ 
+	                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
+	            "</tr>" +
+	            "<tr>"+
+	                   "<td>會員星座:</td>"+
+	                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
+	                   "<td>寵物性別:</td>"+
+	                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
+	            "</tr>"+
+	            "<tr>"+
+	                   "<td>自我介紹:</td>"+
+	                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
+	                   "<td>寵物個性:</td>"+
+	                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
+	            "</tr>"+
+	            "<tr>"+
+	                    "<td>會員照片:</td>"+
+                      "<td><img class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+	                    "<td >寵物照片:</td>"+
+                      "<td ><img class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
+             "</tr>"+
 	                "<tr>"+				                 				                  
 		            "<td colspan='4' style='text-align:center;'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
@@ -218,42 +232,44 @@ color:blue;
 			var hate=document.getElementById('hate_Btn').value = '2'; //不喜歡狀態					
 			xhr4.onreadystatechange = function() {
 				if (xhr4.readyState == 4 && xhr4.status == 200) {
+					alertHateNotify();
 	            if(i>=dataJson.length){ 
 	            	lastData();
 	            	return 
 	            	}
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
-	                "<article class='s"+i+"'><table>"+
-	                "<tr>"+
-	                       "<td>會員姓名:</td>"+
-	                       "<td class='cont'>" + dataJson[i].name + "</td>" +  
-	                       "<td>寵物姓名:</td>"+
-	                       "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +  	                       
-		            "</tr>" +
-		            "<tr>"+
-		                   "<td >會員性別:</td>"+ 
-		                   "<td class='cont' >" + dataJson[i].gender + "</td>"+
-		                   "<td >寵物類型:</td>"+ 
-		                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
-		            "</tr>" +
-		            "<tr>"+
-		                   "<td>會員星座:</td>"+
-		                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
-		                   "<td>寵物性別:</td>"+
-		                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
-		            "</tr>"+
-		            "<tr>"+
-		                   "<td>會員自我介紹:</td>"+
-		                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
-		                   "<td>寵物個性:</td>"+
-		                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
-		            "</tr>"+
-		            "<tr>"+
-		                    "<td >會員照片:</td>"+
-	                        "<td ><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
-		                    "<td >寵物照片:</td>"+
-	                        "<td ><img  class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
-	                "</tr>"+
+					 "<article  class='s"+i+" myfont'><table>"+
+					 "<tr>"+
+                     "<td class='myfont'>會員姓名:</td>"+
+                     "<td class='cont'>" + dataJson[i].name + "</td>" +               
+                     "<td>寵物姓名:</td>"+
+                     "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
+	                   
+	            "</tr>" +
+	            "<tr>"+
+	                   "<td > 會員性別:</td>"+ 
+	                   "<td class='cont'>" + dataJson[i].gender + "</td>"+
+	                   "<td > 寵物種類:</td>"+ 
+	                   "<td class='cont'>" + dataJson[i].pet[0].type.name + "</td>"+
+	            "</tr>" +
+	            "<tr>"+
+	                   "<td>會員星座:</td>"+
+	                   "<td class='cont'>" + dataJson[i].constellation + "</td>"+
+	                   "<td>寵物性別:</td>"+
+	                   "<td class='cont'>" + dataJson[i].pet[0].gender + "</td>"+
+	            "</tr>"+
+	            "<tr>"+
+	                   "<td>自我介紹:</td>"+
+	                   "<td class='cont'>" + dataJson[i].selfintroduction + "</td>"+
+	                   "<td>寵物個性:</td>"+
+	                   "<td class='cont'>" + dataJson[i].pet[0].personality.name + "</td>"+
+	            "</tr>"+
+	            "<tr>"+
+	                    "<td>會員照片:</td>"+
+                      "<td><img class='mugshot' src='data:image/jpeg;base64," + dataJson[i].base64UserImg + "'></td>"+
+	                    "<td >寵物照片:</td>"+
+                      "<td ><img class='mugshot' src='data:image/jpeg;base64," + dataJson[i].pet[0].base64PetImg + "'></td>"+
+             "</tr>"+
 		           "<tr>";		
 		        	content +="<td colspan='4' style='text-align:center;'><button  type='button'  name='love_Btn'  id='love_Btn' onClick='loveSubmit("+dataJson[i].id+")'>"+
 		                    "<img  src='../img/heart.png'></button>"+
@@ -276,7 +292,29 @@ color:blue;
 									
 		}
 		
+		
+		
+		function alertLoveNotify(){
 			
+			content="<div class='alert alert-primary alert-dismissible fade show ' role='alert' >"+
+		    "成功!加入好友邀請<br>"+		   
+		    "<button class='close' data-dismiss='alert'>&times;</button>"+
+		  "</div>";
+			alertBox.innerHTML = content;
+			
+		}	
+		
+	    
+		
+      function alertHateNotify(){
+			
+			content="<div class='alert alert-danger alert-dismissible fade show ' role='alert' >"+
+		    "取消好友邀請機會<br>"+		   
+		    "<button class='close' data-dismiss='alert'>&times;</button>"+
+		  "</div>";
+			alertBox.innerHTML = content;
+		}	
+		
 		
 	function lastData(){
 		 if(i>=dataJson.length){
@@ -351,10 +389,10 @@ color:blue;
 	</script>
 	<!--footer -->
 	<%@include file="../commons/frontend_footer.jsp"%>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

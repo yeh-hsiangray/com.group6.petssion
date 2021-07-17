@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="../images/favicon1.ico">
 <title>交友通知</title>
 <style>
 .head {
@@ -34,9 +38,9 @@ background-color: yellow;
 <link rel="stylesheet"
 	href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css">
 <link rel=stylesheet href="../css/notify.css">
-<script src="../js/jquery-2.2.3.min.js"></script>
 
-<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+
+
 <script src="https://unpkg.com/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <!--imports-->
 <%@include file="../commons/frontend_imports.jsp"%>
@@ -221,7 +225,12 @@ function selectFun() {
 		/*signInNotifyConfirm*/
 		function displayUsers(responseText){
 			 dataJson = JSON.parse(responseText);
-			 
+			 if(dataJson.length==0){
+				 content = "<div class='alertMode'>目前無通知訊息</div>"
+			      	  
+			      	showuser.innerHTML = content;
+				return
+			}
 			 var content= "<div class=' mb-3 box ' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){	
 				
@@ -296,6 +305,12 @@ function selectFun() {
 		/*signInNotifyOneSideLove*/
 		function OneSideLove(responseText){
 			dataJson = JSON.parse(responseText);
+			 if(dataJson.length==0){
+				 content = "<div class='alertMode'>目前無通知訊息</div>"
+			      	  
+			      	showuser.innerHTML = content;
+				return
+			}
 			 var content= "<div class=' mb-3 box' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){			 
 			 content+= "<div class='head'>"+
@@ -365,7 +380,12 @@ function selectFun() {
 		/*signInNotifyEachLike*/
 		function EachLike(responseText){
 			 dataJson = JSON.parse(responseText);
-			 
+			 if(dataJson.length==0){
+				 content = "<div class='alertMode'>目前無通知訊息</div>"
+			      	  
+			      	showuser.innerHTML = content;
+				return
+			 }
 			 var content= "<div class='mb-3 box ' style='max-width: 540px;'>";
 			 for(var i=0; i < dataJson.length; i++){
 			 content+= "<div class='head'>"+
@@ -434,9 +454,9 @@ function selectFun() {
 	            	}
 			 showuser.innerHTML = content; 	
 		}
+		
 	</script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script
