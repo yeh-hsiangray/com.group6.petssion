@@ -51,11 +51,16 @@ table {
 	margin-top:200px;
 	font-size:50px;
 }       
+.alertNotify {
+	 align: right;
+	 width:80px;
+	
+}
 
 td {
 /* 	border-collapse:collapse; */
-padding-left:40px;
-	font-size:50px;
+padding-left:20px;
+	font-size:40px;
 	height:100px;
 	width:450px;
 	align:center;
@@ -70,8 +75,8 @@ width:80px;
 }
 
 .mugshot {
-	width:125px;
-    height:150px;
+	width:170px;
+    height:170px;
 }
 
 button {
@@ -106,7 +111,7 @@ button {
 
 }
 .item {
-  font-size: 10px;
+  font-size: 5px;
   text-align: center;
   border: 1px solid #e5e4e9;
 }
