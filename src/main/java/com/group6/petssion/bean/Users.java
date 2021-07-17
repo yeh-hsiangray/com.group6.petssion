@@ -80,7 +80,7 @@ public class Users implements Serializable {
 	
 	@Transient
 	List<MultipartFile> img;
-
+	
 	@Transient
 	String base64UserImg;
 

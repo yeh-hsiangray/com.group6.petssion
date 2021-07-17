@@ -546,14 +546,6 @@ margin-bottom:8px;
 					
 <!-- 					<div class="bar"></div> -->
 				</div>
-				
-				<div class="service-privacy-terms" Align="center">
-					點擊確認即同意Petssion之
-				<a name="memberTerm" class="alink" href="#service">會員條款</a>
-				與
-				<a name="memberTerm" class="alink" href="#privacy">客戶隱私權條款</a>
-				</div>
-				<br>
 				<div class="button-container">
 					<button type="submit">
 						<span>確認</span>

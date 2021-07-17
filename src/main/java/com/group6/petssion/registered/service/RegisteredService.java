@@ -58,14 +58,14 @@ public class RegisteredService {
 		return 1;
 	}
 	
-	public int checkEmail(Users user) {
+	public Users checkEmail(Users user) {
 		Users user2 = ur.findByGarbledAndEmail(user.getGarbled(),user.getEmail());
 		if(user2!=null) {
 			user2.setCheckemail(1);
 			user2.setGarbled("end");
 			ur.save(user2);
-			return 1;
+			return user2;
 		}
-		return 0;
+		return user2;
 	}
 }
