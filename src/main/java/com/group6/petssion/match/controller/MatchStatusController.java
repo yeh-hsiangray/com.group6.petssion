@@ -1,5 +1,6 @@
 package com.group6.petssion.match.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -108,13 +109,13 @@ public class MatchStatusController {
 		
 		int sessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		int sessionUserId =22;
-//		List<Users> oneSideLove= matchStatusService.oneSideLove(SessionUserId);	
-//		List<Users> eachLike= matchStatusService.eachLike(SessionUserId);	
-//		ArrayList<Users> resultList = new ArrayList<Users>();
-//		resultList.addAll(oneSideLove);
-//		resultList.addAll(eachLike);
-//		return resultList;
-		return matchStatusService.eachLike(sessionUserId);
+		List<Users> eachLikeB= matchStatusService.eachLikeB(sessionUserId);	
+		List<Users> eachLike= matchStatusService.eachLike(sessionUserId);	
+		ArrayList<Users> resultList = new ArrayList<Users>();
+		resultList.addAll(eachLikeB);
+		resultList.addAll(eachLike);
+		return resultList;
+		
 	}
 	
 	/**@Get
@@ -139,7 +140,6 @@ public class MatchStatusController {
 		
 		int sessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		int sessionUserId =22;
-		System.out.println(sessionUserId);
 		// 阻擋 倒回登入	
 		return matchStatusService.getlikeNotify(sessionUserId);
 	}

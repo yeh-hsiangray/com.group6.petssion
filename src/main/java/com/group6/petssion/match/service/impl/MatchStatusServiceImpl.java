@@ -199,6 +199,34 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 		}
 		return loveListUserB;
 	}
+	/**
+	 * @使用者B登入時存有"3"為互相喜歡
+	 * 
+	 */
+	
+	@Override
+	public List<Users> eachLikeB(Integer UserBid) {
+		List<MatchStatus> userAStatusList = matchStatusRepository.findByUserB(UserBid);
+		List<Users> loveListUserA = new ArrayList<Users>();
+		for (MatchStatus userStatus : userAStatusList) {
+			if (userStatus.getStatus().equals(3)) {
+				Optional<Users> usersOptional = usersRepository.findById(userStatus.getUserA());
+				loveListUserA.add(usersOptional.get());
+				if (!usersOptional.get().getUsersImg().isEmpty()) {
+					byte[] UserImg = new UsersController().blobToByteArray(usersOptional.get().getUsersImg().get(0).getUsersImage());
+					usersOptional.get().setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+					usersOptional.get().setUsersImg(null);
+				}
+				if (!usersOptional.get().getPet().isEmpty()) {
+					byte[] PetImg = new PetController()
+							.blobToByteArray(usersOptional.get().getPet().get(0).getPetImg().get(0).getPetImage());
+					usersOptional.get().getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+					usersOptional.get().getPet().get(0).setPetImg(null);
+				}
+			}
+		}
+		return loveListUserA;
+	}
 
 	/**
 	 * @使用者A登入時收到使用者B的回覆"4"為使用者單方不喜歡
