@@ -1,5 +1,9 @@
 package com.group6.petssion.registered.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,11 +31,8 @@ public class Registered {
 	@PostMapping
 	public String postRegistered(account_password aAndP, Users user,Model model) {
 		int status= rs.regisered(user, aAndP);
-		if(status!=0) {
-			model.addAttribute("message", status==1?"帳號已被使用":"信箱已被使用 ");
-			return "checkResult";
-		}
-		return "redirect:/";
+		model.addAttribute("message", status!=0?status==1?"帳號已被使用":"信箱已被使用 ":"註冊完成 請至信箱接收驗證信 3秒後跳轉首頁");
+		return "checkResult";
 	}
 
 	@PostMapping("/act")
@@ -47,9 +48,19 @@ public class Registered {
 	}
 
 	@GetMapping("/check")
-	public String emailCheck(Users user, Model model) {
-		int status = rs.checkEmail(user);
-			model.addAttribute("message", status==0?"驗證未成功請聯絡管理人員 3秒後返回首頁":"驗證成功3秒後回到首頁");
+	public String emailCheck(Users user, Model model,HttpSession session,HttpServletResponse response) {
+		Users user2 = rs.checkEmail(user);
+		if(user2!=null) {
+		int date = 60 * 60 * 24 * 7;
+		Cookie cookie = new Cookie("youSession", session.getId());
+		cookie.setMaxAge(date);
+		response.addCookie(cookie);
+		session.setMaxInactiveInterval(date);
+		session.setAttribute("userId", user2.getId());
+		session.setAttribute("userManager", user2.getManager());
+		session.setAttribute("userName", user2.getName());
+		model.addAttribute("checkOk","1");}
+		model.addAttribute("message", user2==null?"驗證未成功請聯絡管理人員 3秒後返回首頁":"驗證成功3秒跳轉至下一步");
 		return "checkResult";
 	}
 

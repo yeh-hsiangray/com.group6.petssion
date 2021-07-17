@@ -29,7 +29,28 @@
 
 
 </style>
-    <script>
+  
+<!--imports-->
+<%@include file="commons/frontend_imports.jsp"%>
+</head>
+<body>
+
+	<!--header -->
+	<%@include file="commons/frontend_header.jsp"%>
+<c:choose>
+<c:when test="${checkOk!=null }">
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+        var timeoutID = setTimeout(myAlert, 3000);
+
+        function myAlert() {
+            window.location.href=document.getElementById("update").href;
+        }
+    })
+    </script>
+</c:when>
+<c:otherwise>
+  <script>
         document.addEventListener("DOMContentLoaded", function () {
         var timeoutID = setTimeout(myAlert, 3000);
 
@@ -38,14 +59,8 @@
         }
     })
     </script>
-<!--imports-->
-<%@include file="commons/frontend_imports.jsp"%>
-</head>
-<body>
-
-	<!--header -->
-	<%@include file="commons/frontend_header.jsp"%>
-
+</c:otherwise>
+</c:choose>
 	<!-- start banner Area -->
 	<section class="banner-area relative" id="home">
 		<div class="overlay overlay-bg"></div>
@@ -53,11 +68,8 @@
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">${tag}</h1>
+					<a href='<c:url value="/user/update" />' id="update"></a>
 <!-- 					<p class="text-white link-nav"> -->
-<%-- 						<a href="<c:url value='/frontend/blog/index'/>">寵物專欄</a> <span --%>
-<!-- 							class="lnr lnr-arrow-right"></span><a -->
-<%-- 							href="<c:url value='/frontend/blog/index'/>">文章分類</a> <span --%>
-<%-- 							class="lnr lnr-arrow-right"></span> <a href=""> ${tag}</a> --%>
 <!-- 					</p> -->
 				</div>
 			</div>
@@ -73,7 +85,7 @@
 					<div class="single-post row">
 						<div class="col-lg-12"></div>
 						<h1>${message}</h1>
-						<br/>
+						<br>
 						<h3><a href='<c:url value="/" />' id="index">如未自動跳轉 請點擊</a></h3>
 						<!--內容輸入在這-->
 					
