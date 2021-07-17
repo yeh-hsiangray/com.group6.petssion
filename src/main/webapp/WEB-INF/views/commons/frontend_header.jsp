@@ -85,7 +85,7 @@ ul {
 					<!--  logout	-->
 					<c:if test="${userId!=null}">
 							<li><a href="<c:url value='/signIn/logout' />" class="fsh"><i
-							class="fas fa-user-plus"></i> 登出</a></li>
+							class="fas fa-user-alt"></i> 登出</a></li>
 							</c:if>
 							
 				</ul>

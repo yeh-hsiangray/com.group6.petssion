@@ -40,7 +40,6 @@ span.error {
 body {
 	background: #fff281;
 	color: #666666;
-	/* 	font-family: "RobotoDraft", "Roboto", sans-serif; */
 	font-size: 16px;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -51,14 +50,6 @@ body {
 		!important;
 	background-size: cover !important;
 }
-
-/* Container */
-/* .container { */
-/* 	position: relative; */
-/* 	max-width: 900px; */
-/* 	width: 100%; */
-/* 	margin: 0 auto 100px; */
-/* } */
 
 .container.active .card:first-child {
 	background: #f2f2f2;

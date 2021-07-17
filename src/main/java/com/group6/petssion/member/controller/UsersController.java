@@ -40,6 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.group6.petssion.bean.Hobby;
 import com.group6.petssion.bean.Job;
+import com.group6.petssion.bean.Pet;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.bean.UsersImg;
 import com.group6.petssion.member.service.HobbyService;
@@ -47,6 +48,7 @@ import com.group6.petssion.member.service.JobService;
 import com.group6.petssion.member.service.UserService;
 import com.group6.petssion.member.service.UsersImgService;
 import com.group6.petssion.member.validate.UsersDto;
+import com.group6.petssion.petprofile.service.PetService;
 
 @Controller
 @RequestMapping("/user")
@@ -69,6 +71,8 @@ public class UsersController {
 	@Autowired
 	private ServletContext context;
 
+	@Autowired
+	private PetService petService;
 	
 	@GetMapping("/memberCenter")
 	public String list(Model model, HttpServletRequest request) {
@@ -77,6 +81,13 @@ public class UsersController {
 		int SessionUserId =(int)session.getAttribute("userId");//抓取userId
 		List<Users> users = userService.findUserByUserId(SessionUserId);
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
+		
+		
+		List<Pet> pets = petService.findAllPetByUserId(SessionUserId);
+//		使用者未輸入任何寵物時跳轉輸入頁
+		if (pets.isEmpty()) {
+			return "redirect:/pet/pet_form";
+		}
 		
 		for(Users user: users) {
 			Integer userId = user.getId();
