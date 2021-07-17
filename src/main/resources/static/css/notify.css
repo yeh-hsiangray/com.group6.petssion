@@ -11,17 +11,19 @@
 .card {
 	position:fixed; top:25%; left:25%;
 }
-.agree{
-	float: right;
-}
-.refuse{
-	float: left;
+
+.head {
+	font-size:15px;
+	display:inline-block;
 }
 
+.btn{
+	font-size:50px;
+	
+}
 .hole{
 	width:545px;
 	
 }
-/* .showuser{ */
-/* 	overflow:auto;  	 */
-/* } */
+
+

@@ -28,6 +28,13 @@ public interface MatchStatusService {
 	 void saveReplyStatus(MatchStatus matchStatus) ;
 	 
 	 List<Users> eachLike(Integer UserAid);
+
+
+	/**
+	 * @使用者B登入時存有"3"為互相喜歡
+	 * 
+	 */
+	List<Users> eachLikeB(Integer UserBid);
 	
 	
 }
