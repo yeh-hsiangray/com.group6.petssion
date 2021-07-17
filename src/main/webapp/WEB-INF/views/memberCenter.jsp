@@ -412,7 +412,9 @@ input[type="file"] {
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">個人資料</h1>
 					<p class="text-white link-nav">
-						<a href="<c:url value='${header.referer}' />">上一頁</a>
+						<a href="<c:url value='${header.referer}' />" style="font-size: 25px;">上一頁</a>
+						<a href="<c:url value='/' />pet/showUserPets" style="font-size: 25px;">寵物列表</a>
+						<a href="<c:url value='/' />pet/pet_form" style="font-size: 25px;">新增寵物</a>&nbsp;&nbsp;&nbsp;&nbsp;
 					</p>
 				</div>
 			</div>
