@@ -42,7 +42,7 @@ public class MatchStatusController {
 	
 		int sessionUserId =(int)session.getAttribute("userId");//抓取userId
 //		int sessionUserId =2;
-		List<Users> userList =  matchStatusService.getUsersByHobbyId(id);
+		List<Users> userList =  matchStatusService.getUsersByHobbyId(id,sessionUserId);
 		Users user=userService.get(sessionUserId);
 //		System.out.println(user);
 		userList.remove(user);

@@ -177,7 +177,7 @@
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
 					 "<article  class='s"+i+" myfont'><table>"+
 					 "<tr>"+
-                     "<td class='myfont'>會員姓名:</td>"+
+                     "<td >會員姓名:</td>"+
                      "<td class='cont'>" + dataJson[i].name + "</td>" +               
                      "<td>寵物姓名:</td>"+
                      "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
@@ -240,7 +240,7 @@
 					var content="<input class='n"+i+" nav' name='nav' type='radio'>"+			
 					 "<article  class='s"+i+" myfont'><table>"+
 					 "<tr>"+
-                     "<td class='myfont'>會員姓名:</td>"+
+                     "<td >會員姓名:</td>"+
                      "<td class='cont'>" + dataJson[i].name + "</td>" +               
                      "<td>寵物姓名:</td>"+
                      "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               
@@ -342,7 +342,7 @@
               	var content="<input class='n"+i+" nav ' name='nav' type='radio'>"+			
 	                "<article  class='s"+i+" myfont'><table>"+
 	                "<tr>"+
-	                       "<td class='myfont'>會員姓名:</td>"+
+	                       "<td >會員姓名:</td>"+
 	                       "<td class='cont'>" + dataJson[i].name + "</td>" +               
 	                       "<td>寵物姓名:</td>"+
 	                       "<td class='cont'>" + dataJson[i].pet[0].name + "</td>" +               

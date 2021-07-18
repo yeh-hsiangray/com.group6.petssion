@@ -34,4 +34,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	
 	@Query(value="select COUNT(*) numeral,b.name jobName from [dbo].[Users] a join [dbo].[Job] b on a.fk_job_id=b.id  group by b.id,b.name order by numeral DESC", nativeQuery = true)
 	List<BackstageBeanInterface> findJob();
+	
+	 @Query(nativeQuery = true,value="select *from [dbo].[Users]  where id in (select users_id from [dbo].[Users_hobby] where hobby_id=?1) and id not in (select user_b from [dbo].[MatchStatus] where user_A=?2)")
+	 List<Users> findByUserBAndUserA(Integer id,Integer UserAId);
 }

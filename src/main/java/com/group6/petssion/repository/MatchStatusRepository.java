@@ -15,6 +15,8 @@ public interface MatchStatusRepository extends JpaRepository<MatchStatus,Integer
 
 	 List<MatchStatus> findByUserB(Integer UserBId);
 	 
+	
+	 
 	 List<MatchStatus> findByUserA(Integer UserAId);
 	 
 //	 MatchStatus findByUserA(Integer UserAId);

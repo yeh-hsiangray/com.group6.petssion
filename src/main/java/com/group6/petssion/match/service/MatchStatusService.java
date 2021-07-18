@@ -10,7 +10,7 @@ import com.group6.petssion.bean.Users;
 public interface MatchStatusService {
 	
 
-	List<Users> getUsersByHobbyId(Integer id);
+	List<Users> getUsersByHobbyId(Integer id,Integer userAId);
 
 
 	List<Hobby> getHobby();

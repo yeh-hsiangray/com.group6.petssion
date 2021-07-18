@@ -46,39 +46,40 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 	 * 
 	 */
 	@Override
-	public List<Users> getUsersByHobbyId(Integer id) {
-
-		Optional<Hobby> hobbyOptional = hobbyRepository.findById(id);
-		List<Users> userList = hobbyOptional.get().getUsers();
-
+	public List<Users> getUsersByHobbyId(Integer id,Integer userAId) {
+		List<Users> userList=usersRepository.findByUserBAndUserA( id,userAId);
+//		Optional<Hobby> hobbyOptional = hobbyRepository.findById(id);
+//		List<Users> userList = hobbyOptional.get().getUsers();
+ 
 		/* 判斷matchStatus不為空加入暫存.前端秀暫存 */
-		List<Users> userNoStatus = new ArrayList<Users>();
-		for (Users users : userList) {
-			
+//		List<Users> userNoStatus = new ArrayList<Users>();
+//		for (Users users : userList) {
+			for(int i=0;i<userList.size();i++) {
 //			System.out.println(userList);
-			List<MatchStatus> statusOptional = matchStatusRepository.findByUserB(users.getId());
-			if (statusOptional.isEmpty()) {
+//			List<MatchStatus> statusOptional = matchStatusRepository.findByUserB(users.getId());
+			
+//			if (statusOptional.isEmpty()) {
 //				System.out.println(users.getName());
 				/* show使用者圖片 */
-				if (!users.getUsersImg() .isEmpty()) {
+				if (!userList.get(i).getUsersImg() .isEmpty()) {
 //				System.out.println(users.getUsersImg().get(0)==null);					
-					byte[] UserImg = new UsersController().blobToByteArray(users.getUsersImg().get(0).getUsersImage());
+					byte[] UserImg = new UsersController().blobToByteArray(userList.get(i).getUsersImg().get(0).getUsersImage());
 //				System.out.println(Base64.getMimeEncoder().encodeToString(img));
-					users.setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
-					users.setUsersImg(null);
+					userList.get(i).setbase64UserImg(Base64.getMimeEncoder().encodeToString(UserImg));
+					userList.get(i).setUsersImg(null);
 				}
 				/* show寵物圖片 */
-				if (!users.getPet().isEmpty()) {
+				if (!userList.get(i).getPet().isEmpty()) {
 //					System.out.println(users.getUsersImg().get(0)==null);									
 					byte[] PetImg = new PetController()
-							.blobToByteArray(users.getPet().get(0).getPetImg().get(0).getPetImage());
+							.blobToByteArray(userList.get(i).getPet().get(0).getPetImg().get(0).getPetImage());
 //					System.out.println(Base64.getMimeEncoder().encodeToString(PetImg));
-					users.getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
-					users.getPet().get(0).setPetImg(null);
+					userList.get(i).getPet().get(0).setBase64PetImg(Base64.getMimeEncoder().encodeToString(PetImg));
+					userList.get(i).getPet().get(0).setPetImg(null);
 				}
-				userNoStatus.add(users);
+//				userNoStatus.add(users);
 
-			}
+//			}
 		}
 //		Users user = userList.get(userList.size()-1);
 //		Users user = userNoStatus.get(userNoStatus.size() - 1);
@@ -102,7 +103,7 @@ public class MatchStatusServiceImpl implements MatchStatusService {
 //	
 //		System.out.println(Base64.getMimeEncoder().encodeToString(img));
 
-		return userNoStatus;
+		return userList;
 	}
 
 	/**

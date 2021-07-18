@@ -15,14 +15,17 @@
 
 <style type="text/css">
 
-/* #DIV2{ */
-/* float:left; */
-/* } */
+
+.t1 {
+	text-align: center;
+}
 
 .head {
-	border: solid red 5px;
+	border:  2px solid #FFB630;
 	border-radius:20px; 
 	float:left;
+	background-color:#FFFAF2;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); 
 }
 
 .banner-area {
@@ -58,8 +61,8 @@ background-color: yellow;
 	<%@include file="../commons/frontend_header.jsp"%>
 
 	<!-- start banner Area -->
-	<
-	<section class="banner-area relative" id="home">
+	
+	<section class="banner-area relative" id="home" style="background-color: #fff281;">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
@@ -83,7 +86,7 @@ background-color: yellow;
 				<div class="col-lg-8 posts-list">
 					<div class="single-post row">
 						<div class="col-lg-12"></div>
-
+                   
 						<div class="btn-group" role="group" aria-label="...">
 							配對狀態: <select id='selectMode'>
 								<option value="">請選擇</option>
@@ -100,7 +103,7 @@ background-color: yellow;
 							
 							
 <!-- 						</div> -->
-
+                     
 					</div>
 				</div>
 			</div>
