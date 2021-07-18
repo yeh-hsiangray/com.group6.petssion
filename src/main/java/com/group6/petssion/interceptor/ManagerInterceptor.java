@@ -10,7 +10,7 @@ public class ManagerInterceptor implements HandlerInterceptor{
 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
 	// TODO Auto-generated method stub
-		 if((int) request.getSession().getAttribute("userManager")<3) {
+		 if((int) request.getSession().getAttribute("userManager")<2) {
 			response.sendRedirect("/petssion/signIn/noManager");
 			 return false;
 		 }

@@ -7,7 +7,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="index.html" class="brand-link"> <img
+	<a href="<c:url value='/frontend/main/index' />" class="brand-link"> <img
 		src="<c:url value='/Sources/dist/img/PetssionLogo.png' />"
 		style="width: 200px; text-align: center;">
 	</a>
@@ -21,7 +21,7 @@
 					class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block">${userName}</a>
+				<a class="d-block">${userName}</a>
 			</div>
 		</div>
 

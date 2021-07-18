@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.group6.petssion.backstage.bean.BackendUserBeanInterface;
 import com.group6.petssion.backstage.bean.BackstageBeanInterface;
 import com.group6.petssion.backstage.service.BackstageService;
 import com.group6.petssion.bean.Users;
@@ -44,7 +45,7 @@ public class Backstage {
 	}
 	@PostMapping("/select")
 	@ResponseBody
-	public Page<Users> select(@RequestBody Map<String, Object> map) {
+	public Page<BackendUserBeanInterface> select(@RequestBody Map<String, Object> map) {
 		return bs.select(map);
 	}
 

@@ -15,7 +15,11 @@ public class WebConfig implements WebMvcConfigurer{
 		.addPathPatterns("/user/**").addPathPatterns("/FriendlyEnvSearch");
 		registry.addInterceptor(new ManagerInterceptor())
 		.addPathPatterns("/backend/**")
-		.addPathPatterns("/pet/showAll")
 		.addPathPatterns("/FriendlyEnvSearch");
+		registry.addInterceptor(new UserManagerInterceptor())
+		.addPathPatterns("/pet/showAll")
+		.addPathPatterns("/backend/backManager")
+		.addPathPatterns("/backend/backBlockade")
+		.addPathPatterns("/backend/backChart");
 	}
 }
