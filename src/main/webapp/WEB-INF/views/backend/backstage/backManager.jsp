@@ -78,10 +78,10 @@
                     then(res => res.json()).then
                     (function (data) {
                         if(data!=null){
-                        con = `<table class='table table-striped'><thead><tr> <th scope='col'>姓名</th><th scope='col'>生日</th><th scope='col'>信箱</th><th scope='col'>性別</th><th scope='col'>職業</th><th scope='col'>權限</th><th scope='col'> </th></tr></thead><tbody>`
+                        con = `<table class='table table-striped'><thead><tr><th scope='col'>帳號</th> <th scope='col'>姓名</th><th scope='col'>生日</th><th scope='col'>信箱</th><th scope='col'>性別</th><th scope='col'>職業</th><th scope='col'>權限</th><th scope='col'> </th></tr></thead><tbody>`
                         	counter=0;
                         	for(i=0;i<data.content.length;i++){
-                            con+=`<tr><td>\${data.content[i].name}</td><td>\${data.content[i].birthday!=null?data.content[i].birthday:"無資料"}</td><td>\${data.content[i].email}</td><td>\${data.content[i].gender!=null?data.content[i].gender:"無資料"}</td><td>\${data.content[i].job!=null?data.content[i].job.name:"無資料"}</td><td><select class="form-select" id='manager\${data.content[i].id}'>`
+                            con+=`<tr><td>\${data.content[i].account}</td><td>\${data.content[i].name}</td><td>\${data.content[i].birthday!=null?data.content[i].birthday:"無資料"}</td><td>\${data.content[i].email}</td><td>\${data.content[i].gender!=null?data.content[i].gender:"無資料"}</td><td>\${data.content[i].jobName!=null?data.content[i].jobName:"無資料"}</td><td><select class="form-select" id='manager\${data.content[i].id}'>`
                             con+=`<option value="0"`
 							if(data.content[i].manager==0){con+=` selected`}
                             con+=`>一般會員</option>`
@@ -99,10 +99,13 @@
                             dataEnd=5
                             if(data.number>3&&data.number<data.totalPages-4){
                             	dataIndex=data.number-2
-                            }else if(data.number>=data.totalPages-5){
+                            }else if(data.totalPages<5){
+
+                            	dataEnd-=dataEnd-data.totalPages
+                            }else if(data.number>=data.totalPages-5&&data.totalPages>4&&data.number>3){
                             	dataIndex=data.totalPages-5
                             }
-                            for(i=dataIndex;i<dataIndex+5;i++){
+                            for(i=data.number>3?dataIndex:0;i<dataIndex+dataEnd;i++){
                                con+=`<li class="page-item \${data.number==i?"active":""}"><a class="page-link" name="\${i}" id="pageNumber\${i}">\${i+1}</a></li>`
                             	 
                                }

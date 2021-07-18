@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.group6.petssion.backstage.bean.BackendUserBeanInterface;
 import com.group6.petssion.backstage.bean.BackstageBeanInterface;
 import com.group6.petssion.bean.Users;
 import com.group6.petssion.repository.AAndPRepository;
@@ -28,10 +29,10 @@ public class BackstageService {
 	@Autowired
 	AAndPRepository aAndP;
 
-	public Page<Users> select(Map<String, Object> map) {
+	public Page<BackendUserBeanInterface> select(Map<String, Object> map) {
 		Pageable pageable = PageRequest.of(Integer.valueOf(map.get("index").toString()), 5,
 				Sort.by(Sort.Direction.ASC, "id"));
-		return user.findByYear((String) map.get("name"), pageable);
+		return user.findByName((String) map.get("name"), pageable);
 	}
 
 	public int updataManager(Map<String, Object> map) {
@@ -63,8 +64,8 @@ public class BackstageService {
 				thisDate = thisYy + "-" + i;
 				lastDate = lastYy + "-" + i;
 			}
-			thisYear.add(user.findByMonth(i+"月",thisDate)) ;
-			lastYear.add(user.findByMonth(i+"月", lastDate));
+			thisYear.add(user.findByYearOrMonth(i+"月",thisDate)) ;
+			lastYear.add(user.findByYearOrMonth(i+"月", lastDate));
 		}
 		Map<String, Object> map=new HashMap<>();
 		map.put("thisYear", thisYear);
@@ -96,8 +97,8 @@ public class BackstageService {
 				lastDate = lastYy +"-"+mm+"-" + i;
 			}
 			System.out.println(thisDate);
-			thisYear.add(user.findByMonth(i+"日",thisDate)) ;
-			lastYear.add(user.findByMonth(i+"日", lastDate));
+			thisYear.add(user.findByYearOrMonth(i+"日",thisDate)) ;
+			lastYear.add(user.findByYearOrMonth(i+"日", lastDate));
 		}
 		Map<String, Object> map=new HashMap<>();
 		map.put("thisYear", thisYear);
@@ -125,8 +126,8 @@ public class BackstageService {
 				thisDate = thisYy + "-" + i;
 				lastDate = lastYy + "-" + i;
 			}
-			thisYear.add(user.findByMonth(i+"月",thisDate)) ;
-			lastYear.add(user.findByMonth(i+"月", lastDate));
+			thisYear.add(user.findByYearOrMonth(i+"月",thisDate)) ;
+			lastYear.add(user.findByYearOrMonth(i+"月", lastDate));
 		}
 		for(int i=0;i<thisYear.size();i++) {
 			body+=thisYear.get(i).getMonth()+","+thisYear.get(i).getNumeral()+","+(thisYear.get(i).getNumeral()-lastYear.get(i).getNumeral())+"\r\n";
@@ -159,8 +160,8 @@ public class BackstageService {
 				lastDate = lastYy +"-"+mm+"-" + i;
 			}
 			System.out.println(thisDate);
-			thisYear.add(user.findByMonth(i+"日",thisDate)) ;
-			lastYear.add(user.findByMonth(i+"日", lastDate));
+			thisYear.add(user.findByYearOrMonth(i+"日",thisDate)) ;
+			lastYear.add(user.findByYearOrMonth(i+"日", lastDate));
 		}
 		for(int i=0;i<thisYear.size();i++) {
 			body+=thisYear.get(i).getMonth()+","+thisYear.get(i).getNumeral()+","+(thisYear.get(i).getNumeral()-lastYear.get(i).getNumeral())+"\r\n";
