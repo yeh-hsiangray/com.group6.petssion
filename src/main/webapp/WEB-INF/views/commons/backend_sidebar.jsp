@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
 <html>
@@ -30,6 +31,7 @@
 			<ul class="nav nav-pills nav-sidebar flex-column"
 				data-widget="treeview" role="menu" data-accordion="false">
 				<!-- 1 -->
+				<c:if test="${userManager>2}">
 				<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="nav-icon fas fa-user-cog"></i>
 						<p>登入管理</p> <i class="right fas fa-angle-left"></i>
@@ -61,7 +63,7 @@
 								<p>會員檔案</p>
 						</a></li>
 					</ul></li>
-	
+		</c:if>
 				<!-- 5 -->
 				<li class="nav-item"><a href="#" class="nav-link"> <i
 						class="nav-icon fas fa-map-marker-alt"></i>

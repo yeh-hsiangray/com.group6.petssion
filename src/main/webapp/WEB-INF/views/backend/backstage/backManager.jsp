@@ -25,20 +25,13 @@
         document.addEventListener("DOMContentLoaded", function () {
         	 let namev = document.getElementById("namev");
              let select = document.getElementById("select");
-             let selectAll = document.getElementById("selectAll");
              let result = document.getElementById("result");
              let index = 0;
              let name = "";
             select.onclick = selectReady;
-            selectAll.onclick=selectAllReady;
             function selectReady() {
                 index = 0;
                 name = namev.value
-                selecton()
-            }
-            function selectAllReady() {
-                index = 0;
-                name = "";
                 selecton()
             }
             function last() {
@@ -97,17 +90,17 @@
                    
                             dataIndex=0
                             dataEnd=5
-                            if(data.number>3&&data.number<data.totalPages-4){
+                            if(data.number>2&&data.number<data.totalPages-2){
                             	dataIndex=data.number-2
                             }else if(data.totalPages<5){
-
                             	dataEnd-=dataEnd-data.totalPages
                             }else if(data.number>=data.totalPages-5&&data.totalPages>4&&data.number>3){
                             	dataIndex=data.totalPages-5
                             }
-                            for(i=data.number>3?dataIndex:0;i<dataIndex+dataEnd;i++){
+                            counter2=0
+                            for(i=data.number>2?dataIndex:0;i<dataIndex+dataEnd;i++){
                                con+=`<li class="page-item \${data.number==i?"active":""}"><a class="page-link" name="\${i}" id="pageNumber\${i}">\${i+1}</a></li>`
-                            	 
+                            	   counter2++;
                                }
                             con+=`<li class="page-item \${data.last?"disabled":""}"><a class="page-link" id="next">下一頁</a></li></ul></nav>`
                             result.innerHTML=con
@@ -115,7 +108,7 @@
                             document.getElementById(`next`).onclick=next;
 							for(i=0;i<counter;i++){
                             document.getElementById(`upButton\${i}`).onclick=upDate;}
-							for(i=dataIndex;i<dataIndex+5;i++){
+							for(i=dataIndex;i<counter2;i++){
                             document.getElementById(`pageNumber\${i}`).onclick=pageNumber;}
                     }else{
                         result.innerHTML="<h1 style='color: red;'>查無資料</h1>"
@@ -150,7 +143,6 @@
 				<td>請輸入要搜索的使用者姓名:</td>
 				<td><input type="text" id="namev"></td>
 				<td><button type="button" id="select">搜尋</button></td>
-				<td><button type="button" id="selectAll">全部搜尋</button></td>
 			</tr>
 		</table>
 	</div>

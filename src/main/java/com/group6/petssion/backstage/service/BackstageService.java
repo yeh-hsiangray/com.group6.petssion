@@ -111,7 +111,7 @@ public class BackstageService {
 	}
 	
 	public String downloadByYear(String thisYy){
-		String body = "註冊時間,註冊人數,去年同期比對\r\n";
+		String body = "註冊時間,註冊人數,去年同期比對增長\r\n";
 		List<BackstageBeanInterface> thisYear=new ArrayList<>();
 		List<BackstageBeanInterface> lastYear=new ArrayList<>();
 		int lastYy = (Integer.valueOf(thisYy)-1);
@@ -135,7 +135,7 @@ public class BackstageService {
 		return body;
 	}
 	public String downloadByMonth(String thisYy,String mm){
-		String body = "註冊時間,註冊人數,去年同期比對\r\n";
+		String body = "註冊時間,註冊人數,去年同期比對增長\r\n";
 		List<BackstageBeanInterface> thisYear=new ArrayList<>();
 		List<BackstageBeanInterface> lastYear=new ArrayList<>();
 		int lastYy = (Integer.valueOf(thisYy)-1);

@@ -172,7 +172,7 @@
                                     borderColor,
                                     borderWidth: 1
                                 }, {
-                                    label: '去年同期比對',
+                                    label: '去年同期比對增長',
                                     data: lastNumeral,
                                     borderColor: 'rgb(54, 162, 235)',
                                     borderWidth: 1,
@@ -242,7 +242,7 @@
                                     borderColor,
                                     borderWidth: 1
                                 }, {
-                                    label: '去年同期比對',
+                                    label: '去年同期比對增長',
                                     data: lastNumeral,
                                     borderColor: 'rgb(54, 162, 235)',
                                     borderWidth: 1,
