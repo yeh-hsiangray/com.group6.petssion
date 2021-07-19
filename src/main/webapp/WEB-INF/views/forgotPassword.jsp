@@ -199,8 +199,8 @@
             }
 
             document.getElementById("fast").onclick = function () {
-                act.value = "testqq1"
-                email.value = "nolof35544@nhmty.com"
+                act.value = "test1234"
+                email.value = "varenim339@ovooovo.com"
                 emailCheck()
             }
             })
