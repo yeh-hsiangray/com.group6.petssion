@@ -43,7 +43,7 @@ ul {
 							<li><a href="<c:url value='/user/memberCenter' />" class="fsh">會員資料</a></li>
 							<li><a href="<c:url value='/pet/showUserPets' />" class="fsh">寵物列表</a></li>
 							<c:if test="${userManager>1}">
-							<li><a href="<c:url value='/backend/blog/index' />" class="fsh">後台管理</a></li>
+							<li><a href="<c:url value='/backend/blog/home' />" class="fsh">後台管理</a></li>
 							</c:if>
 <!-- 							<li><a href="#"></a>寵物檔案</li> -->
 <!-- 							<li><a href="#"></a>購買VIP</li> -->
