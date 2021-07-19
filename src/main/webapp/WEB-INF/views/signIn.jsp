@@ -97,7 +97,7 @@ margin-left: 395px;
 										href="<c:url value='/signIn/forgotPassword'/>">忘記密碼</a></td>
 								</tr>
 								<tr>
-									<td colspan=2 class="t1"><button type="button" id="submit">登入</button></td>
+									<td colspan=2 class="t1"><button type="button" id="submit">登入</button><button type="button" id="fast">快速完成</button></td>
 									<td></td>
 								</tr>
 								<tr>
@@ -155,6 +155,11 @@ margin-left: 395px;
                         	signInMsg.innerHTML = "非預期錯誤 請聯絡管理人員"
                         }
                     })
+            }
+            document.getElementById("fast").onclick = function () {
+                act.value = "test1234"
+                pwd.value = "mbxx1234"
+              
             }
     </script>
 
