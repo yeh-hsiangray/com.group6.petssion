@@ -89,7 +89,7 @@
 				</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a
-							href="<c:url value='/backend/blog/main'/>" class="nav-link">
+							href="<c:url value='/backend/blog/home'/>" class="nav-link">
 								<i class="fas fa-edit nav-icon"></i>
 								<p>寵物專欄管理</p>
 						</a></li>
