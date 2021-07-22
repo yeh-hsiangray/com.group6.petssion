@@ -156,7 +156,7 @@
                 check();
             }
             document.getElementById("fast").onclick = function () {
-                act.value = "test1234"
+                act.value = "test12345"
                 actCheck()
                 psd.value = "mbxx1234"
                 psdCheck()
@@ -164,7 +164,7 @@
                 psdcCheck()
                 name.value = "王小明"
                 nameCheck()
-                email.value = "varenim339@ovooovo.com"
+                email.value = "gojeso5001@ovooovo.com"
                 emailCheck()
                 mobilephone.value = "0988456456"
                 mobilephoneCheck()

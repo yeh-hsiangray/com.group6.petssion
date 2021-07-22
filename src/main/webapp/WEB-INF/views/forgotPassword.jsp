@@ -191,6 +191,7 @@
                 emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
                 let emailMsg = document.getElementById("emailMsg");
                 if (emailRule.test(emailv)) {
+                	emailMsg.innerHTML =""
                 } else {
                     emailMsg.innerHTML = "請輸入正確email格式" 
                 };
@@ -199,8 +200,8 @@
             }
 
             document.getElementById("fast").onclick = function () {
-                act.value = "test1234"
-                email.value = "varenim339@ovooovo.com"
+                act.value = "testqq1"
+                email.value = "wovaril554@ovooovo.com"
                 emailCheck()
             }
             })
